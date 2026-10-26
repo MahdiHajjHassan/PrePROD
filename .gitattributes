@@ -1,0 +1,2 @@
+# Preserve the Windows launcher's upstream CRLF checkout behavior.
+.agents/skills/impeccable/scripts/impeccable.cmd text eol=crlf
