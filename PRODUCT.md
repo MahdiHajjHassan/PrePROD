@@ -23,6 +23,9 @@ when that scope is complete and demonstrated.
   sessions for simultaneous users.
 - Favor small, explainable implementations and a modest points buffer.
 - Theme switching has no standalone points allocation in the supplied subject.
+- The team is Mahdi and Joseph. Codex assists Mahdi; Claude assists Joseph.
+  Each side implements and pushes its assigned substantive packages using its
+  own identity, following the contribution schedule.
 
 ## Planning Baseline — Proposed for Review
 
@@ -58,9 +61,13 @@ not claimed as a separate module.
 
 ## Open Facts
 
-Actual team members, 42 logins, responsibilities, and any campus-specific
-clarifications must come from the owner. Do not copy these from the older
-repository or invent them.
+The owner has confirmed the two members, Mahdi and Joseph. The proposed technical
+responsibilities and push order are in
+docs/superpowers/plans/2026-10-26-team-contributions.md.
+
+Actual 42 logins, Joseph's GitHub identity, and any campus-specific clarifications
+still require confirmation. Do not infer identities from old repository labels
+or treat planned responsibilities as completed contributions.
 
 The complete proposed behavior, module allocation, and acceptance criteria are
 in docs/superpowers/specs/2026-10-26-taskboard-design.md.

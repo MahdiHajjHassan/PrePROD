@@ -21,10 +21,36 @@ Do not carry over those decisions or application code from the separate
   behavior, module requirements, boundaries, and acceptance criteria.
 - `docs/superpowers/plans/2026-10-26-taskboard.md`: ordered implementation and
   verification steps for a 14-point core and 2-point buffer.
+- `docs/superpowers/plans/2026-10-26-team-contributions.md`: current ownership,
+  dependency order, branches, commit/push checkpoints, and review/handoff rules.
+- `docs/team/JOSEPH-CLAUDE-HANDOFF.md`: ready-to-use Joseph/Claude entry point.
 
 These documents were prepared in response to the request for a concrete plan.
 They describe future implementation and do not establish that application code,
 commands, or module demonstrations already exist.
+
+## Team execution and Git identity
+
+The owner confirmed a two-person team: Mahdi and Joseph. Codex assists Mahdi;
+Claude assists Joseph. Follow the contribution plan's assigned batches rather
+than letting either agent implement the entire technical plan.
+
+- Mahdi owns foundation/database/HTTPS, identity/security, task writes,
+  administration, secured API, transfers, event writes, and notifications.
+- Joseph owns design/UI foundations/themes, auth/account UI, the task query
+  backend and board/SSR, translations/RTL, browser verification, and the activity
+  aggregation backend/dashboard. This includes substantial feature code and tests.
+- Read the contribution schedule before editing shared files. Keep DTOs and
+  service interfaces compatible and hand off the explicit query/event boundaries.
+- Each acting session uses its person's own authenticated GitHub account and
+  normal Git author identity. Joseph's GitHub username/email remain unconfirmed;
+  do not infer them from his name or 42 login. Verify before his first commit/push.
+- Push meaningful passing slices on the listed owner branches. Preserve actual
+  authors when merging; no author overrides, empty contribution commits, or
+  relabeling work from the other side. Reviews and personal understanding are
+  recorded only after they actually happen.
+- Maintain the acting person's record in `docs/team/contributions/`. The schedule
+  maps planned work; actual Git history and executed checks establish delivery.
 
 ## Project references
 

@@ -20,6 +20,9 @@ minimum overall work and a simple explanation.
 - docs/reference/EVALUATION-SHEET.pdf: mandatory checks, module demonstrations,
   collaboration, README completeness, and bonus conditions.
 - PRODUCT.md and AGENTS.md: confirmed owner constraints and project workflow.
+- docs/superpowers/plans/2026-10-26-team-contributions.md: two-person ownership,
+  branch/push sequence, and Claude handoff. Feature acceptance criteria below
+  remain unchanged; agents implement only their assigned batches.
 
 Both PDFs remain unchanged. Only fully functional modules count. A buffer cannot
 compensate for a failed mandatory requirement. Extra points count as bonus only
@@ -275,8 +278,10 @@ HTML, complete translations, RTL, both themes, and console cleanliness.
 
 The README must satisfy subject chapter VI, including real 42 logins, roles,
 contributors, module ownership and justification, schema, startup, and AI use.
-Ask the owner for actual team information before the final README; placeholders
-are acceptable in an explicitly unfinished draft, not in final evidence.
+The owner confirmed Mahdi and Joseph as the two members. Confirm actual 42 logins
+and verified Git identities before final attribution; placeholders are acceptable
+in an explicitly unfinished draft, not in final evidence. Preserve both members'
+actual feature commits and record their own demonstrations and reviews honestly.
 
 Completion requires: mandatory checks passed, 16 points demonstrated or an
 explicitly revised module decision, one-computer rehearsal, explainable code,

@@ -1,6 +1,6 @@
 # Minimal Taskboard Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox syntax for tracking. Execute inline in this session by default; do not spawn agents unless the owner requests delegation or an applicable skill explicitly requires it.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans for the assigned batch. Read docs/superpowers/plans/2026-10-26-team-contributions.md first: Codex/Mahdi and Claude/Joseph implement separate packages. Do not execute the entire plan on one side or preimplement the other person's features. Steps use checkbox syntax for tracking.
 
 **Goal:** Deliver one understandable task board with all mandatory requirements, 14 core module points, and a 2-point buffer, then stop.
 
@@ -9,6 +9,33 @@
 **Tech Stack:** Node.js 24 LTS, Next.js 16 App Router, React, TypeScript, Tailwind CSS 4, Prisma 7/SQLite, Caddy; Zod, Argon2id, csv-parse/csv-stringify; Vitest and Playwright. Verify compatible supported patch releases before locking dependencies.
 
 **Spec:** docs/superpowers/specs/2026-10-26-taskboard-design.md. Read PRODUCT.md, AGENTS.md, and both reference PDFs as well.
+
+## Team schedule and ownership
+
+The contribution plan controls chronological batch order and handoffs; this file
+retains the technical acceptance steps. Some technical tasks are deliberately
+split so both people implement substantial real features.
+
+| Technical task | Acting owner/batch |
+| --- | --- |
+| 1 Foundation | Mahdi M01 |
+| 2 Identity backend | Mahdi M02; Joseph implements the UI under Task 4 |
+| 3 Task services | Mahdi M03 writes/validation; Joseph J03 query/search |
+| 4 UI and SSR | Joseph J01/J02/J03 |
+| 5 Administration | Mahdi M04, including its composed UI |
+| 6 Public API | Mahdi M05 |
+| 7 Transfers | Mahdi M06, including transfer controls |
+| 8 Themes/languages/RTL/legal | Joseph J01/J02 foundations and J04 completion |
+| 9 Browser coverage | Joseph J05 |
+| 10 Core gate | Mahdi M07 using both sides' merged checks |
+| 11 Events/notifications | Mahdi M08; event writes in activity/writer.ts |
+| 12 Activity aggregation/dashboard | Joseph J06; reads in activity/service.ts |
+| 13 Final verification | Joseph J07 UI; Mahdi M09 server/deployment |
+| 14 Docs/rehearsal | Mahdi M09 integration; Joseph J08 independent repetition |
+
+Joseph reads docs/team/JOSEPH-CLAUDE-HANDOFF.md; both sides maintain their own
+docs/team/contributions/ record. Existing Mahdi-authored planning commits are
+not reassigned. No application implementation starts from this schedule update.
 
 ## Global Constraints
 
@@ -37,9 +64,13 @@ test:server (vitest run), build (prisma generate followed by next build),
 test:e2e (playwright test), smoke (node scripts/smoke.mjs), rehearse
 (node scripts/rehearse.mjs), and verify (node scripts/verify.mjs).
 
-All Playwright runs use a separate Compose project named taskboard-e2e, port
-8443, generated ignored .env.e2e, and its own database/certificate volumes.
-Their base URL is https://localhost:8443; normal demonstrations use port 443.
+All Playwright runs use a separate Compose project, default taskboard-e2e and
+port 8443, generated ignored .env.e2e, and its own database/certificate volumes.
+Support per-checkout TASKBOARD_E2E_PROJECT and TASKBOARD_E2E_PORT overrides. When
+sharing a Docker host, Mahdi uses taskboard-e2e-mahdi/8443 and Joseph uses
+taskboard-e2e-joseph/9443. Derive the HTTPS base URL and test APP_ORIGIN from that
+port; normal demonstrations use port 443. Permit database reset only for the
+explicit test environment and validated taskboard-e2e project prefix.
 Compose exposes only 127.0.0.1:{HTTPS_PORT}:443, with HTTPS_PORT defaulting to 443.
 Environment settings are explicitly mapped into the app from the selected env
 file. Never reset or delete normal project volumes during automated tests.
@@ -103,7 +134,9 @@ The rehearsal script is a separate explicit clean-install demonstration.
 - src/app/api/admin/users/route.ts and users/[id]/route.ts.
 - src/app/api/transfers/{import,export}/route.ts.
 - src/app/api/public/v1/tasks/route.ts and tasks/[id]/route.ts.
-- Buffer: src/server/activity/{schema,service}.ts,
+- Joseph-owned read queries: src/server/tasks/query.ts; TaskService.list delegates
+  to queryTasks(db, query) after the agreed M03/J03 handoff.
+- Buffer: src/server/activity/{schema,writer,service}.ts,
   src/server/notifications/service.ts, src/features/{activity,notifications}/,
   src/app/[locale]/{activity,notifications}/page.tsx,
   src/app/api/notifications/route.ts and notifications/[id]/route.ts.
@@ -159,9 +192,9 @@ tests/server/readiness.test.ts, and tooling configs from the file map.
 seedUser(db, input): Promise<{actor: Actor; email: string; password: string}>;
 readiness(): Promise<{status: "ok"; database: "ok"}>.
 
-- [ ] Confirm the planning baseline and capture actual team/role information when
-  available. Review existing uncommitted guidance, skills, and plan documents;
-  commit the approved setup baseline before isolating implementation with
+- [ ] Confirm the planning baseline and remaining team identity information when
+  available. The setup/plans are already committed; review the latest main and
+  preserve that baseline before isolating the assigned implementation with
   superpowers:using-git-worktrees. Do not lose local files or forge contributors.
 - [ ] Verify framework/ORM/Node compatibility, pin exact patch versions, scaffold
   only required tooling, and establish test helpers with isolated temporary DBs.
@@ -522,8 +555,9 @@ AGENTS.md with real commands, actual test/build results.
   switching, mandatory authentication, or basic accessibility.
 - Current application/test scripts do not exist. Their listed commands are the
   interfaces the implementer must create and subsequently verify.
-- Remaining owner facts are actual team identity/roles and campus clarifications;
-  no old-project assumptions are imported.
-- Recommended execution: implement inline in this session, task by task, using
-  Superpowers, with Impeccable for the UI. No additional skills are needed for
-  the proposed work. This recommendation is not authorization to start building.
+- The owner confirmed Mahdi and Joseph as the team. Remaining facts are actual
+  42 logins, Joseph's verified GitHub identity, and campus clarifications;
+  no old-project identity assumptions are imported.
+- Execution is split by the contribution schedule: each agent implements only
+  the acting person's unlocked batch using Superpowers, with Impeccable for UI.
+  No additional skill is needed. Publishing the split is not application execution.
