@@ -2,6 +2,11 @@
 
 Read AGENTS.md first; it governs this repository.
 
+This repository is staging, not the final contribution-history repository.
+Read docs/delivery/PUSH-MAP.md before any final-history delivery. The final
+destination is not created/provided yet; do not infer it or relabel staged source
+authors. Staging pushes are allowed; they do not mean a batch is delivered.
+
 When working with Joseph, also read:
 - docs/team/JOSEPH-CLAUDE-HANDOFF.md
 - docs/superpowers/plans/2026-10-26-team-contributions.md

@@ -31,6 +31,13 @@ commands, or module demonstrations already exist.
 
 ## Team execution and Git identity
 
+Repository clarification: `Transcendence2` is the staging/development repository.
+The owner says the final contribution-history repository does not exist/is not
+provided yet. Push useful staging checkpoints here as authorized; do not push to
+the older `Transcendence` repository or guess another final destination. Track
+exact owner bundles, source commits, files, checks, and delivery state in
+`docs/delivery/PUSH-MAP.md` and `docs/delivery/batches/`.
+
 The owner confirmed a two-person team: Mahdi and Joseph. Codex assists Mahdi;
 Claude assists Joseph. Follow the contribution plan's assigned batches rather
 than letting either agent implement the entire technical plan.
