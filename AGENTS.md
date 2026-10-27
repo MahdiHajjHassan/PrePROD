@@ -7,8 +7,10 @@ This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
 Prisma/SQLite schema and migrations, private bootstrap, safe initial accounts,
 database readiness, real-db server tests, and Caddy HTTPS/container deployment.
 M02 adds secure registration/login/sessions, account backend routes, origin/JSON
-protection, and persistent auth limits. The board is only a buildable heading;
-actual task features and Joseph's UI/design system remain in their assigned batches.
+protection, and persistent auth limits. M03 adds task creation/update/deletion,
+current-role ownership checks, revision conflicts, and basic public reads. The
+board is only a buildable heading; Joseph's UI/design system and full task
+query/search backend remain in their assigned batches.
 
 The application concept, module selection, team roster, and responsibilities
 are described as proposals or open facts in the planning documents below.
@@ -178,8 +180,9 @@ Setup creates private random credentials and refuses to overwrite an existing
 `.env`. Database bootstrap preserves existing accounts. The runtime is non-root,
 only the proxy publishes HTTPS, and the database uses a persistent volume.
 See README.md for local CA trust and the managed-cloud build-only CA override.
-Use `npm run smoke:auth` for the implemented HTTPS auth flow and read
-`docs/api/auth.md` for Joseph's frontend contract. Recreation reloads the mounted
+Use `npm run smoke:auth` and `npm run smoke:tasks` for the implemented HTTPS
+backend flows. Read `docs/api/auth.md` and `docs/api/tasks.md` for Joseph's frontend
+and query handoff contracts. Recreation reloads the mounted
 proxy configuration while retaining named database and certificate volumes.
 For a named Compose project, pass `COMPOSE_PROJECT_NAME` consistently to the TLS
 verifier as well. Do not print generated credentials or use insecure TLS flags.

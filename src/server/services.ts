@@ -3,11 +3,21 @@ import { loadConfig } from "./config";
 import { createAuthService } from "./auth/service";
 import { createAuthHandlers } from "./auth/http";
 import { apiError } from "./api/http";
+import { createTaskService } from "./tasks/service";
+import { createTaskHandlers } from "./tasks/http";
 
 async function buildServices() {
   const db = await getDb();
   const config = loadConfig(process.env);
-  return { auth: createAuthService(db), config };
+  return { auth: createAuthService(db), tasks: createTaskService(db), config };
+}
+export async function handleTask(action: keyof ReturnType<typeof createTaskHandlers>, request: Request, id?: string): Promise<Response> {
+  try {
+    const current = await getServices();
+    const handlers = createTaskHandlers(current.tasks, current.auth, current.config);
+    if (action === "read" || action === "update" || action === "remove") return handlers[action](request, id ?? "");
+    return handlers[action](request);
+  } catch (error) { return apiError(error); }
 }
 let services: ReturnType<typeof buildServices> | undefined;
 export function getServices() {

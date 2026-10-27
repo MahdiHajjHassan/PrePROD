@@ -254,22 +254,26 @@ tests/server/{tasks,task-query,task-concurrency}.test.ts.
 update(actor,id,patch,expectedVersion), remove(actor,id,expectedVersion).
 Returns are PaginatedTasks, TaskDTO, TaskDTO, TaskDTO, and void respectively.
 
-- [ ] Write failing tests for title/description boundaries, role and ownership,
+- [x] Write failing tests for title/description boundaries, role and ownership,
   anonymous writes, and strict rejection of extra owner/role fields.
   Representative assertion:
   ~~~ts
   await expect(tasks.update(memberB, taskA.id, {status:"DONE"}, taskA.version))
     .rejects.toMatchObject({code:"FORBIDDEN"});
   ~~~
-- [ ] Test two simultaneous updates with the same version: exactly one succeeds;
+- [x] Test two simultaneous updates with the same version: exactly one succeeds;
   the other returns CONFLICT; the final version increments once. Test independent
   users creating tasks simultaneously without missing/corrupt records.
 - [ ] Seed 60 tasks; test combined query/status/priority/owner filters, deterministic
   sorting, total count, and page boundaries. Query strings and punctuation must
   not become SQL instructions; invalid sort/query values return validation errors.
-- [ ] Confirm failures, then implement parameterized reads, public DTO projection,
+- [x] Confirm failures, then implement basic parameterized reads, public DTO projection,
   owner/admin write checks, atomic version predicates, and bounded lock retry.
   Reject stale deletes with 409 as well as stale updates.
+- M03 completes the write/validation/concurrency steps above. The 60-row query
+  cases and complete query backend/final combined check remain Joseph J03;
+  current reads intentionally provide only the newest first page. See
+  docs/api/tasks.md for the precise replacement boundary.
 - [ ] Run npm run test:server -- tests/server/tasks.test.ts tests/server/task-query.test.ts
   tests/server/task-concurrency.test.ts; expect all pass and no private fields in
   returned DTOs. Review and commit the task backend.

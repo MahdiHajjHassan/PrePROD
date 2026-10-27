@@ -1,15 +1,9 @@
-import type { Actor } from "@/shared/tasks";
 import type { AuthService } from "./service";
 import type { ServerConfig } from "../config";
-import { DomainError } from "../errors";
 import { clientKey, readJson, requireSameOrigin } from "../security/origin";
 import { handleApi, jsonData } from "../api/http";
+import { sessionCookieName as cookieName, readSessionToken as readToken, requestActor } from "./policy";
 
-const cookieName = "__Host-taskboard_session";
-function readToken(request: Request): string | null {
-  const matches = (request.headers.get("Cookie") ?? "").split(";").map((item) => item.trim()).filter((item) => item.startsWith(`${cookieName}=`));
-  return matches.length === 1 ? matches[0].slice(cookieName.length + 1) : null;
-}
 function setSession(response: Response, token: string, expiresAt: Date): Response {
   response.headers.set("Set-Cookie", `${cookieName}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800; Expires=${expiresAt.toUTCString()}`);
   return response;
@@ -22,11 +16,7 @@ function clearedSession(): Response {
 }
 
 export function createAuthHandlers(auth: AuthService, config: Pick<ServerConfig, "appOrigin">) {
-  async function actor(request: Request): Promise<Actor> {
-    const current = await auth.resolveSession(readToken(request));
-    if (!current) throw new DomainError("UNAUTHENTICATED");
-    return current;
-  }
+  const actor = (request: Request) => requestActor(request, auth);
   async function body(request: Request) { requireSameOrigin(request, config.appOrigin); return readJson(request); }
   return {
     register(request: Request) { return handleApi(async () => jsonData(await auth.register(await body(request), clientKey(request)), 201)); },
