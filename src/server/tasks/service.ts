@@ -1,11 +1,12 @@
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
 import type { Actor, PaginatedTasks, TaskDTO } from "@/shared/tasks";
+import { z } from "zod";
 import { currentActor } from "../auth/policy";
 import { withWriteRetry } from "../db-write";
 import { DomainError } from "../errors";
 import { parseInput } from "../validation";
 import { taskSelect, toTaskDTO } from "./dto";
-import { taskCreateSchema, taskIdSchema, taskPatchSchema, versionSchema } from "./schema";
+import { taskCreateSchema, taskIdSchema, taskPatchSchema, taskPortableSchema, versionSchema } from "./schema";
 import { queryTasks } from "./query";
 
 async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id: string, version: number) {
@@ -30,6 +31,14 @@ export function createTaskService(db: PrismaClient) {
       const task = await db.task.findUnique({ where: { id }, select: taskSelect });
       if (!task) throw new DomainError("NOT_FOUND");
       return toTaskDTO(task);
+    },
+    async importMany(supplied: Actor | null, input: unknown): Promise<{ created: number }> {
+      const rows = parseInput(z.array(taskPortableSchema).min(1).max(200), input);
+      return withWriteRetry(() => db.$transaction(async (tx) => {
+        const actor = await currentActor(tx, supplied);
+        for (const data of rows) await tx.task.create({ data: { ...data, ownerId: actor.id } });
+        return { created: rows.length };
+      }));
     },
     async list(query: unknown = {}): Promise<PaginatedTasks> {
       return queryTasks(db, query);

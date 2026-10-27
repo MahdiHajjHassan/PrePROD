@@ -6,6 +6,7 @@ const fields = {
   status: z.enum(["OPEN", "DONE"]),
   priority: z.enum(["LOW", "NORMAL", "HIGH"]),
 };
+export const taskPortableSchema = z.object(fields).strict();
 export const taskCreateSchema = z.object({
   ...fields, description: fields.description.default(""),
   status: fields.status.default("OPEN"), priority: fields.priority.default("NORMAL"),

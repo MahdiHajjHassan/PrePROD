@@ -7,11 +7,12 @@ import { createTaskService } from "./tasks/service";
 import { createTaskHandlers } from "./tasks/http";
 import { createUserService } from "./users/service";
 import { handleApi } from "./api/http";
+import { createTransferService } from "./transfers/service";
 
 async function buildServices() {
   const db = await getDb();
   const config = loadConfig(process.env);
-  return { db, auth: createAuthService(db), tasks: createTaskService(db), users: createUserService(db), config };
+  return { db, auth: createAuthService(db), tasks: createTaskService(db), users: createUserService(db), transfers: createTransferService(db), config };
 }
 export async function handleTask(action: keyof ReturnType<typeof createTaskHandlers>, request: Request, id?: string): Promise<Response> {
   try {
