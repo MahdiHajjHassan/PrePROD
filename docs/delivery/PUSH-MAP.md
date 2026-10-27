@@ -1,4 +1,31 @@
+> Current working product: Tic Tac Toe. See README.md and
+> docs/evaluation/tic-tac-toe-evidence.md. The owner authorized the game replacement
+> for commit/push to Transcendence2 staging on2026-10-27. Mahdi/Codex assistance
+> and actual authorship are preserved. No final-repository delivery is authorized.
+> The accepted roster is Mahdi/Joseph. All Taskboard bundles below are historical;
+> immutable manifests and actual authorship are preserved.
+
 # Staging Source and Final Delivery Map
+
+## Current game delivery
+
+Game source acfb60facedc71166c272276aa361ad69da0cb5b is pushed to
+`codex/tic-tac-toe` in this staging repository. The remote SHA was verified.
+[Draft PR #1](https://github.com/MahdiHajjHassan/Transcendence2/pull/1) targets
+staging main. Exact provenance/checks are in [the game receipt](batches/tic-tac-toe.md).
+The separate final history repository remains untouched.
+
+## Product replacement requested — 2026-10-27
+
+The owner requested a tic-tac-toe replacement with friend and computer modes,
+and allows removing the current application code. New planning is in
+../superpowers/specs/2026-10-27-tic-tac-toe-design.md and
+../superpowers/plans/2026-10-27-tic-tac-toe.md.
+
+The source bundles, module evidence and authorship below describe Taskboard.
+They are historical, not evidence that the game exists. The new plan is local
+and verified. The later owner request authorizes staging commit/push; the
+separate final repository and external deployment remain excluded.
 
 Transcendence2 is the staging repository. The owner requested every planned
 package completed here so Claude can reuse the source without redevelopment.

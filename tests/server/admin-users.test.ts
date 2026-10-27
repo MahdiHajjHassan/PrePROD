@@ -9,6 +9,23 @@ async function fixture() {
   const admin = await seedUser(db, { role: "ADMIN" }); const member = await seedUser(db);
   return { db, url, users: createUserService(db), admin: admin.actor, member: member.actor };
 }
+
+test("admin creates validated member/admin accounts with hashed passwords; current role and uniqueness are enforced",async()=>{
+  const {db,users,admin,member}=await fixture();
+  const input={email:" NEW@example.test ",displayName:" New player ",password:"private-test-password",role:"MEMBER"};
+  await expect(users.createUser(member,input)).rejects.toMatchObject({code:"FORBIDDEN"});
+  await expect(users.createUser({...member,role:"ADMIN"},input)).rejects.toMatchObject({code:"FORBIDDEN"});
+  const created=await users.createUser(admin,input);
+  expect(created).toMatchObject({email:"new@example.test",displayName:"New player",role:"MEMBER"});
+  expect(created).not.toHaveProperty("passwordHash");
+  const saved=await db.user.findUniqueOrThrow({where:{id:created.id}});
+  const {verifyPassword}=await import("@/server/auth/password");
+  expect(await verifyPassword(saved.passwordHash,input.password)).toBe(true);
+  expect(saved.passwordHash).not.toBe(input.password);
+  await expect(users.createUser(admin,input)).rejects.toMatchObject({code:"CONFLICT"});
+  for(const patch of [{password:"short"},{email:"bad"},{role:"OWNER"},{extra:"injected"}])await expect(users.createUser(admin,{...input,...patch})).rejects.toMatchObject({code:"VALIDATION"});
+  expect(await users.createUser(admin,{...input,email:"second@example.test",role:"ADMIN"})).toMatchObject({role:"ADMIN"});
+});
 test("admin can list/update roles; member and forged/demoted admin are forbidden", async () => {
   const { db, users, admin, member } = await fixture();
   await expect(users.listUsers(member)).rejects.toMatchObject({ code: "FORBIDDEN" });
@@ -26,16 +43,17 @@ test("last admin cannot be deleted/demoted and privileged or empty patches are r
   for (const patch of [{}, { email: "changed@example.test" }, { passwordHash: "forged" }, { displayName: " " }]) await expect(users.updateUser(admin, admin.id, patch)).rejects.toMatchObject({ code: "VALIDATION" });
   expect(await db.user.count({ where: { role: "ADMIN" } })).toBe(1);
 });
-test("deleting a member atomically removes sessions/tasks and preserves other owners", async () => {
+test("deleting a member revokes sessions and preserves anonymized games and other players", async () => {
   const { db, users, admin, member } = await fixture();
   const { createSessionToken } = await import("@/server/auth/session");
   await createSessionToken(db, member.id, new Date());
-  await db.task.create({ data: { title: "Delete", ownerId: member.id } });
-  await db.task.create({ data: { title: "Keep", ownerId: admin.id } });
+  await db.game.create({data:{mode:"AI",xId:member.id,status:"ACTIVE"}});
+  await db.game.create({data:{mode:"AI",xId:admin.id,status:"ACTIVE"}});
   await users.deleteUser(admin, member.id);
   expect(await db.session.count({ where: { userId: member.id } })).toBe(0);
-  expect(await db.task.count({ where: { ownerId: member.id } })).toBe(0);
-  expect(await db.task.count()).toBe(1);
+  expect(await db.game.count({where:{xId:member.id}})).toBe(0);
+  expect(await db.game.count({where:{xId:admin.id}})).toBe(1);
+  expect(await db.game.count()).toBe(2);
 });
 test("competing administrators using separate connections cannot remove the final admin", async () => {
   const { db, url, users, admin } = await fixture(); const other = await seedUser(db, { role: "ADMIN" });

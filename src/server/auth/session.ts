@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
-import type { Actor } from "@/shared/tasks";
+import type { Actor } from "@/shared/auth";
 
 function validToken(raw: string | null): raw is string { return raw !== null && /^[a-f0-9]{64}$/.test(raw); }
 function tokenHash(raw: string): string { return createHash("sha256").update(raw).digest("hex"); }

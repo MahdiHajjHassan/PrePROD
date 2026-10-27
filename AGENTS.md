@@ -1,5 +1,38 @@
 # Repository guidance
 
+## Latest product direction — tic-tac-toe, 2026-10-27
+
+Owner clarification: the two-member team, Mahdi (mahajj-h) and Joseph
+(jboustan), is accepted for this project. The owner explicitly confirmed this
+on 2026-10-27; do not reopen the copied PDFs' generic 4-5-person wording as
+an unresolved gate. The owner approved the tic-tac-toe plan and instructed
+implementation to continue through a working, verified application.
+
+The owner now wants a tic-tac-toe project that satisfies the assignment,
+with both friend play in separate browser sessions on one computer and a
+computer opponent. The owner permits removing/replacing the current code;
+Taskboard need not stay runnable and compatibility/migration is not required.
+This supersedes the Taskboard product direction below for future work.
+
+Current implementation is the tic-tac-toe replacement in the managed
+worktree. Use README.md, docs/requirements/module-matrix.md and
+docs/evaluation/tic-tac-toe-evidence.md for current commands/evidence.
+The Taskboard-specific sections below are historical and superseded.
+The owner subsequently authorized committing and pushing this replacement to
+Transcendence2 staging on2026-10-27. Keep the managed worktree; the separate final
+history repository remains excluded. Current demonstrated target is15
+candidate points; G09 is withheld because Firefox cannot start on this Windows
+installation. See game evidence for details.
+Current design and plan:
+- docs/superpowers/specs/2026-10-27-tic-tac-toe-design.md
+- docs/superpowers/plans/2026-10-27-tic-tac-toe.md
+
+The proposed target remains 14 core +2 buffer points. New game modules are
+not implemented or verified merely because a plan exists. Keep historical
+Taskboard evidence/authorship distinct. The session permits staging commit/push; it prohibits final-repository delivery,
+external deployment, credential disclosure and data-volume deletion. Preserve
+the private .env, certificate material and both reference PDFs.
+
 ## Latest owner instruction — full staging completion
 
 On 2026-10-27 the owner explicitly replaced the implementation stop-at-owner

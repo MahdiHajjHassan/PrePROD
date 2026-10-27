@@ -1,18 +1,18 @@
 import { existsSync, readFileSync, mkdirSync, appendFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve,relative,delimiter } from "node:path";
 import { spawnSync } from "node:child_process";
 import { parse } from "dotenv";
 
 export function testSettings() {
-  const project = process.env.TASKBOARD_E2E_PROJECT ?? "taskboard-e2e-mahdi";
-  const port = Number(process.env.TASKBOARD_E2E_PORT ?? 8443);
-  if (!/^taskboard-e2e-[a-z0-9-]+$/.test(project) || !Number.isInteger(port) || port < 1024 || port > 65535) throw new Error("Refusing a non-isolated test project or port");
-  const envFile = resolve(process.env.TASKBOARD_E2E_ENV_FILE ?? ".env.e2e");
-  if (!envFile.startsWith(`${process.cwd()}/.env.`)) throw new Error("Test credentials must use a separate ignored .env.* file");
-  const logDir = resolve(".superpowers/sdd/2026-10-26-taskboard"); mkdirSync(logDir, { recursive: true });
+  const project = process.env.TICTACTOE_E2E_PROJECT ?? "tictactoe-e2e-mahdi";
+  const port = Number(process.env.TICTACTOE_E2E_PORT ?? 8443);
+  if (!/^tictactoe-e2e-[a-z0-9-]+$/.test(project) || !Number.isInteger(port) || port < 1024 || port > 65535) throw new Error("Refusing a non-isolated test project or port");
+  const envFile = resolve(process.env.TICTACTOE_E2E_ENV_FILE ?? ".env.e2e");
+  if (!/^\.env\.[^\\/]+$/.test(relative(process.cwd(),envFile))) throw new Error("Test credentials must use a separate ignored .env.* file");
+  const logDir = resolve(".superpowers/sdd/2026-10-27-tic-tac-toe"); mkdirSync(logDir, { recursive: true });
   const values = existsSync(envFile) ? parse(readFileSync(envFile)) : {};
   const files = ["compose.yaml", ...(process.env.CODEX_PROXY_CERT ? ["compose.cloud.yaml"] : []), "compose.e2e.yaml"];
-  return { project, port, envFile, logDir, values, env: { ...process.env, ...values, TASKBOARD_E2E_PROJECT: project, COMPOSE_FILE: files.join(":") } };
+  return { project, port, envFile, logDir, values, env: { ...process.env, ...values, TICTACTOE_E2E_PROJECT: project, TICTACTOE_E2E_CA_VOLUME: process.env.TICTACTOE_E2E_CA_VOLUME ?? `${project}_caddy-data`, COMPOSE_FILE: files.join(delimiter) } };
 }
 export function runTestCommand(command: string, args: string[]) {
   const settings = testSettings();

@@ -17,6 +17,6 @@ export function Preferences({ locale, theme }: { locale: Locale; theme: "light" 
 }
 export function Logout({ locale }: { locale: Locale }) {
   const mutation = useMutation(); const router = useRouter(); const t = dictionaries[locale];
-  return <div><Button variant="secondary" disabled={mutation.pending} onClick={() => void mutation.run(async () => { await request("/api/auth/logout", "POST", {}); router.push(`/${locale}/tasks`); router.refresh(); })}>{mutation.pending ? t.pending : t.logout}</Button><Feedback error={mutation.error} t={t} /></div>;
+  return <div><Button variant="secondary" disabled={mutation.pending} onClick={() => void mutation.run(async () => { await request("/api/auth/logout", "POST", {}); router.push(`/${locale}/play`); router.refresh(); })}>{mutation.pending ? t.pending : t.logout}</Button><Feedback error={mutation.error} t={t} /></div>;
 }
 export function Refresh({ label }: { label: string }) { const router = useRouter(); return <Button variant="secondary" onClick={() => router.refresh()}>{label}</Button>; }

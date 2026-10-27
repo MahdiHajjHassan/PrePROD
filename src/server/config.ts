@@ -8,13 +8,11 @@ const origin = z.url().refine((value) => {
 }, "APP_ORIGIN must be an HTTPS origin without credentials, query, or path").transform((value) => new URL(value).origin);
 
 const configSchema = z.object({
-  DATABASE_URL: z.string().default("file:./data/taskboard.db"),
+  DATABASE_URL: z.string().default("file:./data/tictactoe.db"),
   APP_ORIGIN: origin,
   ADMIN_EMAIL: email,
   ADMIN_PASSWORD: z.string().min(12).max(128),
-  API_ACTOR_EMAIL: email,
-  PUBLIC_API_KEY: z.string().regex(/^[a-f0-9]{64}$/i),
-}).refine((input) => input.ADMIN_EMAIL !== input.API_ACTOR_EMAIL, { message: "Admin and API identities must differ" });
+});
 
 export function resolveDatabaseUrl(value: string): string {
   if (!value.startsWith("file:") || !value.slice(5) || value.includes("\0") || value.includes("?")) {
@@ -28,7 +26,6 @@ export function loadConfig(environment: Record<string, string | undefined>) {
   return {
     databaseUrl: resolveDatabaseUrl(input.DATABASE_URL), appOrigin: input.APP_ORIGIN,
     adminEmail: input.ADMIN_EMAIL, adminPassword: input.ADMIN_PASSWORD,
-    apiActorEmail: input.API_ACTOR_EMAIL, publicApiKey: input.PUBLIC_API_KEY,
   };
 }
 

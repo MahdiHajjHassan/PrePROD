@@ -1,7 +1,7 @@
-# Authentication and Account Contract — M02
+# Authentication and Account Contract
 
-These routes and the J02 frontend forms are implemented in staging by Mahdi/Codex
-for reuse by Claude. Use relative HTTPS URLs and normal same-origin fetch
+The secure account foundation is reused by the game. Mahdi/Codex staging
+authorship is preserved; current permission-module mapping is G11. Use relative HTTPS URLs and normal same-origin fetch
 credentials. Browser JavaScript never reads or stores the session token.
 
 | Method and path | Request JSON | Success |

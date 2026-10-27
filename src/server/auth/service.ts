@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { Prisma, type PrismaClient, type User } from "@/generated/prisma/client";
-import type { Actor } from "@/shared/tasks";
+import type { Actor } from "@/shared/auth";
 import type { AccountDTO } from "@/shared/auth";
 import { DomainError } from "../errors";
 import { parseInput } from "../validation";
@@ -10,7 +10,6 @@ import { hashPassword, verifyPassword } from "./password";
 import { createSessionToken, resolveSessionToken, revokeSessionToken } from "./session";
 import { currentActor } from "./policy";
 import { withWriteRetry } from "../db-write";
-import { recordDomainEvent } from "../activity/writer";
 
 const accountSelect = { id: true, email: true, displayName: true, role: true, createdAt: true } satisfies Prisma.UserSelect;
 type AccountRecord = Pick<User, "id" | "email" | "displayName" | "role" | "createdAt">;
@@ -32,7 +31,6 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
       try {
         return await withWriteRetry(() => db.$transaction(async (tx) => {
           const user = await tx.user.create({ data: { email: data.email, displayName: data.displayName, passwordHash, role: "MEMBER" }, select: accountSelect });
-          await recordDomainEvent(tx, { actorId: user.id, action: "CREATE", entityType: "USER", entityId: user.id, label: user.displayName });
           return dto(user);
         }));
       } catch (error) {
@@ -52,7 +50,6 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
         const current = await tx.user.findUnique({ where: { id: user.id } });
         if (!current || current.passwordHash !== user.passwordHash) throw new DomainError("UNAUTHENTICATED");
         const session = await createSessionToken(tx, current.id, now());
-        await recordDomainEvent(tx, { actorId: current.id, action: "LOGIN", entityType: "USER", entityId: current.id, label: current.displayName });
         return { user: dto(current), ...session };
       }));
     },
@@ -68,7 +65,6 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
       return withWriteRetry(() => db.$transaction(async (tx) => {
         const current = await currentActor(tx, actor);
         const user = await tx.user.update({ where: { id: current.id }, data, select: accountSelect });
-        await recordDomainEvent(tx, { actorId: current.id, action: "UPDATE", entityType: "USER", entityId: current.id, label: user.displayName });
         return dto(user);
       }));
     },
@@ -82,7 +78,6 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
         const result = await tx.user.updateMany({ where: { id: actor.id, passwordHash: user.passwordHash }, data: { passwordHash } });
         if (result.count !== 1) throw new DomainError("CONFLICT");
         await tx.session.deleteMany({ where: { userId: actor.id } });
-        await recordDomainEvent(tx, { actorId: actor.id, action: "UPDATE", entityType: "USER", entityId: actor.id, label: user.displayName });
       }));
     },
   };

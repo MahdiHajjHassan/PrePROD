@@ -18,10 +18,15 @@ test("bootstrap generates private credentials without printing them", async () =
   expect(entries.APP_ORIGIN).toBe("https://localhost:8443");
   expect(entries.HTTPS_PORT).toBe("8443");
   expect(entries.ADMIN_PASSWORD).toMatch(/^[a-f0-9]{48}$/);
-  expect(entries.PUBLIC_API_KEY).toMatch(/^[a-f0-9]{64}$/);
+  expect(entries.PUBLIC_API_KEY).toBeUndefined();
+  expect(entries.DATABASE_URL).toBe("file:./data/tictactoe.db");
+  expect(entries.ADMIN_EMAIL).toBe("admin@tictactoe.local");
   expect(result.stdout).not.toContain(entries.ADMIN_PASSWORD);
-  expect(result.stdout).not.toContain(entries.PUBLIC_API_KEY);
-  expect((await stat(path)).mode & 0o077).toBe(0);
+  if (process.platform === "win32") {
+    const acl = spawnSync("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", "@((Get-Acl -LiteralPath $env:TICTACTOE_SETUP_TEST_FILE).Access | Where-Object { $_.AccessControlType -eq 'Allow' -and $_.IdentityReference.Translate([System.Security.Principal.SecurityIdentifier]).Value -in @('S-1-1-0','S-1-5-11','S-1-5-32-545') }).Count"], { encoding: "utf8", env: { ...process.env, TICTACTOE_SETUP_TEST_FILE: path } });
+    expect(acl.status, acl.stderr).toBe(0);
+    expect(acl.stdout.trim()).toBe("0");
+  } else expect((await stat(path)).mode & 0o077).toBe(0);
 });
 
 test("bootstrap refuses to overwrite existing credentials", async () => {

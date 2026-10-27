@@ -7,6 +7,18 @@ import { dictionaries } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
 import type { AccountDTO } from "@/shared/auth";
 import { request, useMutation } from "./api";
+export function CreateUser({locale}:{locale:Locale}){
+  const t=dictionaries[locale],router=useRouter(),mutation=useMutation(),[open,setOpen]=useState(false);
+  return <section className="section">{open?<form className="form stack" onSubmit={event=>{
+    event.preventDefault();const form=event.currentTarget,data=new FormData(form);
+    void mutation.run(async()=>{await request("/api/admin/users","POST",Object.fromEntries(data));form.reset();setOpen(false);router.refresh();});
+  }}><h2>{t.createUser}</h2><TextField name="displayName" label={t.displayName} required maxLength={60}/>
+    <TextField name="email" type="email" label={t.email} autoComplete="off" required maxLength={254} dir="ltr"/>
+    <TextField name="password" type="password" label={t.password} autoComplete="new-password" required minLength={12} maxLength={128}/>
+    <SelectField name="role" label={t.role} defaultValue="MEMBER"><option value="MEMBER">{t.MEMBER}</option><option value="ADMIN">{t.ADMIN}</option></SelectField>
+    <Feedback error={mutation.error} t={t} locale={locale}/><div className="actions"><Button disabled={mutation.pending}>{mutation.pending?t.pending:t.createUser}</Button><Button type="button" variant="secondary" disabled={mutation.pending} onClick={()=>setOpen(false)}>{t.cancel}</Button></div>
+  </form>:<><Button type="button" onClick={()=>{mutation.clear();setOpen(true);}}>{t.createUser}</Button><Feedback error={mutation.error} success={mutation.success&&t.saved} t={t} locale={locale}/></>}</section>;
+}
 export function UserActions({ locale, user }: { locale: Locale; user: AccountDTO }) {
   const t = dictionaries[locale]; const [editing, setEditing] = useState(false); const [deleting, setDeleting] = useState(false); const mutation = useMutation(); const router = useRouter();
   return <div className="stack user-edit">{editing ? <form className="stack" onSubmit={(event) => { event.preventDefault(); const data = new FormData(event.currentTarget); void mutation.run(async () => { await request(`/api/admin/users/${user.id}`, "PUT", { displayName: String(data.get("displayName")).trim(), role: data.get("role") }); setEditing(false); router.refresh(); }); }}>

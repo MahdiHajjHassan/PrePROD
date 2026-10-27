@@ -2,14 +2,12 @@ services:
   app:
     build: .
     environment:
-      DATABASE_URL: file:/data/taskboard.db
+      DATABASE_URL: file:/data/tictactoe.db
       APP_ORIGIN: ${APP_ORIGIN:?Run ./scripts/setup.sh first}
       ADMIN_EMAIL: ${ADMIN_EMAIL:?Run ./scripts/setup.sh first}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Run ./scripts/setup.sh first}
-      API_ACTOR_EMAIL: ${API_ACTOR_EMAIL:?Run ./scripts/setup.sh first}
-      PUBLIC_API_KEY: ${PUBLIC_API_KEY:?Run ./scripts/setup.sh first}
     volumes:
-      - app-data:/data
+      - game-data:/data
     healthcheck:
       test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
       interval: 5s
@@ -34,6 +32,6 @@ services:
         condition: service_healthy
     restart: unless-stopped
 volumes:
-  app-data:
+  game-data:
   caddy-data:
   caddy-config:

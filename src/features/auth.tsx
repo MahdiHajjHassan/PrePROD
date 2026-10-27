@@ -15,13 +15,13 @@ export function AuthForm({ locale, mode, notice }: { locale: Locale; mode: "logi
     if (registration && !input.displayName) throw new RequestError("VALIDATION", { displayName: ["required"] });
     try { await request(`/api/auth/${mode}`, "POST", input); }
     catch (error) { if (!registration && error instanceof RequestError && error.code === "UNAUTHENTICATED") throw new RequestError("INVALID_CREDENTIALS"); throw error; }
-    router.push(registration ? `/${locale}/login?notice=registered` : `/${locale}/tasks`); router.refresh();
+    router.push(registration ? `/${locale}/login?notice=registered` : `/${locale}/play`); router.refresh();
   }); }}>
     {notice && <Alert tone="success">{t[notice]}</Alert>}
     {registration && <><Alert>{t.publicWarning}</Alert><TextField name="displayName" label={t.displayName} required maxLength={60} autoComplete="nickname" error={invalid("displayName")} /></>}
     <TextField name="email" label={t.email} type="email" required maxLength={254} autoComplete="email" dir="ltr" error={invalid("email")} />
     <TextField name="password" label={t.password} type="password" required minLength={registration ? 12 : undefined} maxLength={128} autoComplete={registration ? "new-password" : "current-password"} hint={registration ? t.passwordHelp : undefined} error={invalid("password")} />
-    {registration && <><CheckboxField name="terms" required label={t.acceptTerms} /><div className="actions"><Link href={`/${locale}/terms`}>{t.terms}</Link><Link href={`/${locale}/privacy`}>{t.privacy}</Link></div></>}
+    {registration && <><CheckboxField name="terms" required label={t.acceptTerms} /><div className="actions"><Link href={`/${locale}/terms`} target="_blank" rel="noopener noreferrer" title={t.opensNewTab}>{t.terms}<span className="sr-only"> ({t.opensNewTab})</span></Link><Link href={`/${locale}/privacy`} target="_blank" rel="noopener noreferrer" title={t.opensNewTab}>{t.privacy}<span className="sr-only"> ({t.opensNewTab})</span></Link></div></>}
     <Feedback error={mutation.error} t={t} locale={locale} /><Button disabled={mutation.pending}>{mutation.pending ? t.pending : registration ? t.register : t.login}</Button>
     <Link href={`/${locale}/${registration ? "login" : "register"}`}>{registration ? t.login : t.register}</Link>
   </form>;
