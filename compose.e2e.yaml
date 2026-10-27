@@ -1,0 +1,5 @@
+# Only the explicitly isolated test project receives the reset-script guard.
+services:
+  app:
+    environment:
+      TASKBOARD_E2E_PROJECT: ${TASKBOARD_E2E_PROJECT:?Set an isolated taskboard-e2e project}

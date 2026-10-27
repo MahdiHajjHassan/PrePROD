@@ -1,0 +1,22 @@
+import { readFileSync } from "node:fs";
+import { test, expect, t, loginUi } from "./fixtures";
+test("JSON/CSV uploads and filtered downloads work; rejected batch has no partial writes", async ({ page, expectedFailures }) => {
+  await loginUi(page); await page.goto("/en/transfers?q=Import%20browser");
+  const row = { title: "Import browser العربية", description: 'Line1\n"quoted", text', status: "OPEN", priority: "NORMAL" };
+  await page.getByLabel(t.file).setInputFiles({ name: "demo.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify([row, row])) });
+  await page.getByRole("checkbox").check(); await page.getByRole("button", { name: t.confirmImport, exact: true }).click();
+  await expect(page.getByText(`${t.imported}: 2`, { exact: true })).toBeVisible();
+  const downloadEvent = page.waitForEvent("download"); await page.getByRole("button", { name: `${t.download} ${t.json}`, exact: true }).click();
+  const download = await downloadEvent; const filename = await download.path(); expect(filename).not.toBeNull();
+  expect(JSON.parse(readFileSync(filename!, "utf8"))).toEqual([row, row]);
+  expectedFailures.push({ path: "/api/transfers/import", status: 400 });
+  await page.getByLabel(t.file).setInputFiles({ name: "bad.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify([row, { ...row, title: " " }])) });
+  await page.getByRole("checkbox").check(); await page.getByRole("button", { name: t.confirmImport, exact: true }).click(); await expect(page.getByText(t.VALIDATION, { exact: true })).toBeVisible();
+  expect((await (await page.request.get("/api/tasks?q=Import%20browser")).json()).data.total).toBe(2);
+  await page.getByRole("tab", { name: t.csv, exact: true }).click();
+  await page.getByLabel(t.file).setInputFiles({ name: "demo.csv", mimeType: "text/csv", buffer: Buffer.from("title,description,status,priority\nImport browser CSV,Description,OPEN,HIGH\n") });
+  await page.getByRole("checkbox").check(); await page.getByRole("button", { name: t.confirmImport, exact: true }).click();
+  await expect(page.getByText(`${t.imported}: 1`, { exact: true })).toBeVisible();
+  const csvEvent = page.waitForEvent("download"); await page.getByRole("button", { name: `${t.download} ${t.csv}`, exact: true }).click();
+  const csv = await csvEvent; expect(readFileSync((await csv.path())!, "utf8")).toContain("title,description,status,priority");
+});

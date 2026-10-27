@@ -1,0 +1,24 @@
+import { test, expect, t, credentials, loginUi } from "./fixtures";
+test("registration, secure login, account changes, password revocation and logout", async ({ page, context }) => {
+  await page.goto("/en/register");
+  await page.getByLabel(t.displayName, { exact: true }).fill("New demo member");
+  await page.getByLabel(t.email, { exact: true }).fill("new-demo@example.test");
+  await page.getByLabel(t.password, { exact: true }).fill(credentials().password);
+  await page.getByLabel(t.acceptTerms).check();
+  await page.getByRole("button", { name: t.register, exact: true }).click();
+  await expect(page).toHaveURL(/\/en\/login\?notice=registered$/);
+  await page.getByLabel(t.email, { exact: true }).fill("new-demo@example.test");
+  await page.getByLabel(t.password, { exact: true }).fill(credentials().password);
+  await page.getByRole("button", { name: t.login, exact: true }).click(); await expect(page).toHaveURL(/\/en\/tasks$/);
+  const session = (await context.cookies()).find((item) => item.name === "__Host-taskboard_session");
+  expect(session).toMatchObject({ httpOnly: true, secure: true, sameSite: "Lax", path: "/" });
+  await page.goto("/en/account"); await page.getByLabel(t.displayName, { exact: true }).fill("Renamed demo");
+  await page.getByRole("button", { name: t.save, exact: true }).click(); await expect(page.getByText(t.saved, { exact: true })).toBeVisible();
+  await page.getByLabel(t.currentPassword).fill(credentials().password);
+  await page.getByLabel(t.newPassword, { exact: true }).fill("new-isolated-demo-password");
+  await page.getByRole("button", { name: t.changePassword, exact: true }).click(); await expect(page).toHaveURL(/notice=passwordChanged/);
+  expect((await page.request.get("/api/account")).status()).toBe(401);
+  await loginUi(page, "a"); await page.getByRole("button", { name: t.logout, exact: true }).click();
+  await expect(page.getByRole("link", { name: t.login, exact: true }).first()).toBeVisible();
+  expect((await page.request.get("/api/account")).status()).toBe(401);
+});
