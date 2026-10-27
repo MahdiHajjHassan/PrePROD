@@ -48,3 +48,15 @@ Append one entry after a real completed slice. Include:
 - Known unresolved issues.
 
 Do not store credentials, tokens, local session state, or private user data here.
+
+### M02 authentication backend — 2026-10-27
+
+Source commit: bb803d444acad176b52b0d10bf4fe87c65e23dce. Implemented the backend described in docs/api/auth.md;
+all code is authored/pushed on Mahdi's side. Observed 46/46 tests, typecheck,
+zero-warning lint, build, healthy Docker rebuild, verified TLS, and a real HTTPS
+login/account/logout/revocation flow. Independent automated review found no
+Critical/Important issues and one nonblocking logout-body strictness inconsistency.
+
+Own human walkthrough and counterpart human review: pending. No Joseph source
+work, personal understanding, or final-repo delivery is claimed. Next unlocked
+Mahdi work: M03 task writes. Joseph J01 remains the next UI/design package.

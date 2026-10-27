@@ -227,21 +227,21 @@ resolveSession(rawToken): Promise<Actor|null>, logout(rawToken), changePassword(
 Login returns the token only to its route handler for Set-Cookie. Shared
 consumeLimit(scope,key,limit,windowSeconds) returns {allowed,retryAfterSeconds}.
 
-- [ ] Write failing tests: signup cannot set ADMIN; invalid email/password fails;
+- [x] Write failing tests: signup cannot set ADMIN; invalid email/password fails;
   stored password differs from plaintext and verifies with Argon2id; the session
   database stores a hash rather than the cookie token.
-- [ ] Add expiration/logout/password-change tests: a 7-day-expired token resolves
+- [x] Add expiration/logout/password-change tests: a 7-day-expired token resolves
   to null, logout revokes access, and a password change revokes all prior sessions.
-- [ ] Add HTTP tests: cross-origin mutation returns 403, secure-cookie attributes
+- [x] Add HTTP tests: cross-origin mutation returns 403, secure-cookie attributes
   are present, login errors are generic, and simultaneous limiter requests never
   exceed a configured allowance.
-- [ ] Run the named tests and confirm their intended failures, then implement the
+- [x] Run the named tests and confirm their intended failures, then implement the
   services, constant-shape errors, trusted-proxy client identification, and policy.
   Login limits: 5 attempts/15 minutes/email+client and 10/15 minutes/client;
   registration: 5/15 minutes/client. Expired limiter rows are periodically pruned.
-- [ ] Implement own-display-name and own-password changes. Never permit a client
+- [x] Implement own-display-name and own-password changes. Never permit a client
   to change email, role, owner, or another account through the account endpoint.
-- [ ] Run npm run test:server -- tests/server/auth.test.ts tests/server/sessions.test.ts
+- [x] Run npm run test:server -- tests/server/auth.test.ts tests/server/sessions.test.ts
   tests/server/origin.test.ts tests/server/rate-limit.test.ts; expect all pass.
   Review and commit the identity layer.
 

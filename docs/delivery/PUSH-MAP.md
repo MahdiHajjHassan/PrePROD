@@ -43,7 +43,7 @@ understanding, account identity, or a human review complete automatically.
 | --- | --- | --- | --- | --- | --- |
 | M01 | Mahdi / Codex | STAGED | 651f259, c54d2d9 | Setup | — |
 | J01 | Joseph / Claude | PLANNED | — | M01 | — |
-| M02 | Mahdi / Codex | PLANNED | — | M01 | — |
+| M02 | Mahdi / Codex | STAGED | bb803d4 | M01 | — |
 | J02 | Joseph / Claude | PLANNED | — | J01, M02 | — |
 | M03 | Mahdi / Codex | PLANNED | — | M02 | — |
 | J03 | Joseph / Claude | PLANNED | — | J02, M03 | — |
