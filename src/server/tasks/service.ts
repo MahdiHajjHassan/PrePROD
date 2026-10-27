@@ -5,7 +5,8 @@ import { withWriteRetry } from "../db-write";
 import { DomainError } from "../errors";
 import { parseInput } from "../validation";
 import { taskSelect, toTaskDTO } from "./dto";
-import { basicTaskQuerySchema, taskCreateSchema, taskIdSchema, taskPatchSchema, versionSchema } from "./schema";
+import { taskCreateSchema, taskIdSchema, taskPatchSchema, versionSchema } from "./schema";
+import { queryTasks } from "./query";
 
 async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id: string, version: number) {
   const actor = await currentActor(tx, supplied);
@@ -31,15 +32,9 @@ export function createTaskService(db: PrismaClient) {
       return toTaskDTO(task);
     },
     async list(query: unknown = {}): Promise<PaginatedTasks> {
-      parseInput(basicTaskQuerySchema, query);
-      // Basic public read for the write backend; Joseph J03 replaces this with
-      // queryTasks(db, query), implementing search/filter/sort/pagination.
-      const [rows, total] = await db.$transaction([
-        db.task.findMany({ select: taskSelect, orderBy: [{ createdAt: "desc" }, { id: "desc" }], take: 25 }),
-        db.task.count(),
-      ]);
-      return { items: rows.map(toTaskDTO), total, page: 1, pageSize: 25 };
+      return queryTasks(db, query);
     },
+    owners() { return db.user.findMany({ where: { tasks: { some: {} } }, select: { id: true, displayName: true }, orderBy: [{ displayName: "asc" }, { id: "asc" }] }); },
     async update(supplied: Actor | null, rawId: string, input: unknown, expectedVersion: number): Promise<TaskDTO> {
       const id = parseInput(taskIdSchema, rawId);
       const data = parseInput(taskPatchSchema, input);

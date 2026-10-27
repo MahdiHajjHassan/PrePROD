@@ -3,18 +3,16 @@ import type { AuthService } from "../auth/service";
 import type { ServerConfig } from "../config";
 import { requestActor } from "../auth/policy";
 import { handleApi, jsonData } from "../api/http";
-import { DomainError } from "../errors";
 import { readJson, requireSameOrigin } from "../security/origin";
 import { parseInput } from "../validation";
 import { taskDeleteBodySchema, taskUpdateBodySchema } from "./schema";
+import { parseTaskQuery } from "./query";
 
 export function createTaskHandlers(tasks: TaskService, auth: AuthService, config: Pick<ServerConfig, "appOrigin">) {
   async function body(request: Request) { requireSameOrigin(request, config.appOrigin); return readJson(request); }
   return {
     list(request: Request) { return handleApi(async () => {
-      // Query parsing and full search/filter/sort/pagination are Joseph J03.
-      if ([...new URL(request.url).searchParams].length) throw new DomainError("VALIDATION", { query: ["unavailable"] });
-      return jsonData(await tasks.list());
+      return jsonData(await tasks.list(parseTaskQuery(new URL(request.url).searchParams)));
     }); },
     read(_request: Request, id: string) { return handleApi(async () => jsonData(await tasks.read(id))); },
     create(request: Request) { return handleApi(async () => {

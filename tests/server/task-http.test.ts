@@ -91,8 +91,9 @@ test("task HTTP bodies reject malformed/oversized JSON, privileged fields and mi
   expect((await tasks.read(task.id)).version).toBe(1);
 });
 
-test("query options are explicitly unavailable before Joseph's J03 implementation", async () => {
+test("HTTP reads accept valid pagination and reject malformed query/ID values", async () => {
   const { handlers } = await fixture();
-  expect((await handlers.list(request("GET", undefined, undefined, null, "application/json", "/api/tasks?page=2"))).status).toBe(400);
+  expect((await handlers.list(request("GET", undefined, undefined, null, "application/json", "/api/tasks?page=2"))).status).toBe(200);
+  expect((await handlers.list(request("GET", undefined, undefined, null, "application/json", "/api/tasks?page=0"))).status).toBe(400);
   expect((await handlers.read(request(), "bad-id")).status).toBe(400);
 });

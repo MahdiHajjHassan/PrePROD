@@ -91,7 +91,7 @@ test("anonymous or deleted actors cannot create tasks, and invalid/missing IDs a
   await expect(tasks.read(randomUUID())).rejects.toMatchObject({ code: "NOT_FOUND" });
 });
 
-test("the basic public read scaffold is deterministic and does not pretend to implement Joseph's search", async () => {
+test("public reads paginate deterministically and expose only public owner fields", async () => {
   const { db, tasks, a } = await fixture();
   for (let i = 0; i < 26; i++) await db.task.create({ data: { ownerId: a.id, title: `Task ${i}`, createdAt: new Date(Date.UTC(2026, 9, 27, 0, i)) } });
   const page = await tasks.list();
@@ -100,5 +100,5 @@ test("the basic public read scaffold is deterministic and does not pretend to im
   expect(page.items[0].title).toBe("Task 25");
   expect(page.items[24].title).toBe("Task 1");
   expect(Object.keys(page.items[0].owner).sort()).toEqual(["displayName", "id"]);
-  await expect(tasks.list({ page: 2, sort: "created_desc" })).rejects.toMatchObject({ code: "VALIDATION" });
+  expect((await tasks.list({ page: 2, sort: "created_desc" })).items).toHaveLength(1);
 });
