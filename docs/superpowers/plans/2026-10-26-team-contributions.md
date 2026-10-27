@@ -1,5 +1,11 @@
 # Two-Person Contribution and Push Plan
 
+Latest owner override (2026-10-27): Codex completes every package in staging now;
+Claude reuses tested source instead of redeveloping it. The original split below
+is a delivery grouping, not current implementation authorship or a reason to
+stop at an owner boundary. Read docs/delivery/PUSH-MAP.md and the machine manifest.
+All final-history pushes, including M01–M03, are explicitly prohibited for now.
+
 > For implementers: use the existing Superpowers implementation/verification workflows and Impeccable for UI work. Execute only the batch assigned to your side. This schedule refines the existing technical plan; it does not add product scope or authorize one agent to implement the other person's packages.
 
 **Goal:** Mahdi/Codex and Joseph/Claude each implement, test, explain, commit, and

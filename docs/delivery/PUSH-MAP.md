@@ -1,110 +1,85 @@
-# Final-Repository Delivery Map
+# Staging Source and Final Delivery Map
 
-## Latest instruction — 2026-10-27
+Transcendence2 is the staging repository. The owner requested every planned
+package completed here so Claude can reuse the source without redevelopment.
+The separate final history repository is called **Final Trans Repo**; its exact
+remote/base is unverified. **NO FINAL-REPOSITORY PUSH IS AUTHORIZED**, including
+M01–M03. Only MahdiHajjHassan/Transcendence2 staging may receive pushes.
 
-Finish ALL packages in Transcendence2 staging now, including the previously
-Joseph-assigned packages. Do not wait for Claude and do not reimplement them
-later. Preserve exact reusable source commits, dependencies, checks and files.
-All new staging implementation is Mahdi/Codex-authored unless actual evidence
-says otherwise. Original batch owner labels identify the requested handoff split;
-they do not reattribute source work. Joseph's actual later review/adaptation/
-delivery remains separate and unclaimed.
+All current implementation source is Mahdi/Codex-authored. Original M/J ownership
+labels below identify requested handoff tracks, not invented authorship. Joseph's
+real review/adaptation/understanding/pushes are recorded only when they happen.
+An unchanged source commit keeps its author regardless of who later pushes it.
 
-The owner calls the final history destination "Final Trans Repo"; its exact
-remote remains unverified here. **NO FINAL-REPOSITORY PUSH IS AUTHORIZED**, including
-the already completed M01–M03. Only staging pushes may proceed. These instructions
-supersede older owner-stop and destination wording below.
+## Current source
 
-## Repositories
-
-- Staging/development: https://github.com/MahdiHajjHassan/Transcendence2.
-- Final contribution-history repository: NOT CREATED / NOT PROVIDED YET.
-- Current authorization: implement and push staging checkpoints to Transcendence2.
-- No final-repository delivery is authorized or recorded by a staging push.
-
-The owner clarified this distinction after the initial split was written.
-Keep actual source authors, delivery actors, review/adaptation, and destination
-commits separate. A future Joseph-side push does not reattribute Mahdi's source
-commits. Joseph/Claude implements or meaningfully adapts and verifies Joseph's
-assigned work in his own session, preserving actual provenance.
-
-## Confirmed accounts and access
-
-Mahdi: MahdiHajjHassan. Joseph: josephboustany, confirmed by the owner from his
-profile screenshot on 2026-10-27. Each person uses their own verified Git author
-email in their own session; no email or credential is inferred/shared here.
-
-A read-only GitHub check on 2026-10-27 returned permission none for Joseph on
-this private staging repository. The owner must grant him access before his first
-clone/push if that is still the case. No invitation/access mutation was performed.
-Recheck the live permission when starting Joseph's session. This does not block
-Mahdi's staging work and says nothing about the as-yet-uncreated final repo.
-
-## Status meanings
-
-- PLANNED: no completed implementation bundle.
-- IMPLEMENTING: changes exist locally; required checks are not all complete.
-- STAGED: exact source commits are pushed here with verification evidence.
-- READY: owner has reviewed the immutable bundle and the final destination/base
-  and its dependencies are known; it is safe to perform the recorded delivery.
-- DELIVERED: actual destination commit/PR and acting account have been recorded.
-
-Never infer READY or DELIVERED from STAGED. An agent must not mark personal
-understanding, account identity, or a human review complete automatically.
+Application source tip: efc86be989eec0edbc1f7c02a2df7da8d65ea870.
+Branch: staging/complete-taskboard, integrated into staging main only after checks.
+The first three backend bundles were already staged; the rest are implemented,
+with the final integrated browser/rehearsal gate in progress. Read
+[verification evidence](../evaluation/evidence.md), [review resolutions](../evaluation/review.md),
+and the [machine manifest](STAGING-MANIFEST.json) for exact immutable sources.
 
 ## Queue
 
-| Batch | Owner/session | Status | Staging source commits | Depends on | Final commit/PR |
-| --- | --- | --- | --- | --- | --- |
-| M01 | Mahdi / Codex | STAGED | 651f259, c54d2d9 | Setup | — |
-| J01 | Joseph / Claude | PLANNED | — | M01 | — |
-| M02 | Mahdi / Codex | STAGED | bb803d4 | M01 | — |
-| J02 | Joseph / Claude | PLANNED | — | J01, M02 | — |
-| M03 | Mahdi / Codex | STAGED | f183029 | M02 | — |
-| J03 | Joseph / Claude | PLANNED | — | J02, M03 | — |
-| M04 | Mahdi / Codex | PLANNED | — | J03 | — |
-| M05 | Mahdi / Codex | PLANNED | — | M04 | — |
-| M06 | Mahdi / Codex | PLANNED | — | M05 | — |
-| J04 | Joseph / Claude | PLANNED | — | M06 | — |
-| J05 | Joseph / Claude | PLANNED | — | J04 | — |
-| M07 | Mahdi / Codex | PLANNED | — | J05 | — |
-| M08 | Mahdi / Codex | PLANNED | — | M07 | — |
-| J06 | Joseph / Claude | PLANNED | — | M08 | — |
-| J07 | Joseph / Claude | PLANNED | — | J06 | — |
-| M09 | Mahdi / Codex | PLANNED | — | J07 | — |
-| J08 | Joseph / Claude | PLANNED | — | M09 | — |
+| Batch | Requested delivery track | State | Application source commits |
+| --- | --- | --- | --- |
+| [M00](batches/M00.md) | Mahdi | STAGED | bd7ba87, 4e5c9fc, 0959e97, 2a6a96b |
+| [M01](batches/M01.md) | Mahdi | STAGED | 651f259, c54d2d9 |
+| [J01](batches/J01.md) | Joseph | IMPLEMENTING | 9b19355, 6cad511, 8cecd5b |
+| [M02](batches/M02.md) | Mahdi | STAGED | bb803d4 |
+| [J02](batches/J02.md) | Joseph | IMPLEMENTING | bbae134, efc86be |
+| [M03](batches/M03.md) | Mahdi | STAGED | f183029, efc86be |
+| [J03](batches/J03.md) | Joseph | IMPLEMENTING | 6688b58, d33bb0c, 8cecd5b, efc86be |
+| [M04](batches/M04.md) | Mahdi | IMPLEMENTING | 27c5b43, 048db79, efc86be |
+| [M05](batches/M05.md) | Mahdi | IMPLEMENTING | 791a858, 3e807f7, efc86be |
+| [M06](batches/M06.md) | Mahdi | IMPLEMENTING | 3967cec, 3a035a2, efc86be |
+| [J04](batches/J04.md) | Joseph | IMPLEMENTING | 9b19355 |
+| [J05](batches/J05.md) | Joseph | IMPLEMENTING | 60fb320, 4f553df, efc86be |
+| [M07](batches/M07.md) | Mahdi | IMPLEMENTING | 4f553df, efc86be |
+| [M08](batches/M08.md) | Mahdi | IMPLEMENTING | 3bdd1d3, a483127, efc86be |
+| [J06](batches/J06.md) | Joseph | IMPLEMENTING | 3bdd1d3, a483127 |
+| [J07](batches/J07.md) | Joseph | IMPLEMENTING | 8cecd5b, efc86be |
+| [M09](batches/M09.md) | Mahdi | IMPLEMENTING | 4f553df, efc86be |
+| [J08](batches/J08.md) | Joseph | IMPLEMENTING | 4f553df, efc86be |
 
-## Required record for each staged bundle
+## Safe reuse and delivery
 
-Create docs/delivery/batches/BATCH.md containing: owner, actual source author,
-source branch, exact ordered immutable commit SHAs, parent/base SHA, file changes,
-dependency bundles, request/data contracts, commands and observed outcomes,
-known limitations, and the owner-side review/adaptation state. After real final
-delivery, append the verified destination repository, commit/PR, and acting user.
+1. Fetch the tested staging source. Read the exact per-batch manifest and machine
+   globalSourceOrder; full commit/file lists include schema, shared types, tests
+   and service composition. Some commits serve several labels and apply once.
+2. Use the whole dependency prefix, not arbitrary file copying. Actual code order
+   supersedes the old owner chronology: complete backend services precede the
+   shared UI and feature interfaces. Clone and verify; do not recreate features.
+3. Source authors are preserved. A person's actual later review/adaptation and
+   authenticated delivery are separate records; no author overrides, empty
+   contribution commits, changed dates or invented verified signatures.
+4. No final operation occurs until the owner explicitly authorizes it and the
+   exact destination/base/dependencies and acting account are checked. The older
+   Transcendence repository is not automatically a destination.
+5. Record actual destination SHA/PR and account after a real authorized delivery.
+   Staging pushes never imply final delivery or personal understanding.
 
-Use commit-sized bundles rather than copying arbitrary files: schema migrations,
-types, tests, and dependent implementation must stay together. Do not include
-secrets, local data, build output, or unrelated owner packages.
+## State meanings
 
-## Later one-command handoff
+- IMPLEMENTING: code exists; the full required verification/publication gate is
+  not recorded complete yet.
+- STAGED: exact source is pushed to Transcendence2 with observed verification.
+- READY: final destination/base/dependencies and actual owner review are known,
+  and final delivery has been explicitly authorized.
+- DELIVERED: actual authorized destination commit/PR/account is recorded.
 
-Mahdi says: "Deliver my next READY batch. Read docs/delivery/PUSH-MAP.md."
+Nothing is READY or DELIVERED to the final history repository now. All final
+commit/PR fields are empty. Later say “prepare my next authorized delivery from
+the manifest”; the receiving agent verifies the concrete bundle before writing.
 
-Joseph says to Claude: "Deliver my next READY Joseph batch. Read CLAUDE.md,
-docs/team/JOSEPH-CLAUDE-HANDOFF.md, and docs/delivery/PUSH-MAP.md."
+## Team entry points
 
-The receiving agent verifies its actor, reads the exact bundle, checks that all
-destination dependencies exist, runs the recorded checks, preserves real source
-authorship, and records the result. If the final repo is unset, nothing is READY,
-or its baseline conflicts, report that fact instead of guessing or overwriting.
+Mahdi: MahdiHajjHassan /42 mahajj-h. Joseph's supplied GitHub profile shows
+josephboustany /42 jboustan. Reverify his actual connected account and repository
+permission before a Joseph-side push; an earlier read-only staging check returned
+permission none. No invitation/access mutation was sent.
 
-The first final-repository setup must establish its clean base and delivery
-method. A compatible cherry-pick with provenance can preserve source authors;
-an independent implementation/adaptation is committed by its actual author.
-Never rewrite dates/authors or add empty contribution commits to alter appearances.
-
-## Owner scopes
-
-The full per-batch file scopes, suggested commit slices, and handoffs are in
-docs/superpowers/plans/2026-10-26-team-contributions.md. That split is unchanged.
-Staging may be pushed whenever useful; final-history delivery is a separate step.
+Read [Claude handoff](../team/JOSEPH-CLAUDE-HANDOFF.md), current AGENTS.md and
+[decisions/limits](../evaluation/decisions.md). Human walkthrough/counterpart review
+and Joseph's actual contributions remain explicit, independent fields.

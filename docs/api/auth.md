@@ -1,7 +1,7 @@
 # Authentication and Account Contract — M02
 
-These backend routes are implemented by Mahdi/Codex. Joseph/J02 builds the forms
-against this contract. Use relative HTTPS URLs and normal same-origin fetch
+These routes and the J02 frontend forms are implemented in staging by Mahdi/Codex
+for reuse by Claude. Use relative HTTPS URLs and normal same-origin fetch
 credentials. Browser JavaScript never reads or stores the session token.
 
 | Method and path | Request JSON | Success |
@@ -65,5 +65,7 @@ It uses the private local admin credentials and performs one real login/logout;
 normal login quotas still apply. Use isolated fixture accounts for repeated
 negative/rate-limit browser tests, not the ordinary demonstration database.
 
-The guarded Playwright harness and real login/account UI belong to Joseph J01/J02.
-No browser or human demonstration is claimed by this backend contract.
+The guarded Playwright harness and real login/account UI are implemented.
+Browser401/403 responses outside auth forms discard stale private documents and
+router state by navigating to login/the public board. See current evaluation
+evidence for executed browser checks; no human demonstration is inferred here.

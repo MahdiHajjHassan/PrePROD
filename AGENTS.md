@@ -20,17 +20,16 @@ final-destination statements below and in the contribution schedule.
 ## Current state
 
 This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
-`ft_transcendence` project. M01 supplies a minimal Next.js scaffold, typed contracts,
-Prisma/SQLite schema and migrations, private bootstrap, safe initial accounts,
-database readiness, real-db server tests, and Caddy HTTPS/container deployment.
-M02 adds secure registration/login/sessions, account backend routes, origin/JSON
-protection, and persistent auth limits. M03 adds task creation/update/deletion,
-current-role ownership checks, revision conflicts, and basic public reads. The
-board is only a buildable heading; Joseph's UI/design system and full task
-query/search backend remain in their assigned batches.
+`ft_transcendence` project. The planned Taskboard implementation now includes
+the database/HTTPS foundation, auth/account/security, complete task query/write
+services, SSR board, admin, secured API, JSON/CSV transfers, design system/themes,
+en/fr/ar/RTL, notifications/activity and actual-browser/rehearsal automation.
+Read docs/evaluation/evidence.md for the exact observed verification state and
+docs/delivery/STAGING-MANIFEST.json for immutable source bundles. Implementation
+does not imply official module scores or completed human contribution/review.
 
-The application concept, module selection, team roster, and responsibilities
-are described as proposals or open facts in the planning documents below.
+The application concept, module selection and two-person roster are approved;
+the latest owner instruction above controls execution and final-push permission.
 Do not carry over those decisions or application code from the separate
 `Transcendence` repository unless asked.
 
@@ -58,9 +57,10 @@ the older `Transcendence` repository or guess another final destination. Track
 exact owner bundles, source commits, files, checks, and delivery state in
 `docs/delivery/PUSH-MAP.md` and `docs/delivery/batches/`.
 
-The owner confirmed a two-person team: Mahdi and Joseph. Codex assists Mahdi;
-Claude assists Joseph. Follow the contribution plan's assigned batches rather
-than letting either agent implement the entire technical plan.
+The owner confirmed Mahdi (42 mahajj-h) and Joseph (42 jboustan). Codex assists
+Mahdi; Claude assists Joseph. The original contribution plan now describes
+requested delivery tracks; the owner explicitly authorized complete Codex staging
+implementation. Reuse that source and preserve actual authorship.
 
 - Mahdi owns foundation/database/HTTPS, identity/security, task writes,
   administration, secured API, transfers, event writes, and notifications.
@@ -197,7 +197,10 @@ Setup creates private random credentials and refuses to overwrite an existing
 `.env`. Database bootstrap preserves existing accounts. The runtime is non-root,
 only the proxy publishes HTTPS, and the database uses a persistent volume.
 See README.md for local CA trust and the managed-cloud build-only CA override.
-Use `npm run smoke:auth` and `npm run smoke:tasks` for the implemented HTTPS
+Use `npm run verify` for types/lint/server tests/build/artifact audit and all
+three actual-browser suites. `npm run rehearse` verifies a fresh committed clone.
+Read README.md for isolated test project/port/browsers. Use `npm run smoke:api`,
+`npm run smoke:auth` and `npm run smoke:tasks` for the implemented HTTPS
 backend flows. Read `docs/api/auth.md` and `docs/api/tasks.md` for Joseph's frontend
 and query handoff contracts. Recreation reloads the mounted
 proxy configuration while retaining named database and certificate volumes.
@@ -205,9 +208,10 @@ For a named Compose project, pass `COMPOSE_PROJECT_NAME` consistently to the TLS
 verifier as well. Do not print generated credentials or use insecure TLS flags.
 
 Tests use real disposable SQLite files. `npm test` and `typecheck` generate the
-Prisma client; typecheck also generates Next route types. Playwright is installed
-but its actual browser fixture/configuration and UI cases belong to Joseph's J01
-and J05 work. Do not claim browser tests or module points have passed yet.
+Prisma client; typecheck also generates Next route types. Playwright has actual
+Chrome/Firefox/Edge projects and complete UI flows with a guarded, isolated
+Compose database reset. Use observed evidence; never infer manual trusted-browser
+interaction, team understanding or official module points from automated tests.
 
 Useful inspection commands, when Poppler utilities are available:
 

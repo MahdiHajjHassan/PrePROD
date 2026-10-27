@@ -1,18 +1,18 @@
-# Internal task backend — M03 contract
+# Internal task backend — current contract
 
 Implemented on Mahdi's side. These are same-origin browser endpoints, separate
 from the later key-authenticated public API. All connections use HTTPS.
 
 | Method and path | Input | Success |
 | --- | --- | --- |
-| GET /api/tasks | No query parameters yet | 200, first 25 newest tasks and total |
+| GET /api/tasks | Validated combined query/filter/sort/page parameters | 200, 25-row page and full filtered total |
 | GET /api/tasks/{id} | UUID task ID | 200, TaskDTO |
 | POST /api/tasks | title; optional description, status, priority | 201, TaskDTO |
 | PUT /api/tasks/{id} | At least one task field plus current numeric version | 200, updated TaskDTO |
 | DELETE /api/tasks/{id} | Current numeric version | 204, empty body |
 
 Success JSON is `{ "data": ... }`. List data is
-`{ "items": [...], "total": number, "page": 1, "pageSize": 25 }`.
+`{ "items": [...], "total": number, "page": number, "pageSize": 25 }`.
 TaskDTO is defined in src/shared/tasks.ts: id, title, description, status,
 priority, version, ISO createdAt/updatedAt, and owner `{id, displayName}` only.
 Owner email, role, password hash, and sessions are never projected into tasks.
@@ -29,6 +29,9 @@ keys are rejected; ownerId/role cannot be supplied. Task fields are:
 - status: OPEN or DONE; default OPEN on create.
 - priority: LOW, NORMAL, or HIGH; default NORMAL on create.
 - version: positive integer; starts at 1 and increments once per successful edit.
+
+Title/description must also be well-formed Unicode, including after JSON escape
+decoding; lone surrogates are rejected before any write.
 
 Omitted PUT fields keep stored values. Create assigns the current member as
 owner. Members may edit/delete their own tasks; current administrators may
@@ -47,26 +50,27 @@ fields.database `["busy"]` and Retry-After 1.
 Example update body: `{ "status": "DONE", "version": 1 }`.
 Example delete body: `{ "version": 2 }`.
 
-## Joseph J03 handoff
+## Implemented queries and UI reuse
 
-The read implementation is deliberately a basic first-page scaffold. Search,
-filtering, alternative sorts, and pagination are not implemented or demonstrated.
-GET query parameters are rejected rather than ignored.
+src/server/tasks/query.ts exports parseTaskQuery, queryTasks and readAllTasks.
+TaskService.list delegates to it; internal/external HTTP and SSR share the same
+parser. Parameters are q (trimmed, max100), status, priority, ownerId UUID,
+sort (created_desc/created_asc/updated_desc/title_asc), and page1..100000. Defaults
+are created_desc/page1. Empty optional form values are omitted. Unknown/repeated
+parameters, arrays and invalid values are rejected. Each sort has an id tie-break.
+Filtering precedes counting/pagination; readAllTasks ignores pagination for export.
 
-Implement src/server/tasks/query.ts with queryTasks(db, query), strict query
-parsing and the agreed TaskQuery/PaginatedTasks contract. Delegate TaskService.list
-to it and connect the HTTP query parser and server-rendered board. Keep writes
-unchanged. Reuse taskSelect/toTaskDTO from src/server/tasks/dto.ts for public
-projection. Follow the spec's q/status/priority/ownerId, four sorts, page bounds,
-25-row size, stable tie-breaking, and full-result total. Validate unsupported
-or repeated query parameters explicitly.
+tasks.owners returns only id/displayName for users with existing public tasks.
+taskSelect/toTaskDTO centralize public projection. The 60-row combined query and
+page tests replace the old M03-only basic read scaffold. The SSR board, frontend
+validation, pending/errors/conflict recovery and no-JS public content are built;
+Claude reuses them instead of recreating this originally J03-assigned feature.
 
-Replace the two deliberately limited read-scaffold tests in tasks.test.ts and
-task-http.test.ts with the J03 query contract cases, and add the planned 60-row
-combined-query tests. Those two tests currently document unavailable behavior;
-they are not acceptance tests for the completed search module.
+The external key API constructs TaskService with an immutable memberOnly policy,
+rechecked inside each write transaction. Concurrent promotion of that account
+cannot turn an already-authenticated request into an admin write. Cookie-auth
+administrators retain their intended current-role permissions.
 
-J01/J02/J03 also own the UI, frontend validation, pending/error/conflict states,
-SSR and browser cases. No browser result or module point is claimed by M03.
-Run npm run smoke:tasks after normal container startup and TLS CA setup for a
-real HTTPS lifecycle; it deletes its temporary task and revokes its session.
+Run npm run smoke:tasks after normal startup and TLS CA setup for a real HTTPS
+lifecycle; it deletes its temporary task and revokes its session. Read current
+evaluation evidence for executed checks and known diagnostic-script limitations.

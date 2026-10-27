@@ -59,3 +59,17 @@ cleans up and logs out. These are recorded in their immutable batch manifests.
 The final independent review and any accepted/fixed findings are appended to
 the evidence record. Human counterpart review, personal understanding and final
 history delivery are separate fields, never automatically marked complete.
+
+## Final review fixes
+
+All four Important findings were accepted and fixed in efc86be: immutable API
+member capability inside write transactions, stale private-document invalidation
+on401/403, well-formed Unicode validation, and clone-local rehearsal environment
+isolation. Focused regressions were observed RED then GREEN; full103 server
+cases/types/lint pass. Rebuilt browser/rehearsal results are in evidence.md. No
+independent re-review is claimed. No source finding was declined.
+
+Impeccable detector ran once and reported one overused-font advisory for Arial.
+System typography is intentional under the minimal/no-remote-font Operate brief;
+actual RTL/mobile/theme captures were inspected and no layout issue was found.
+No suppression was added. The tradeoff is less brand distinction, not readability.

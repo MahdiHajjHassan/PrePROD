@@ -1,5 +1,11 @@
 # Minimal Taskboard Implementation Plan
 
+Latest owner override (2026-10-27): complete ALL packages now in Transcendence2
+staging with Codex, including original Joseph packages, for Claude to reuse.
+No final-history push is authorized. Original owner-stop text below is historical;
+current source, dependencies, verification and human gates are tracked in
+docs/delivery/PUSH-MAP.md and STAGING-MANIFEST.json.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans for the assigned batch. Read docs/superpowers/plans/2026-10-26-team-contributions.md first: Codex/Mahdi and Claude/Joseph implement separate packages. Do not execute the entire plan on one side or preimplement the other person's features. Steps use checkbox syntax for tracking.
 
 **Goal:** Deliver one understandable task board with all mandatory requirements, 14 core module points, and a 2-point buffer, then stop.

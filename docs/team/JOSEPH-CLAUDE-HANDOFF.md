@@ -1,168 +1,68 @@
-# Joseph / Claude — Start Here
+# Joseph / Claude — reuse the completed staging implementation
 
-## Paste this into Joseph's Claude session
+## Paste into Claude
 
-~~~text
-You are helping Joseph implement his assigned contributions to
-MahdiHajjHassan/Transcendence2. Use Joseph's own GitHub connection and normal
-verified Git author identity. Codex is working with Mahdi on the other packages.
+```text
+Help Joseph review and reuse the existing Taskboard implementation in
+MahdiHajjHassan/Transcendence2. Do not rebuild the planned features. The owner
+explicitly requested every package completed with Codex in staging so Claude
+can take the tested source. Preserve actual source authors and atomic commits.
 
-First read CLAUDE.md, AGENTS.md, PRODUCT.md,
-docs/delivery/PUSH-MAP.md,
-docs/superpowers/specs/2026-10-26-taskboard-design.md,
-docs/superpowers/plans/2026-10-26-taskboard.md, and
-docs/superpowers/plans/2026-10-26-team-contributions.md.
+Read AGENTS.md, PRODUCT.md, README.md, docs/delivery/PUSH-MAP.md,
+docs/delivery/STAGING-MANIFEST.json, the selected docs/delivery/batches record,
+and docs/evaluation/{evidence,browser-matrix,review,decisions}.md. Fetch current
+staging main and inspect the exact source/history before choosing a bundle.
 
-Use the approved Superpowers skills and Impeccable. Ask the owner before adding
-any other project skill. Check that Superpowers is actually available in this
-Claude environment; it is not installed here merely because Codex has it.
-The pinned Impeccable instructions and references are in
-.agents/skills/impeccable/. Read SKILL.md and follow its relevant task playbook.
+Use Superpowers and vendored Impeccable. Verify Superpowers is available in
+this Claude environment; do not assume Codex runtime paths exist. No other
+skill is approved. Use a separate clone, private .env, port and test project.
 
-Inspect origin/main and the existing open branches/PRs. Determine the first
-uncompleted unlocked Joseph batch from the contribution schedule. Initially
-that is J01 after M01 is merged. If M01 is not merged, review the documents and
-setup requirements and report that dependency; do not recreate Mahdi's foundation.
+NO PUSH TO THE FINAL HISTORY REPOSITORY IS AUTHORIZED YET, including M01–M03.
+Do not guess a remote from the owner's label Final Trans Repo. For now review,
+run and explain the staged source; record only Joseph's actual work. Later,
+when delivery is explicitly authorized, verify exact destination/base and acting
+GitHub account, follow commit dependencies, preserve original authors, apply
+shared commits once and record real destination commits/PRs. No relabeling.
+```
 
-For the assigned Joseph batch, write its meaningful tests, implement the actual
-feature, verify it, commit coherent passing slices, and push them from Joseph's
-authenticated session to the listed joseph/jXX branch. Open/update the batch PR
-and hand back exact commits, test outcomes, and the next owner/dependency.
+## What is already available
 
-Do not implement Mahdi's future packages, fake Joseph authorship on his existing
-commits, mark human reviews/understanding complete yourself, or build the whole
-project in one Claude run. Help Joseph run and explain the real features he owns.
-The handoff file's remaining instructions define file boundaries and Git steps.
-~~~
+The staging source implements the foundation, authentication, task writes,
+query/search/pagination/SSR board, design system/themes, all three languages/RTL,
+admin, secured API, JSON/CSV transfers, notifications/activity and verification/
+rehearsal automation. The delivery map and evidence distinguish implemented,
+verified and staged states. No original feature package needs redevelopment.
 
-## Before the first commit or push
+Original J01–J08 labels identify Joseph's requested handoff tracks. Current source
+was implemented on Mahdi/Codex's side under the owner's revised instruction;
+the label does not turn it into a Joseph-authored contribution. Joseph's review,
+adaptation, understanding and pushes are recorded when they actually occur.
 
-Staging checkpoint on 2026-10-27: M01 foundation, M02 auth backend, and M03 task
-writes are staged on main. Start with J01, then J02, then J03; inspect the live
-map/history to confirm. Read docs/api/auth.md, docs/api/tasks.md, and each M01–M03
-bundle for exact source commits, verified behavior and known limitations. M03
-does not implement your query/search backend or board/SSR. Your first browser
-work includes the guarded isolated Playwright harness described below.
+## First session
 
-- Confirm the repository is MahdiHajjHassan/Transcendence2, not the older project.
-- Joseph's owner-confirmed GitHub username is josephboustany. Use that exact
-  account, not the old 42 login jboustan. His author email is selected in his
-  own environment. The 2026-10-27 staging access check returned none; recheck and
-  have the owner grant access before his first clone/push if still missing.
-- Inspect the authenticated account through the connected GitHub tool, or
-  gh api user --jq .login. Verify write access to this private repository.
-- Inspect local git user.name/user.email. Joseph sets his own verified email or
-  GitHub-provided noreply address in his own environment. Never use Mahdi's identity.
-- If authentication is Mahdi's, stop the commit/push path and have Joseph connect
-  his account through the supported environment setup. Do not reuse Mahdi's token.
-- Use a separate clone/worktree. Do not share an index, ignored .env, database,
-  port, certificate volume, or test Compose project with a simultaneously running
-  Mahdi checkout. Coordinate the temporary local test project name/port if sharing
-  a Docker host; keep the normal application commands unchanged.
-- Verify approved Superpowers skills are enabled for Claude. Use the shipped
-  Impeccable instructions, or the equivalent official Claude-compatible provider
-  from the same pinned source if the runtime needs it. Installing/enabling these
-  already approved two collections is allowed; extra collections require approval.
-  Do not copy Codex-only runtime plugin paths as Claude setup instructions.
+1. Verify the repository and current main/source revision. Inspect the machine
+   manifest and exact per-batch source commits/files. Never copy a whole tree over
+   another person's work or cherry-pick without the dependency prefix.
+2. Check Joseph's actual GitHub connection and normal author identity. The shown
+   profile is josephboustany; confirmed 42 login is jboustan. Reverify live account
+   and write access before any future Joseph push. A previous private staging
+   permission check returned none; the owner may need to grant access.
+3. Use your own clone/environment. Run npm ci and private setup, then normal
+   container startup and local CA trust. Keep the normal data volume intact.
+4. Run focused checks for the selected bundle and the full verification when
+   integrating. For shared Docker hosts use taskboard-e2e-joseph/9443 with a
+   separate .env.e2e. Actual Chrome/Firefox/Edge are required.
+5. Walk through the feature with Joseph: entry page/handler/service/database,
+   successful action, invalid/unauthorized case, meaningful test, tradeoff and
+   how it connects to the rest. Record what he actually ran/explained.
+6. Record any meaningful real adaptation with tests and normal authorship.
+   Preserve source commits when reusing them. An unchanged source push does not
+   change its author; human review is not marked complete automatically.
 
-## Your implementation packages
+## Final-history delivery stays blocked
 
-| Batch | Main responsibility | Wait for |
-| --- | --- | --- |
-| J01 | Reusable design system, application shell, light/dark themes | M01 |
-| J02 | Auth/account forms and relevant legal pages | J01 + M02 |
-| J03 | Task query backend, search/filter/sort/pagination, task-board UI, SSR | J02 + M03 |
-| J04 | Complete en/fr/ar translations and true Arabic RTL | M06 |
-| J05 | Actual Chrome/Firefox/Edge and multi-user browser tests | J04 |
-| J06 | Personal activity aggregation backend, dashboard, accessible chart/table | M08 |
-| J07 | Finished-product UI, themes/locales/RTL/browser verification | J06 |
-| J08 | Independent fresh-clone setup and evaluation rehearsal | M09 |
-
-Follow the schedule's branches, concrete deliverables, and intended commit
-checkpoints. Your code responsibilities are substantial: J03 and J06 include
-backend behavior as well as UI. Do not reduce them to a cosmetic adoption pass
-over code Mahdi has already written.
-
-## Boundaries you must preserve
-
-- Mahdi owns infrastructure, schema/migrations, auth/security, task mutation rules,
-  admin, public API, transfers, event writes, and notifications.
-- You own UI foundations, src/server/tasks/query.ts, task-board pages, SSR,
-  localization/RTL, browser configuration/checks, and activity aggregation/UI.
-- In J03, coordinate the narrow change delegating TaskService.list to your
-  queryTasks(db,query). Do not replace the task write/permission service.
-- In J06, consume the merged event writer/schema. Do not build another event
-  store or redo notification delivery to complete the dashboard.
-- Reuse the shared DTOs, error codes, validation limits, and service interfaces.
-  Propose any necessary change explicitly with the exact old/new contract.
-- Do not mass-reformat unrelated files or regenerate the lockfile without a
-  dependency change. Add feature message keys in the established dictionaries.
-- Keep the product at the planned 14+2 modules. Themes have no separate point.
-  Do not add games, chat, organizations, external services, or another skill.
-
-## Each finished slice
-
-1. Read the exact technical task and its acceptance checks. Make sure all required
-   upstream batches are merged, then branch from the current main.
-2. Work through the relevant Superpowers test/implementation/verification cycle.
-   Use Impeccable's context and applicable references for UI work.
-3. Run the meaningful checks and inspect the rendered result. Report actual
-   failures; do not mark scripts passing merely because they were added.
-4. Review/stage only your intended files. Commit a coherent passing change using
-   Joseph's actual configured identity. Push that commit from Joseph's session.
-5. Continue on the same branch for a second real slice if needed. Push each
-   finished checkpoint; keep unfinished/red test states local.
-6. Open/update a PR with batch ID, feature behavior, exact verification outcomes,
-   screenshots where useful, and any changed shared-file contract.
-7. Update docs/team/contributions/joseph.md with your real commits/PR and results.
-   Leave personal understanding/demo fields pending until Joseph actually does them.
-8. Request Mahdi's review through the agreed collaboration channel. Do not send
-   unsolicited email/chat messages or claim his review happened.
-9. Preserve your commits when integrating. After merge, stop and report the next
-   unlocked owner/batch instead of continuing into Mahdi's packages.
-
-Read actual package scripts on each checkout and report missing setup rather
-than claiming tests ran. M01 provides server/db checks and deployment; J01 owns
-the first guarded, isolated Playwright harness and actual UI tests, and J05
-extends that harness to the complete browser matrix.
-
-## When Joseph asks to push his parts to the final repository
-
-Transcendence2 is staging. The final contribution-history repository has not been
-created/provided. Read docs/delivery/PUSH-MAP.md and the exact READY Joseph bundle;
-verify the destination and actor before any final push. Preserve actual source
-authorship and record meaningful Joseph-side implementation/adaptation separately.
-A staging push does not mark a batch DELIVERED. Do not copy a whole staging tree
-over another person's final work or guess that the older Transcendence repo is
-the destination.
-
-## Explain the feature with Joseph
-
-For each meaningful batch, help Joseph do a short practical walkthrough:
-- Find the entry route/component/service and describe its request/data flow.
-- Run the feature and its focused tests.
-- Demonstrate one invalid or unauthorized case.
-- Explain the important design decision and one tradeoff.
-- Explain how his feature calls Mahdi's code and vice versa.
-
-Joseph records what he actually ran/explained in his own contribution file.
-AI assistance is documented honestly. No artificial commit quota or empty commit
-is required.
-
-## End-of-batch handoff format
-
-~~~text
-Batch:
-Branch and tested commit:
-PR:
-Implemented behavior:
-Shared files/contracts changed:
-Checks executed and observed results:
-Rendered/manual checks actually performed:
-Joseph's own walkthrough status:
-Known issues:
-Next owner/batch and what is now unlocked:
-~~~
-
-Initially, no Joseph feature contribution is marked complete. Fetch current main
-and read the real history/PRs rather than relying on a stale status statement.
+The owner explicitly cancelled immediate delivery of the first three packages.
+Do not push anything to that repository until a new explicit authorization.
+The exact destination, clean base, acting account and selected dependency prefix
+must be known before READY can become DELIVERED. Staging is already reusable;
+delivery does not require recreating the application.

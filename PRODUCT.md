@@ -44,8 +44,9 @@ accounts and clearly labeled sample tasks.
 
 The implementation uses Next.js App Router, React, TypeScript, Tailwind CSS,
 Prisma, SQLite, and Caddy for local HTTPS. Exact dependencies and image digests
-are pinned in the source. M01 implements the application/database/deployment
-foundation; the functional feature and UI modules remain in their assigned batches.
+are pinned in the source. The full planned feature/UI scope is implemented in
+staging; actual verification and human gates are recorded in delivery/evaluation
+documents rather than inferred from the implementation plan.
 
 ## Operating Context
 
@@ -67,10 +68,11 @@ The owner has confirmed the two members, Mahdi and Joseph. The proposed technica
 responsibilities and push order are in
 docs/superpowers/plans/2026-10-26-team-contributions.md.
 
-The owner confirmed Joseph Boustany's GitHub username as josephboustany from his
-profile screenshot. His author email is selected in his own environment. Actual
-42 logins and any campus-specific clarifications still require confirmation. Do
-not treat planned responsibilities as completed contributions.
+The supplied Joseph profile shows josephboustany; verify his actual connected
+account and author email in his own session. The owner confirmed 42 logins
+mahajj-h and jboustan. Campus-specific clarifications and actual human review/
+understanding remain personal records. Planned delivery tracks are not source
+authorship or completed personal contributions.
 
 The complete proposed behavior, module allocation, and acceptance criteria are
 in docs/superpowers/specs/2026-10-26-taskboard-design.md.
