@@ -19,7 +19,8 @@
     "db:migrate": "node -- scripts/migrate.mjs",
     "db:seed": "tsx scripts/seed.ts",
     "setup": "node -- scripts/setup.mjs",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:auth": "node -- scripts/smoke-auth.mjs"
   },
   "dependencies": {
     "@node-rs/argon2": "2.2.2",

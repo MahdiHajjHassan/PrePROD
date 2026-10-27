@@ -6,8 +6,10 @@ development checkpoint, not the completed evaluation README.
 
 Implemented in M01: the application scaffold, shared contracts, SQLite/Prisma
 migrations, private credential setup, safe first-run seeding, health endpoint,
-and local HTTPS/container configuration. The actual task-board interface and
-feature modules are still pending their assigned batches.
+and local HTTPS/container configuration. M02 adds the registration/login/session
+and account backend, origin/body protection, and persistent authentication limits.
+The actual task-board interface and other feature modules are still pending their
+assigned batches; Joseph owns the auth/account forms.
 
 ## Local prerequisites
 
@@ -38,7 +40,7 @@ database bootstrap if needed. Restarting never resets existing account credentia
 After the initial environment setup:
 
 ```sh
-docker compose up --build -d
+docker compose up --build -d --force-recreate
 ./scripts/verify-tls.sh
 ```
 
@@ -57,12 +59,16 @@ In a managed cloud whose builds require the session proxy CA, keep TLS verificat
 enabled and use the provided build-only override:
 
 ```sh
-COMPOSE_FILE=compose.yaml:compose.cloud.yaml docker compose up --build -d
+COMPOSE_FILE=compose.yaml:compose.cloud.yaml docker compose up --build -d --force-recreate
 ```
 
 CODEX_PROXY_CERT must point to the environment-provided public proxy certificate.
 It is mounted only during networked build steps and is not copied into image layers.
 Normal local builds use compose.yaml alone.
+
+Recreation reloads mounted proxy configuration and retains named data/certificate
+volumes. After M02, npm run smoke:auth verifies the real HTTPS authentication flow;
+see docs/api/auth.md for the exact interface Joseph's forms consume.
 
 Stopping containers preserves data. Do not use docker compose down -v on data you
 want to keep. Automated browser verification will use a separate test project.

@@ -1,10 +1,11 @@
-# Minimal Taskboard Design — Proposed for Review
+# Minimal Taskboard Design
 
 ## Goal and decision
 
 Deliver a small, understandable ft_transcendence web application with a
-demonstrable 14-point core and 2 additional module points. This document and its
-implementation plan are proposals for review; no application has been built.
+demonstrable 14-point core and 2 additional module points. The owner authorized
+implementation of this baseline. Follow docs/delivery/PUSH-MAP.md for actual
+progress; this specification does not claim every feature is already implemented.
 Working product name: Taskboard.
 
 The chosen planning baseline is one shared public task list. This uses ordinary
@@ -86,7 +87,9 @@ The app's backend is reachable only through the proxy from outside the container
 network. Use parameterized queries and one shared service layer for all writes.
 
 Two containers: app and proxy. No hosted deployment or external account is needed.
-The deployment command is docker compose up --build -d after one-time setup.
+The deployment command is docker compose up --build -d --force-recreate after
+one-time setup; recreation reloads mounted proxy configuration while retaining
+the named data and certificate volumes.
 A setup script creates the ignored .env with generated local credentials and API
 key; .env.example contains only placeholders. Document the separate one-time
 installation of Caddy's local CA in each evaluation browser. Never present an

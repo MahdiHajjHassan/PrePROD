@@ -6,8 +6,9 @@ This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
 `ft_transcendence` project. M01 supplies a minimal Next.js scaffold, typed contracts,
 Prisma/SQLite schema and migrations, private bootstrap, safe initial accounts,
 database readiness, real-db server tests, and Caddy HTTPS/container deployment.
-The board page is only a buildable heading. Authentication, actual task features,
-Joseph's UI/design system, and the selected modules remain in their assigned batches.
+M02 adds secure registration/login/sessions, account backend routes, origin/JSON
+protection, and persistent auth limits. The board is only a buildable heading;
+actual task features and Joseph's UI/design system remain in their assigned batches.
 
 The application concept, module selection, team roster, and responsibilities
 are described as proposals or open facts in the planning documents below.
@@ -169,7 +170,7 @@ npm test
 npm run typecheck
 npm run lint
 npm run build
-docker compose up --build -d
+docker compose up --build -d --force-recreate
 ./scripts/verify-tls.sh
 ```
 
@@ -177,6 +178,9 @@ Setup creates private random credentials and refuses to overwrite an existing
 `.env`. Database bootstrap preserves existing accounts. The runtime is non-root,
 only the proxy publishes HTTPS, and the database uses a persistent volume.
 See README.md for local CA trust and the managed-cloud build-only CA override.
+Use `npm run smoke:auth` for the implemented HTTPS auth flow and read
+`docs/api/auth.md` for Joseph's frontend contract. Recreation reloads the mounted
+proxy configuration while retaining named database and certificate volumes.
 For a named Compose project, pass `COMPOSE_PROJECT_NAME` consistently to the TLS
 verifier as well. Do not print generated credentials or use insecure TLS flags.
 

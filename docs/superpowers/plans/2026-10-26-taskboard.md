@@ -51,7 +51,7 @@ not reassigned. No application implementation starts from this schedule update.
 - Page size: 25. page 1–100,000. q <=100 characters. Four explicit sort values.
 - Imports: UTF-8 JSON/CSV only, <=256 KiB, <=200 rows, all-or-nothing transaction.
 - External API: five task endpoints, X-API-Key, 60 requests/minute/key.
-- Deploy: docker compose up --build -d after one-time environment/CA setup.
+- Deploy: docker compose up --build -d --force-recreate after one-time environment/CA setup; retain data/certificate volumes.
 - All browser, script, and external API connections use HTTPS. No app host port.
 - Preserve reference PDFs and vendored Impeccable. No additional skills without approval.
 - The commands below are planned interfaces, not commands already present or verified.
