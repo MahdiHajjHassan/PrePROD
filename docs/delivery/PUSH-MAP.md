@@ -1,5 +1,20 @@
 # Final-Repository Delivery Map
 
+## Latest instruction — 2026-10-27
+
+Finish ALL packages in Transcendence2 staging now, including the previously
+Joseph-assigned packages. Do not wait for Claude and do not reimplement them
+later. Preserve exact reusable source commits, dependencies, checks and files.
+All new staging implementation is Mahdi/Codex-authored unless actual evidence
+says otherwise. Original batch owner labels identify the requested handoff split;
+they do not reattribute source work. Joseph's actual later review/adaptation/
+delivery remains separate and unclaimed.
+
+The owner calls the final history destination "Final Trans Repo"; its exact
+remote remains unverified here. **NO FINAL-REPOSITORY PUSH IS AUTHORIZED**, including
+the already completed M01–M03. Only staging pushes may proceed. These instructions
+supersede older owner-stop and destination wording below.
+
 ## Repositories
 
 - Staging/development: https://github.com/MahdiHajjHassan/Transcendence2.

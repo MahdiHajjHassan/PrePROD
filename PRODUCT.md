@@ -24,8 +24,10 @@ when that scope is complete and demonstrated.
 - Favor small, explainable implementations and a modest points buffer.
 - Theme switching has no standalone points allocation in the supplied subject.
 - The team is Mahdi and Joseph. Codex assists Mahdi; Claude assists Joseph.
-  Each side implements and pushes its assigned substantive packages using its
-  own identity, following the contribution schedule.
+  The owner's latest instruction is to finish every package now in Transcendence2
+  staging with Codex. Original owner labels organize later handoff bundles;
+  actual source authorship is preserved. Claude can reuse the completed code.
+  Nothing is pushed to the separate final history repository yet.
 
 ## Implementation Baseline
 

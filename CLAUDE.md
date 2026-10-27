@@ -1,5 +1,12 @@
 # Claude project instructions
 
+Latest owner instruction (2026-10-27): Codex is completing every package in
+Transcendence2 staging, including originally Joseph-assigned features. Reuse the
+verified staging bundles instead of reimplementing them. Preserve their actual
+source authors. Joseph's own review/adaptation/delivery must be recorded honestly.
+No final-history repository push is authorized yet. This overrides older
+stop-at-owner boundaries below. Read the current PUSH-MAP before doing anything.
+
 Read AGENTS.md first; it governs this repository.
 
 This repository is staging, not the final contribution-history repository.

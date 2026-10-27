@@ -1,5 +1,22 @@
 # Repository guidance
 
+## Latest owner instruction — full staging completion
+
+On 2026-10-27 the owner explicitly replaced the implementation stop-at-owner
+boundary: Codex must finish ALL planned packages in Transcendence2, including
+the originally Joseph-assigned packages, without waiting for Claude. The existing
+technical specification and minimal 14+2 scope still apply. The original batch
+labels now organize reusable delivery bundles, not claims about who authored them.
+Preserve actual Mahdi/Codex staging authorship. Claude may reuse these exact
+tested commits; never relabel them as Joseph's original work. Record Joseph's
+actual later review, adaptation and delivery only when they happen.
+
+The owner refers to a separate final history repository as "Final Trans Repo".
+Its exact remote is not yet verified in these records. **Do not push anything to
+the final history repository, including M01–M03.** Only Transcendence2 staging
+pushes are authorized. This section supersedes older ownership-stop and
+final-destination statements below and in the contribution schedule.
+
 ## Current state
 
 This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
