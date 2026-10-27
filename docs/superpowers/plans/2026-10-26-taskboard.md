@@ -186,32 +186,33 @@ No server service imports a browser component or returns a complete User row.
 **Files:** Root configuration and container files, Prisma schema/migrations,
 src/server/{config,db,errors}.ts, src/shared/{tasks,errors}.ts, health route,
 scripts/{setup.sh,seed.ts,smoke.mjs,verify-tls.sh}, tests/helpers/,
-tests/server/readiness.test.ts, and tooling configs from the file map.
+tests/server/readiness.test.ts, and the backend/build tooling configs. The first
+actual Playwright harness is owned by Joseph J01 and extended in J05.
 
 **Interfaces:** createTestDb(): Promise<{db: PrismaClient; close(): Promise<void>}>;
 seedUser(db, input): Promise<{actor: Actor; email: string; password: string}>;
 readiness(): Promise<{status: "ok"; database: "ok"}>.
 
-- [ ] Confirm the planning baseline and remaining team identity information when
+- [x] Confirm the planning baseline and remaining team identity information when
   available. The setup/plans are already committed; review the latest main and
   preserve that baseline before isolating the assigned implementation with
   superpowers:using-git-worktrees. Do not lose local files or forge contributors.
-- [ ] Verify framework/ORM/Node compatibility, pin exact patch versions, scaffold
+- [x] Verify framework/ORM/Node compatibility, pin exact patch versions, scaffold
   only required tooling, and establish test helpers with isolated temporary DBs.
-- [ ] Add readiness and persistence checks that initially fail: /api/health must
+- [x] Add readiness and persistence checks that initially fail: /api/health must
   return exactly {status:"ok",database:"ok"} over the TLS proxy, and a row written
   to the database must survive recreating the app container.
-- [ ] Implement core User, Session, Task, and RateLimitBucket models, migrations,
+- [x] Implement core User, Session, Task, and RateLimitBucket models, migrations,
   indexes, foreign keys, WAL/busy-timeout configuration, and the shared contracts.
-- [ ] Implement setup.sh using umask 077 and cryptographic randomness to write an
+- [x] Implement setup.sh using umask 077 and cryptographic randomness to write an
   ignored .env without overwriting an existing file. Variables: DATABASE_URL,
   APP_ORIGIN, ADMIN_EMAIL, ADMIN_PASSWORD, API_ACTOR_EMAIL, PUBLIC_API_KEY.
   Seed admin and API-demo member only on a fresh database; never reset their
   passwords or resurrect deleted accounts on restart.
-- [ ] Implement the app/proxy containers, persistent data/certificate volumes,
+- [x] Implement the app/proxy containers, persistent data/certificate volumes,
   migration-before-start, health checks, and loopback-only HTTPS host binding.
   Document copying/trusting Caddy's local CA in evaluation browsers.
-- [ ] Run npm run test:server -- tests/server/readiness.test.ts, npm run build,
+- [x] Run npm run test:server -- tests/server/readiness.test.ts, npm run build,
   docker compose up --build -d, npm run smoke, and ./scripts/verify-tls.sh.
   Expect successful migrations, verified TLS, 200 readiness, persistence, and
   no published app HTTP port. Review and commit the deployable foundation.

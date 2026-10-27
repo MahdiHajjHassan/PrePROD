@@ -18,7 +18,24 @@ implemented at the time this record is created.
 
 ## Completed contribution entries
 
-No application batch is marked completed yet.
+### M01 staging foundation — 2026-10-27
+
+Source commits: 651f259958584efed373fba77e009f7d8ada1c48, c54d2d926edc58cc35df60f9804f2475f6af0fe5.
+
+Implemented the shared contracts, minimal Next scaffold, SQLite models/migrations,
+private setup and safe seed, real-database test helpers, health endpoint, pinned
+non-root Docker deployment, and verified local HTTPS. The actual UI is still
+Joseph's assigned work; no feature-module points are marked demonstrated.
+
+Observed checks: 18/18 tests; typecheck, zero-warning lint, production build;
+container startup healthy; CA/hostname-verified TLS; UID1000; account IDs survive
+container recreation. Independent automated review found no Critical/Important
+issues and one deferred database-initialization retry limitation.
+
+Own human walkthrough: pending Mahdi's recording. Human counterpart review:
+pending. Final contribution-history delivery: not done; destination is unset.
+Next: Mahdi M02 auth backend and Joseph J01 design/UI foundation can start.
+
 
 Append one entry after a real completed slice. Include:
 - Batch ID and date.
