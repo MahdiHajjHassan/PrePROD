@@ -23,6 +23,17 @@ enum TaskPriority {
   HIGH
 }
 
+enum DomainAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+}
+enum DomainEntity {
+  TASK
+  USER
+}
+
 model User {
   id           String   @id @default(uuid())
   email        String   @unique
@@ -32,6 +43,8 @@ model User {
   createdAt    DateTime @default(now())
   sessions     Session[]
   tasks        Task[]
+  activityEvents ActivityEvent[] @relation("ActivityActor")
+  notifications Notification[]
 }
 
 model Session {
@@ -67,4 +80,29 @@ model RateLimitBucket {
   count       Int      @default(0)
 
   @@index([windowStart])
+}
+
+model ActivityEvent {
+  id         String @id @default(uuid())
+  actorId    String?
+  action     DomainAction
+  entityType DomainEntity
+  entityId   String
+  label      String
+  completed  Boolean @default(false)
+  createdAt  DateTime @default(now())
+  actor      User? @relation("ActivityActor", fields: [actorId], references: [id], onDelete: SetNull)
+  notifications Notification[]
+  @@index([actorId, createdAt])
+}
+
+model Notification {
+  id          String @id @default(uuid())
+  recipientId String
+  eventId     String
+  readAt      DateTime?
+  recipient   User @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  event       ActivityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  @@unique([recipientId, eventId])
+  @@index([recipientId, readAt])
 }

@@ -8,13 +8,15 @@ import { parseInput } from "../validation";
 import { taskSelect, toTaskDTO } from "./dto";
 import { taskCreateSchema, taskIdSchema, taskPatchSchema, taskPortableSchema, versionSchema } from "./schema";
 import { queryTasks } from "./query";
+import { recordDomainEvent } from "../activity/writer";
 
 async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id: string, version: number) {
   const actor = await currentActor(tx, supplied);
-  const task = await tx.task.findUnique({ where: { id }, select: { ownerId: true, version: true } });
+  const task = await tx.task.findUnique({ where: { id }, select: { ownerId: true, version: true, title: true, status: true } });
   if (!task) throw new DomainError("NOT_FOUND");
   if (task.ownerId !== actor.id && actor.role !== "ADMIN") throw new DomainError("FORBIDDEN");
   if (task.version !== version) throw new DomainError("CONFLICT");
+  return { task, actor };
 }
 
 export function createTaskService(db: PrismaClient) {
@@ -23,7 +25,9 @@ export function createTaskService(db: PrismaClient) {
       const data = parseInput(taskCreateSchema, input);
       return withWriteRetry(() => db.$transaction(async (tx) => {
         const actor = await currentActor(tx, supplied);
-        return toTaskDTO(await tx.task.create({ data: { ...data, ownerId: actor.id }, select: taskSelect }));
+        const task = await tx.task.create({ data: { ...data, ownerId: actor.id }, select: taskSelect });
+        await recordDomainEvent(tx, { actorId: actor.id, action: "CREATE", entityType: "TASK", entityId: task.id, label: task.title });
+        return toTaskDTO(task);
       }));
     },
     async read(rawId: string): Promise<TaskDTO> {
@@ -36,7 +40,10 @@ export function createTaskService(db: PrismaClient) {
       const rows = parseInput(z.array(taskPortableSchema).min(1).max(200), input);
       return withWriteRetry(() => db.$transaction(async (tx) => {
         const actor = await currentActor(tx, supplied);
-        for (const data of rows) await tx.task.create({ data: { ...data, ownerId: actor.id } });
+        for (const data of rows) {
+          const task = await tx.task.create({ data: { ...data, ownerId: actor.id }, select: { id: true, title: true } });
+          await recordDomainEvent(tx, { actorId: actor.id, action: "CREATE", entityType: "TASK", entityId: task.id, label: task.title });
+        }
         return { created: rows.length };
       }));
     },
@@ -49,19 +56,22 @@ export function createTaskService(db: PrismaClient) {
       const data = parseInput(taskPatchSchema, input);
       const version = parseInput(versionSchema, expectedVersion);
       return withWriteRetry(() => db.$transaction(async (tx) => {
-        await writable(tx, supplied, id, version);
+        const { task: before, actor } = await writable(tx, supplied, id, version);
         const changed = await tx.task.updateMany({ where: { id, version }, data: { ...data, version: { increment: 1 } } });
         if (changed.count !== 1) throw new DomainError("CONFLICT");
-        return toTaskDTO(await tx.task.findUniqueOrThrow({ where: { id }, select: taskSelect }));
+        const task = await tx.task.findUniqueOrThrow({ where: { id }, select: taskSelect });
+        await recordDomainEvent(tx, { actorId: actor.id, action: "UPDATE", entityType: "TASK", entityId: id, label: task.title, completed: before.status === "OPEN" && task.status === "DONE" });
+        return toTaskDTO(task);
       }));
     },
     async remove(supplied: Actor | null, rawId: string, expectedVersion: number): Promise<void> {
       const id = parseInput(taskIdSchema, rawId);
       const version = parseInput(versionSchema, expectedVersion);
       await withWriteRetry(() => db.$transaction(async (tx) => {
-        await writable(tx, supplied, id, version);
+        const { task, actor } = await writable(tx, supplied, id, version);
         const removed = await tx.task.deleteMany({ where: { id, version } });
         if (removed.count !== 1) throw new DomainError("CONFLICT");
+        await recordDomainEvent(tx, { actorId: actor.id, action: "DELETE", entityType: "TASK", entityId: id, label: task.title });
       }));
     },
   };

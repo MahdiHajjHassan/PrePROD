@@ -8,6 +8,9 @@ import { createRateLimiter } from "../security/rate-limit";
 import { accountSchema, loginSchema, passwordChangeSchema, registerSchema } from "./schema";
 import { hashPassword, verifyPassword } from "./password";
 import { createSessionToken, resolveSessionToken, revokeSessionToken } from "./session";
+import { currentActor } from "./policy";
+import { withWriteRetry } from "../db-write";
+import { recordDomainEvent } from "../activity/writer";
 
 const accountSelect = { id: true, email: true, displayName: true, role: true, createdAt: true } satisfies Prisma.UserSelect;
 type AccountRecord = Pick<User, "id" | "email" | "displayName" | "role" | "createdAt">;
@@ -27,7 +30,11 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
       await limit("register-client", clientKey, 5);
       const passwordHash = await hashPassword(data.password);
       try {
-        return dto(await db.user.create({ data: { email: data.email, displayName: data.displayName, passwordHash, role: "MEMBER" }, select: accountSelect }));
+        return await withWriteRetry(() => db.$transaction(async (tx) => {
+          const user = await tx.user.create({ data: { email: data.email, displayName: data.displayName, passwordHash, role: "MEMBER" }, select: accountSelect });
+          await recordDomainEvent(tx, { actorId: user.id, action: "CREATE", entityType: "USER", entityId: user.id, label: user.displayName });
+          return dto(user);
+        }));
       } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new DomainError("CONFLICT", { email: ["unavailable"] });
         throw error;
@@ -41,11 +48,13 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
       dummyHash ??= hashPassword(randomBytes(32).toString("hex"));
       const valid = await verifyPassword(user?.passwordHash ?? await dummyHash, data.password);
       if (!user || !valid) throw new DomainError("UNAUTHENTICATED");
-      return db.$transaction(async (tx) => {
+      return withWriteRetry(() => db.$transaction(async (tx) => {
         const current = await tx.user.findUnique({ where: { id: user.id } });
         if (!current || current.passwordHash !== user.passwordHash) throw new DomainError("UNAUTHENTICATED");
-        return { user: dto(current), ...await createSessionToken(tx, current.id, now()) };
-      });
+        const session = await createSessionToken(tx, current.id, now());
+        await recordDomainEvent(tx, { actorId: current.id, action: "LOGIN", entityType: "USER", entityId: current.id, label: current.displayName });
+        return { user: dto(current), ...session };
+      }));
     },
     resolveSession(raw: string | null) { return resolveSessionToken(db, raw, now()); },
     logout(raw: string | null) { return revokeSessionToken(db, raw); },
@@ -56,9 +65,12 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
     },
     async updateAccount(actor: Actor, input: unknown): Promise<AccountDTO> {
       const data = parseInput(accountSchema, input);
-      const changed = await db.user.updateMany({ where: { id: actor.id }, data });
-      if (changed.count !== 1) throw new DomainError("UNAUTHENTICATED");
-      return this.account(actor);
+      return withWriteRetry(() => db.$transaction(async (tx) => {
+        const current = await currentActor(tx, actor);
+        const user = await tx.user.update({ where: { id: current.id }, data, select: accountSelect });
+        await recordDomainEvent(tx, { actorId: current.id, action: "UPDATE", entityType: "USER", entityId: current.id, label: user.displayName });
+        return dto(user);
+      }));
     },
     async changePassword(actor: Actor, input: unknown): Promise<void> {
       const data = parseInput(passwordChangeSchema, input);
@@ -66,11 +78,12 @@ export function createAuthService(db: PrismaClient, options: { now?: () => Date 
       const user = await db.user.findUnique({ where: { id: actor.id } });
       if (!user || !await verifyPassword(user.passwordHash, data.currentPassword)) throw new DomainError("UNAUTHENTICATED");
       const passwordHash = await hashPassword(data.newPassword);
-      await db.$transaction(async (tx) => {
+      await withWriteRetry(() => db.$transaction(async (tx) => {
         const result = await tx.user.updateMany({ where: { id: actor.id, passwordHash: user.passwordHash }, data: { passwordHash } });
         if (result.count !== 1) throw new DomainError("CONFLICT");
         await tx.session.deleteMany({ where: { userId: actor.id } });
-      });
+        await recordDomainEvent(tx, { actorId: actor.id, action: "UPDATE", entityType: "USER", entityId: actor.id, label: user.displayName });
+      }));
     },
   };
 }

@@ -5,6 +5,7 @@ import { currentActor } from "../auth/policy";
 import { withWriteRetry } from "../db-write";
 import { DomainError } from "../errors";
 import { parseInput } from "../validation";
+import { recordDomainEvent } from "../activity/writer";
 
 const select = { id: true, email: true, displayName: true, role: true, createdAt: true } satisfies Prisma.UserSelect;
 const patchSchema = z.object({ displayName: z.string().trim().min(1).max(60).optional(), role: z.enum(["MEMBER", "ADMIN"]).optional() }).strict().refine((value) => Object.values(value).some((item) => item !== undefined));
@@ -34,20 +35,25 @@ export function createUserService(db: PrismaClient) {
     async updateUser(actor: Actor | null, rawId: string, input: unknown) {
       const id = parseInput(idSchema, rawId); const data = parseInput(patchSchema, input);
       return withWriteRetry(() => db.$transaction(async (tx) => {
-        await administrator(tx, actor);
+        const current = await administrator(tx, actor);
         const target = await tx.user.findUnique({ where: { id }, select: { role: true } });
         if (!target) throw new DomainError("NOT_FOUND");
         if (target.role === "ADMIN" && data.role === "MEMBER" && await tx.user.count({ where: { role: "ADMIN" } }) <= 1) throw new DomainError("CONFLICT", { role: ["last_admin"] });
-        return dto(await tx.user.update({ where: { id }, data, select }));
+        const user = await tx.user.update({ where: { id }, data, select });
+        await recordDomainEvent(tx, { actorId: current.id, action: "UPDATE", entityType: "USER", entityId: id, label: user.displayName });
+        return dto(user);
       }));
     },
     async deleteUser(actor: Actor | null, rawId: string): Promise<void> {
       const id = parseInput(idSchema, rawId);
       await withWriteRetry(() => db.$transaction(async (tx) => {
-        await administrator(tx, actor);
-        const target = await tx.user.findUnique({ where: { id }, select: { role: true } });
+        const current = await administrator(tx, actor);
+        const target = await tx.user.findUnique({ where: { id }, select: { role: true, displayName: true } });
         if (!target) throw new DomainError("NOT_FOUND");
         if (target.role === "ADMIN" && await tx.user.count({ where: { role: "ADMIN" } }) <= 1) throw new DomainError("CONFLICT", { role: ["last_admin"] });
+        const tasks = await tx.task.findMany({ where: { ownerId: id }, select: { id: true, title: true } });
+        for (const task of tasks) await recordDomainEvent(tx, { actorId: current.id, action: "DELETE", entityType: "TASK", entityId: task.id, label: task.title });
+        await recordDomainEvent(tx, { actorId: current.id, action: "DELETE", entityType: "USER", entityId: id, label: target.displayName });
         await tx.user.delete({ where: { id } });
       }));
     },
