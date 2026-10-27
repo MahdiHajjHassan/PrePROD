@@ -1,5 +1,5 @@
 import type { Prisma } from "@/generated/prisma/client";
-import type { Actor } from "@/shared/tasks";
+import type { Actor } from "@/shared/auth";
 import type { AuthService } from "./service";
 import { DomainError } from "../errors";
 

@@ -27,7 +27,7 @@ export function useMutation() {
         const locale = ["en", "fr", "ar"].includes(candidate) ? candidate : "en";
         if (!["login", "register"].includes(section)) {
           // Discard the old document and client router cache after revocation.
-          window.location.replace(`/${locale}/${failure.code === "UNAUTHENTICATED" ? "login" : "tasks"}`);
+          window.location.replace(`/${locale}/${failure.code === "UNAUTHENTICATED" ? "login" : "play"}`);
         }
       }
     }

@@ -1,3 +1,7 @@
+> Historical Taskboard contract. Superseded by games.md; these routes are removed.
+
+> Historical Taskboard contract. Superseded by games.md; these routes are removed.
+
 # Internal task backend — current contract
 
 Implemented on Mahdi's side. These are same-origin browser endpoints, separate

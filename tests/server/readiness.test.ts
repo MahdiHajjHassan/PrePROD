@@ -20,26 +20,23 @@ test("migrated database is ready without exposing credentials", async () => {
   await expect(readiness(db)).resolves.toEqual({ status: "ok", database: "ok" });
 });
 
-test("first bootstrap creates the supplied admin and an API member with hashed passwords", async () => {
+test("first bootstrap creates only the supplied administrator with a hashed password", async () => {
   const { db } = await fixture();
   const { seedDatabase } = await import("@/server/seed");
   await expect(seedDatabase(db, seedInput)).resolves.toEqual({ created: true });
   const admin = await db.user.findUniqueOrThrow({ where: { email: seedInput.adminEmail } });
-  const api = await db.user.findUniqueOrThrow({ where: { email: seedInput.apiActorEmail } });
-  expect(admin.role).toBe("ADMIN"); expect(api.role).toBe("MEMBER");
+  expect(admin.role).toBe("ADMIN"); expect(await db.user.count()).toBe(1);
   expect(admin.passwordHash).not.toBe(seedInput.adminPassword);
   expect(admin.passwordHash).toMatch(/^\$argon2id\$v=19\$m=19456,t=2,p=1\$/);
   expect(await verify(admin.passwordHash, seedInput.adminPassword)).toBe(true);
-  expect(await verify(api.passwordHash, seedInput.adminPassword)).toBe(false);
 });
 
-test("restarting preserves edited credentials and does not resurrect a deleted API actor", async () => {
+test("restarting preserves edited credentials and never adds demonstration accounts", async () => {
   const { db, url } = await fixture();
   const { seedDatabase } = await import("@/server/seed");
   await seedDatabase(db, seedInput);
   const before = await db.user.findUniqueOrThrow({ where: { email: seedInput.adminEmail } });
   await db.user.update({ where: { id: before.id }, data: { displayName: "Preserved name" } });
-  await db.user.delete({ where: { email: seedInput.apiActorEmail } });
   await db.$disconnect();
   const { createDb } = await import("@/server/db");
   const reopened = await createDb(url); cleanup.push(() => reopened.$disconnect());
@@ -49,14 +46,16 @@ test("restarting preserves edited credentials and does not resurrect a deleted A
   expect(await reopened.user.count()).toBe(1);
 });
 
-test("foreign keys remove only the deleted user's sessions and tasks", async () => {
+test("foreign keys remove sessions and anonymize game references without deleting other games", async () => {
   const { db } = await fixture();
   const a = await seedUser(db, { email: "a@example.test", displayName: "A" });
   const b = await seedUser(db, { email: "b@example.test", displayName: "B" });
   await db.session.create({ data: { id: "f".repeat(64), userId: a.actor.id, expiresAt: new Date(Date.now() + 60000) } });
-  await db.task.create({ data: { title: "A task", ownerId: a.actor.id } });
-  await db.task.create({ data: { title: "B task", ownerId: b.actor.id } });
+  const game=await db.game.create({data:{mode:"AI",xId:a.actor.id}});
+  await db.game.create({data:{mode:"AI",xId:b.actor.id}});
   await db.user.delete({ where: { id: a.actor.id } });
   expect(await db.session.count()).toBe(0);
-  expect((await db.task.findMany()).map((task) => task.title)).toEqual(["B task"]);
+  expect((await db.game.findUniqueOrThrow({where:{id:game.id}})).xId).toBeNull();
+  expect(await db.game.count({where:{xId:b.actor.id}})).toBe(1);
+  expect(await db.game.count()).toBe(2);
 });

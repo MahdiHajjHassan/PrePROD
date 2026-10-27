@@ -2,4 +2,9 @@
 services:
   app:
     environment:
-      TASKBOARD_E2E_PROJECT: ${TASKBOARD_E2E_PROJECT:?Set an isolated taskboard-e2e project}
+      TICTACTOE_E2E_PROJECT: ${TICTACTOE_E2E_PROJECT:?Set an isolated tictactoe-e2e project}
+
+# Rehearsal may reuse the already trusted test authority; game data stays separate.
+volumes:
+  caddy-data:
+    name: ${TICTACTOE_E2E_CA_VOLUME:?Set the isolated test certificate volume}

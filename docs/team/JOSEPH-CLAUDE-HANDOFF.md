@@ -1,3 +1,12 @@
+> Superseded Taskboard record. The current product is Tic Tac Toe.
+> Start with README.md, AGENTS.md, docs/api/games.md and
+> docs/evaluation/tic-tac-toe-evidence.md. The accepted team is Mahdi/Joseph.
+> Current game work is Mahdi/Codex-assisted source in the managed tic-tac-toe
+> worktree. The owner authorized staging commit/push on2026-10-27. Final-history
+> delivery and external deployment remain excluded.
+> Preserve actual authorship; record Joseph review/adaptation only when observed.
+> The older Taskboard routes, module counts and checks below are historical.
+
 # Joseph / Claude — reuse the completed staging implementation
 
 ## Paste into Claude

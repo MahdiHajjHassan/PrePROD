@@ -7,7 +7,7 @@ export const t = dictionaries.en;
 type ExpectedFailure = { path: string; status: number };
 export const test = base.extend<{ isolated: void; expectedFailures: ExpectedFailure[] }>({
   browser: [async ({ browser }, provide) => {
-    const warmup = await browser.newContext({ ignoreHTTPSErrors: true });
+    const warmup = await browser.newContext({ ignoreHTTPSErrors: false });
     try {
       const page = await warmup.newPage();
       for (let attempt = 0; attempt < 2; attempt++) {
@@ -32,12 +32,12 @@ export const test = base.extend<{ isolated: void; expectedFailures: ExpectedFail
     page.on("console", (message) => {
       if (!["error", "warning"].includes(message.type())) return;
       const text = message.text(); const path = message.location().url;
-      if (expectedFailures.some((entry) => path.includes(entry.path) && text.includes(`status of ${entry.status}`))) return;
+      if (expectedFailures.some((entry) => path.includes(entry.path) && (text.includes(`status of ${entry.status}`)||entry.status===0&&text==="Failed to load resource: net::ERR_FAILED"))) return;
       errors.push(`${message.type()}: ${text} (${path})`);
     });
     const matrixPath = resolve(testSettings().logDir, "browser-versions.json");
     let versions: Record<string, unknown> = {}; try { versions = JSON.parse(readFileSync(matrixPath, "utf8")); } catch {}
-    versions[info.project.name] = { version: browser.version(), viewport: "1280x900,360x900", tls: "automation local-CA exception; CA/hostname verified separately" };
+    versions[info.project.name] = { version: browser.version(), viewport: "1280x900,360x900", tls: "Local CA trusted; browser and Node certificate/hostname validation enabled" };
     writeFileSync(matrixPath, JSON.stringify(versions, null, 2));
     await provide(page);
     expect(errors, "Unexpected browser console warnings/errors or page failures").toEqual([]);
@@ -58,11 +58,5 @@ export async function loginUi(page: Page, who: "admin" | "a" | "b" = "a") {
   await page.getByLabel(t.email, { exact: true }).fill(input.email);
   await page.getByLabel(t.password, { exact: true }).fill(input.password);
   await page.getByRole("button", { name: t.login, exact: true }).click();
-  await expect(page).toHaveURL(/\/en\/tasks$/);
-}
-export async function createTask(page: Page, title: string) {
-  await page.getByRole("button", { name: t.newTask, exact: true }).click();
-  await page.getByLabel(t.title, { exact: true }).fill(title);
-  await page.getByRole("button", { name: t.createTask, exact: true }).click();
-  await expect(page.getByRole("heading", { name: title, exact: true })).toBeVisible();
+  await expect(page).toHaveURL(/\/en\/play$/);
 }

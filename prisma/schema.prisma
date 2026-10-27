@@ -1,108 +1,78 @@
 generator client {
   provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  output = "../src/generated/prisma"
 }
-
 datasource db {
   provider = "sqlite"
 }
-
 enum Role {
   MEMBER
   ADMIN
 }
-
-enum TaskStatus {
-  OPEN
-  DONE
-}
-
-enum TaskPriority {
-  LOW
-  NORMAL
-  HIGH
-}
-
-enum DomainAction {
-  CREATE
-  UPDATE
-  DELETE
-  LOGIN
-}
-enum DomainEntity {
-  TASK
-  USER
-}
-
 model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
-  displayName  String
+  id String @id @default(uuid())
+  email String @unique
+  displayName String
   passwordHash String
-  role         Role     @default(MEMBER)
-  createdAt    DateTime @default(now())
-  sessions     Session[]
-  tasks        Task[]
-  activityEvents ActivityEvent[] @relation("ActivityActor")
-  notifications Notification[]
+  role Role @default(MEMBER)
+  createdAt DateTime @default(now())
+  sessions Session[]
+  gamesAsX Game[] @relation("GameX")
+  gamesAsO Game[] @relation("GameO")
 }
-
 model Session {
-  id        String   @id
-  userId    String
+  id String @id
+  userId String
   expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  user User @relation(fields:[userId], references:[id], onDelete:Cascade)
   @@index([userId])
   @@index([expiresAt])
 }
-
-model Task {
-  id          String       @id @default(uuid())
-  ownerId     String
-  title       String
-  description String       @default("")
-  status      TaskStatus   @default(OPEN)
-  priority    TaskPriority @default(NORMAL)
-  version     Int          @default(1)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  owner       User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-
-  @@index([ownerId])
-  @@index([createdAt, id])
-  @@index([status, priority])
-}
-
 model RateLimitBucket {
-  key         String   @id
+  key String @id
   windowStart DateTime
-  count       Int      @default(0)
-
+  count Int @default(0)
   @@index([windowStart])
 }
-
-model ActivityEvent {
-  id         String @id @default(uuid())
-  actorId    String?
-  action     DomainAction
-  entityType DomainEntity
-  entityId   String
-  label      String
-  completed  Boolean @default(false)
-  createdAt  DateTime @default(now())
-  actor      User? @relation("ActivityActor", fields: [actorId], references: [id], onDelete: SetNull)
-  notifications Notification[]
-  @@index([actorId, createdAt])
+enum GameMode {
+  HUMAN
+  AI
 }
-
-model Notification {
-  id          String @id @default(uuid())
-  recipientId String
-  eventId     String
-  readAt      DateTime?
-  recipient   User @relation(fields: [recipientId], references: [id], onDelete: Cascade)
-  event       ActivityEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  @@unique([recipientId, eventId])
-  @@index([recipientId, readAt])
+enum GameStatus {
+  WAITING
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+model Game {
+  id String @id @default(uuid())
+  mode GameMode
+  xId String?
+  oId String?
+  x User? @relation("GameX", fields: [xId], references: [id], onDelete: SetNull)
+  o User? @relation("GameO", fields: [oId], references: [id], onDelete: SetNull)
+  board String @default(".........")
+  turn String? @default("X")
+  status GameStatus @default(WAITING)
+  winner String?
+  reason String?
+  inviteCode String? @unique
+  version Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  finishedAt DateTime?
+  moves GameMove[]
+  @@index([xId, updatedAt])
+  @@index([oId, updatedAt])
+}
+model GameMove {
+  id String @id @default(uuid())
+  gameId String
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  ply Int
+  mark String
+  cell Int
+  createdAt DateTime @default(now())
+  @@unique([gameId, ply])
+  @@unique([gameId, cell])
 }

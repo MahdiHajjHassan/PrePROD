@@ -6,73 +6,62 @@
 
 web
 
-## Product Purpose
+## Audience and goal
 
-Build the smallest understandable ft_transcendence application that completely
-satisfies the mandatory requirements and earns the selected module points.
-The target proposal is 14 core points plus 2 buffer points. Stop adding features
-when that scope is complete and demonstrated.
+A small 42 ft_transcendence game, playable and explainable by the accepted
+**two-person** team: Mahdi (mahajj-h) and Joseph (jboustan). The owner explicitly
+accepted this roster on2026-10-27. The goal is a complete tic-tac-toe application
+that satisfies mandatory requirements and at least14 demonstrated module points.
+Official scoring and human explanation are separate from automated tests.
 
-## Confirmed Constraints
+## Confirmed product
 
-- Use the subject and evaluation PDFs in docs/reference as the governing sources.
-- Use Superpowers and Impeccable. Ask for explicit confirmation before adding
-  or adopting another project skill.
-- Support light and dark mode with a remembered preference.
-- Keep the entire demonstration possible on one computer with separate browser
-  sessions for simultaneous users.
-- Favor small, explainable implementations and a modest points buffer.
-- Theme switching has no standalone points allocation in the supplied subject.
-- The team is Mahdi and Joseph. Codex assists Mahdi; Claude assists Joseph.
-  The owner's latest instruction is to finish every package now in Transcendence2
-  staging with Codex. Original owner labels organize later handoff bundles;
-  actual source authorship is preserved. Claude can reuse the completed code.
-  Nothing is pushed to the separate final history repository yet.
+Tic-tac-toe with both friend play in separate signed-in browser sessions on one
+computer and a local computer opponent. The owner waived Taskboard compatibility
+and authorized replacing its application code. Do not rebuild task features.
 
-## Implementation Baseline
+Guests read rules and create accounts. Members create/join invitation rooms,
+play alternately, resume committed matches, resign or play again. AI replies
+server-side and intentionally permits imperfect choices. Administrators create,
+list, edit and delete users and manage roles, with a final-administrator guard.
+Deletion safely resolves/anonymizes games and revokes the removed user's access.
 
-The implementation plan specifies one shared public task board. Visitors can read
-tasks; registered members manage their own tasks; administrators manage tasks,
-users, and role assignments. There are no separate workspaces or boards.
+## Technical choices
 
-The product name Taskboard is a working label, not an approved brand. This is an
-evaluation-focused application; no existing customer base or usage is claimed.
-The people using it during development and evaluation will create demonstration
-accounts and clearly labeled sample tasks.
+Node24/npm, pinned Next/React/TypeScript, Prisma/SQLite, Tailwind/shared semantic
+CSS tokens and Caddy local HTTPS. Server transactions own moves, turns and
+results. Scoped SSE publishes canonical snapshots after commits; the client
+filters stale versions and reads current state after reconnect. A lost response
+never triggers an automatic move retry. Single application process is the target.
 
-## Stack
+## Interface
 
-The implementation uses Next.js App Router, React, TypeScript, Tailwind CSS,
-Prisma, SQLite, and Caddy for local HTTPS. Exact dependencies and image digests
-are pinned in the source. The full planned feature/UI scope is implemented in
-staging; actual verification and human gates are recorded in delivery/evaluation
-documents rather than inferred from the implementation plan.
+Operate mode: clear play choices, a large square board, named X/O shapes, turn/
+result feedback and explicit recovery. Reuse restrained light/dark tokens and
+shared accessible controls. English/French/Arabic, logical RTL layout, LTR room
+codes, 360px and desktop widths, stable keyboard focus and legal form preservation
+are required. Legal links open separately, preserving the original form without
+storing its password in browser storage. No additional design assets or fonts.
 
-## Operating Context
+## Modules and verification
 
-The application must support simultaneous users, persist across container
-restarts, and run through one documented container startup command after
-one-time environment and local certificate setup. No external service is
-required by the planned modules.
+Current candidate target:15points, including advanced permissions as buffer.
+G09 is unclaimed because this Windows installation cannot launch the bundled
+Firefox runner. Chrome and Edge are verified with certificate validation enabled.
+Use README.md, docs/requirements/module-matrix.md and
+ docs/evaluation/tic-tac-toe-evidence.md for exact behavior and observed checks.
+Do not count auth/themes, task/public-API/search/transfers/notifications/statistics,
+tournaments or remote-play as extra modules.
 
-## Accessibility & Inclusion
+## Delivery constraints and authorship
 
-The subject requires a responsive and accessible frontend. The proposal includes
-complete English, French, and Arabic UI translations, true Arabic RTL layout,
-keyboard operation, and usable contrast in both themes. Full WCAG compliance is
-not claimed as a separate module.
+The owner authorized staging commit/push on2026-10-27. No external deployment,
+final-repository delivery, credential output or data-volume deletion.
+Transcendence2 is staging; never touch or guess a separate final-history remote.
+Preserve the private .env and Caddy volumes; use new game-data and leave old
+Taskboard app-data unused. Tests reset only guarded isolated test databases.
 
-## Open Facts
-
-The owner has confirmed the two members, Mahdi and Joseph. The proposed technical
-responsibilities and push order are in
-docs/superpowers/plans/2026-10-26-team-contributions.md.
-
-The supplied Joseph profile shows josephboustany; verify his actual connected
-account and author email in his own session. The owner confirmed 42 logins
-mahajj-h and jboustan. Campus-specific clarifications and actual human review/
-understanding remain personal records. Planned delivery tracks are not source
-authorship or completed personal contributions.
-
-The complete proposed behavior, module allocation, and acceptance criteria are
-in docs/superpowers/specs/2026-10-26-taskboard-design.md.
+Superpowers and vendored Impeccable are required; other skills need owner approval.
+Current implementation is Mahdi/Codex-assisted work for staging delivery. Preserve actual
+authorship; Joseph review/adaptation/delivery is recorded only when it happens.
+Historical Taskboard plans/manifests remain historical, not game verification.

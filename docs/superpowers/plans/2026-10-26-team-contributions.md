@@ -1,3 +1,5 @@
+> Historical Taskboard plan, superseded by the2026-10-27 tic-tac-toe design/plan. Preserve actual authorship; no game evidence is inferred here.
+
 # Two-Person Contribution and Push Plan
 
 Latest owner override (2026-10-27): Codex completes every package in staging now;

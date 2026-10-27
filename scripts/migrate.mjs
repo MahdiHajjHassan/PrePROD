@@ -4,7 +4,7 @@ import { dirname, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import Sqlite from "better-sqlite3";
 
-const url = process.env.DATABASE_URL ?? "file:./data/taskboard.db";
+const url = process.env.DATABASE_URL ?? "file:./data/tictactoe.db";
 if (!url.startsWith("file:") || !url.slice(5) || url.includes("\0") || url.includes("?")) throw new Error("DATABASE_URL must identify a local SQLite file");
 const filename = resolve(url.slice(5));
 await mkdir(dirname(filename), { recursive: true });

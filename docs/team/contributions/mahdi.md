@@ -95,3 +95,15 @@ VFS resource recovery and three baseline nonblocking limits are documented.
 Human walkthrough and counterpart review: pending actual recording. Joseph's
 actual contribution is not inferred from source generation. Final history repo
 remains untouched; only Transcendence2 staging receives this implementation.
+
+
+## Tic-tac-toe replacement — 2026-10-27
+
+Owner approved both friend/computer modes and the accepted Mahdi/Joseph roster.
+Mahdi/Codex-assisted implementation replaces Taskboard with transactional games,
+local AI, authorized SSE/recovery, SSR, en/fr/ar/RTL, themes and reused secure
+accounts/admin. Work is in the managed tic-tac-toe worktree. After verification,
+the owner authorized staging commit/push on2026-10-27. No external deployment
+or final-repository delivery is authorized. Current observed checks belong to the game evidence,
+not the older counts above. Joseph's review/adaptation/understanding remains
+unrecorded until it actually happens. Do not relabel this as Joseph's authorship.

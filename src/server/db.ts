@@ -17,6 +17,6 @@ export async function createDb(databaseUrl: string): Promise<PrismaClient> {
 
 const globalDb = globalThis as typeof globalThis & { taskboardDb?: Promise<PrismaClient> };
 export function getDb(): Promise<PrismaClient> {
-  globalDb.taskboardDb ??= createDb(process.env.DATABASE_URL ?? "file:./data/taskboard.db");
+  globalDb.taskboardDb ??= createDb(process.env.DATABASE_URL ?? "file:./data/tictactoe.db");
   return globalDb.taskboardDb;
 }

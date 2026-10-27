@@ -1,5 +1,5 @@
 {
-  "name": "taskboard",
+  "name": "tic-tac-toe",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -12,20 +12,19 @@
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "prisma generate && next typegen && tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "test": "prisma generate && vitest run",
-    "test:server": "prisma generate && vitest run",
-    "test:e2e": "playwright test",
+    "test": "prisma generate && vitest run --maxWorkers=1",
+    "test:server": "prisma generate && vitest run --maxWorkers=1",
+    "test:e2e": "playwright test --project=chrome --project=edge",
     "db:generate": "prisma generate",
     "db:migrate": "node -- scripts/migrate.mjs",
     "db:seed": "prisma generate && tsx scripts/seed.ts",
     "setup": "node -- scripts/setup.mjs",
     "smoke": "node scripts/smoke.mjs",
     "smoke:auth": "node -- scripts/smoke-auth.mjs",
-    "smoke:tasks": "node -- scripts/smoke-tasks.mjs",
-    "smoke:api": "node -- scripts/smoke-api.mjs",
     "audit:source": "node -- scripts/audit-source.mjs",
     "verify": "node -- scripts/verify.mjs",
-    "rehearse": "node -- scripts/rehearse.mjs"
+    "rehearse": "node -- scripts/rehearse.mjs",
+    "smoke:games": "node -- scripts/smoke-games.mjs"
   },
   "dependencies": {
     "@node-rs/argon2": "2.2.2",

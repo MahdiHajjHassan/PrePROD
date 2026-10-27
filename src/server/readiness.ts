@@ -5,8 +5,8 @@ export async function readiness(db?: PrismaClient): Promise<{ status: "ok"; data
   const database = db ?? await getDb();
   const tables = await database.$queryRaw<Array<{ name: string }>>(Prisma.sql`
     SELECT name FROM sqlite_master
-    WHERE type = 'table' AND name IN ('User', 'Session', 'Task', 'RateLimitBucket')
+    WHERE type = 'table' AND name IN ('User', 'Session', 'Game', 'GameMove', 'RateLimitBucket')
   `);
-  if (tables.length !== 4) throw new Error("Database migrations are not applied");
+  if (tables.length !== 5) throw new Error("Database migrations are not applied");
   return { status: "ok", database: "ok" };
 }

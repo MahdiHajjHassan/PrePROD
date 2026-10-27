@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { hash } from "@node-rs/argon2";
 import type { PrismaClient } from "@/generated/prisma/client";
-import type { Actor, Role } from "@/shared/tasks";
+import type { Actor, Role } from "@/shared/auth";
 
 export async function seedUser(db: PrismaClient, input: { role?: Role; email?: string; displayName?: string; password?: string } = {}): Promise<{ actor: Actor; email: string; password: string }> {
   const email = input.email ?? `${randomUUID()}@example.test`;

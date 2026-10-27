@@ -1,3 +1,5 @@
+> Historical Taskboard plan, superseded by the2026-10-27 tic-tac-toe design/plan. Preserve actual authorship; no game evidence is inferred here.
+
 # Minimal Taskboard Design
 
 ## Goal and decision

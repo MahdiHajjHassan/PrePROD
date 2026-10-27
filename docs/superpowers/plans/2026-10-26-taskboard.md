@@ -1,3 +1,5 @@
+> Historical Taskboard plan, superseded by the2026-10-27 tic-tac-toe design/plan. Preserve actual authorship; no game evidence is inferred here.
+
 # Minimal Taskboard Implementation Plan
 
 Latest owner override (2026-10-27): complete ALL packages now in Transcendence2

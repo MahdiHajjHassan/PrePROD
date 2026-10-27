@@ -1,213 +1,210 @@
 *This project has been created as part of the 42 curriculum by mahajj-h, jboustan.*
 
-# Taskboard
+# Tic Tac Toe
 
-One public task board: guests browse/search, members manage their own tasks,
-and administrators manage tasks, users and roles. The entire demonstration runs
-on one computer using separate browser sessions. No hosted service is required.
+A complete web game for two signed-in friends using separate browser sessions on
+one computer, or one player against the computer. X starts; three in a line wins.
+Accounts and committed matches survive restarts. The server owns every move.
 
-**Transcendence2 is staging. No push to the separate final history repository is
-authorized yet.** Read [PUSH-MAP](docs/delivery/PUSH-MAP.md) before delivery.
+This is **MahdiHajjHassan/Transcendence2 staging**. The Taskboard product has been
+replaced. No delivery to the separate final history repository is authorized.
+The owner explicitly accepted two members, Mahdi and Joseph, on 2026-10-27.
 
 ## Instructions
 
-Install Node.js 24, npm, Docker with Compose v2 and use a free local HTTPS port.
-Local native builds may require Python, make and a C++ compiler; Docker includes
-these. Package versions and container-image digests are pinned.
+Use Git, Node.js **24**, npm and Docker with Compose. On Windows, native npm
+installation needs Python and Visual Studio C++ Build Tools for better-sqlite3.
+Dependencies, including the container base images, are pinned. Use normal GitHub
+authentication; no token belongs in this repository or a chat.
 
 ```sh
 npm ci
-./scripts/setup.sh
+npm run setup
 docker compose up --build -d --force-recreate
+```
+
+Open **https://localhost/en/play**. Setup generates a Git-ignored `.env` with
+this computer's random administrator password. Read **ADMIN_EMAIL** and
+**ADMIN_PASSWORD** privately there. Setup refuses to replace an existing file;
+startup does not reset an existing administrator's password. Register additional
+players in the interface. Email must have valid syntax; mailbox ownership is not
+verified and no email is sent. Use distinct demonstration addresses privately.
+
+Only Caddy publishes a port, bound to loopback HTTPS. The Node process runs as
+non-root. Startup deploys migrations and seeds the administrator. Named volumes
+retain game data and certificates across recreation. Do not delete volumes.
+For this replacement, `game-data` stores `file:/data/tictactoe.db`; any previous
+Taskboard `app-data` volume is left unused and untouched.
+
+Verify the real certificate chain and hostname:
+
+```sh
 ./scripts/verify-tls.sh
 ```
 
-Open **https://localhost/en/tasks**. Setup creates a private, Git-ignored `.env`
-with random administrator credentials and API key, and refuses to overwrite an
-existing file. Read credentials privately from that file; scripts never print
-them. Register demonstration members in the interface. The seeded API member
-has no interactive password. Existing accounts are never reset or resurrected.
+Run that POSIX script from Git Bash on Windows. Or from PowerShell:
 
-Startup migrates/seeds a fresh database automatically. The app runs as non-root;
-only Caddy publishes a loopback HTTPS port. Database and certificate volumes
-survive container recreation. `docker compose down` stops the app; adding `-v`
-deletes its volumes and is not a normal restart.
-
-Import the **public** `local-certs/root.crt` copied by the verifier into trusted
-certificate authorities before normal browser use. Chrome/Edge use their
-platform settings; Firefox may need a separate Authorities import. Reload
-localhost without a certificate warning. Never distribute Caddy's private CA key.
-The TLS script separately verifies the real chain, hostname and readiness.
-
-For another port, before setup use
-`./scripts/setup.sh --env-file .env --port 8443`. With an existing environment,
-edit HTTPS_PORT and APP_ORIGIN consistently. In a managed cloud requiring its
-provided proxy CA for networked builds:
-
-```sh
-COMPOSE_FILE=compose.yaml:compose.cloud.yaml docker compose up --build -d --force-recreate
+```powershell
+docker compose cp proxy:/data/caddy/pki/authorities/local/root.crt local-certs/root.crt
+npm run smoke
 ```
 
-CODEX_PROXY_CERT points to that provided public certificate. BuildKit mounts it
-only during networked commands; it is not copied into app layers. A VFS Docker
-driver can consume substantial cache space; reclaim unused builder cache when
-needed while preserving application data/certificate volumes.
+Create `local-certs` first if needed. Trust only the public `root.crt`:
+Windows Current User > Trusted Root Certification Authorities for Chrome/Edge;
+Firefox Settings > Privacy & Security > Certificates > Authorities may need a
+separate import, or enterprise root trust. Then reload without a certificate
+warning. Never copy Caddy's private CA key. The verifier uses explicit CA trust
+and hostname verification; no insecure TLS flags are needed.
 
-## Features
+For a different port, generate an environment with
+`npm run setup -- --port 8443`. With an existing `.env`, keep `HTTPS_PORT` and
+`APP_ORIGIN` consistent. Keep `COMPOSE_PROJECT_NAME` consistent for all runtime
+and TLS commands, so recreation reuses the same certificates and data.
+In a managed cloud needing its public network proxy CA, set `CODEX_PROXY_CERT`
+and include `compose.cloud.yaml` using the OS-specific COMPOSE_FILE separator.
+That CA is a build secret, never an application credential.
 
-- Public SSR task text, combined text/status/priority/owner search, four stable
-  sorts and 25-row pagination; useful content/filter links without JavaScript.
-- Registration/login/logout, private profile/password changes, current-role
-  permissions, own/admin task controls and stale-edit/delete conflict recovery.
-- Admin user search, name/role changes and cascade-confirmed deletion, with
-  immediate revocation and a concurrency-safe final-administrator guard.
-- Five secured API operations, persistent quotas, OpenAPI and executable examples.
-- JSON/CSV import/export: at most 200 rows/256 KiB, prevalidated all-or-nothing
-  imports owned by the importer; export includes every filtered match.
-- Twelve shared components, remembered light/dark modes, complete en/fr/ar,
-  Arabic RTL, keyboard controls and responsive layouts.
-- Transactional domain notifications and unread controls; personal seven-day
-  UTC action totals, previous-period deltas, trend chart and accessible table.
+## Play and demonstrate
 
-Task titles, descriptions and display names are public. Emails, hashes, sessions
-and admin data are private. Use demonstration content. Localized Privacy/Terms
-pages explain the instance. Ordinary refresh shows other users' changes; no
-real-time module is claimed. CSV formulas are apostrophe-prefixed for spreadsheet
-safety; JSON preserves original text. Imports explicitly append duplicates.
+1. Register and sign in. Choose **Play computer**, place a mark and finish a game.
+   **Play again** creates a separate saved match; **Resign** confirms a loss.
+2. For a friend, use two separate browser profiles or one private window. Sign in
+   with different accounts. First player chooses **Create friend game**, shares
+   the displayed code; second enters it under **Join with code**. Play alternately.
+3. Show a win or draw in both sessions. Reload, briefly disconnect/reconnect,
+   or recreate containers: the committed board returns. An uncertain move is
+   never retried automatically. Refresh after a conflict before trying again.
+4. Switch English/French/Arabic, theme and phone width. Cells work with Tab and
+   Enter/Space, preserve focus and announce turns/results. X/O differ by shape.
+5. Administrator > **Users** demonstrates user creation, editing, roles and
+   deletion. Members cannot administer users. The final administrator cannot
+   be deleted or demoted. Deleting a player ends active games and anonymizes
+   their historical references.
+6. Registration Privacy/Terms links open a separate tab and preserve the form,
+   including the typed password, in the original tab. Passwords are not saved
+   to browser storage.
 
-## Technical choices and schema
+## Architecture and technical choices
 
-Node 24 and Next.js App Router provide React and backend routes in one app.
-TypeScript shares public DTOs. Tailwind 4 and semantic tokens style our original
-components. Prisma supplies typed queries/migrations over one SQLite file; Caddy
-provides HTTPS. No game server, broker, OAuth or runtime AI service is involved.
+Next.js App Router provides frontend React/TypeScript and backend route handlers;
+Tailwind plus semantic CSS tokens provide styling. Prisma with SQLite keeps this
+single-computer delivery small and transactional. Caddy provides local HTTPS.
+Zod validates client inputs and backend bodies independently. The backend reloads
+current session/role and checks Origin, membership, turn, cell and version.
 
-```mermaid
-erDiagram
-  User ||--o{ Session : authenticates
-  User ||--o{ Task : owns
-  User o|--o{ ActivityEvent : acts
-  User ||--o{ Notification : receives
-  ActivityEvent ||--o{ Notification : describes
-```
+Passwords use Argon2id. Sessions are random, stored only as hashes server-side,
+and sent in Secure, HttpOnly, SameSite=Lax cookies. Password changes revoke all
+sessions. Auth and game actions are rate-limited. Private game projections contain
+player display names, never email, passwords or tokens. The old internal cookie
+namespace is retained for compatibility with the reused security foundation.
 
-User stores unique normalized email and MEMBER/ADMIN role. Task stores content,
-owner, version and timestamps. Session stores token hashes and expiry.
-RateLimitBucket persists hashed-scope quotas. ActivityEvent keeps safe action
-metadata and survives task deletion; actor references become null after account
-deletion. Notification is unique per recipient/event and stores readAt. Foreign
-keys cascade deleted accounts' sessions/tasks/recipient notifications.
+Game state is committed before publication. Scoped HTTPS server-sent events send
+full snapshots, with monotonic versions and 15-second authorization heartbeats.
+On reconnection the client reads canonical state before enabling moves. A
+process-wide bus supports this **single application process**; a multi-instance
+service would require a shared broker and is outside this delivery.
 
-Browser/API/import writes share the same task service. Current roles and version
-predicates are checked inside short transactions. SQLite WAL, busy timeout and
-bounded retry protect simultaneous actions; stale versions return 409.
-Events and notifications commit atomically with their domain mutations.
+The computer plays O. It takes an immediate win; otherwise it usually blocks a
+threat, then prefers center/corners. A 15% imperfect branch permits legal weaker
+choices. It can beat weak play and can lose; it is not perfect minimax. The human
+move and computer reply commit in one transaction, with no external AI service.
 
-Passwords use Argon2id (19 MiB, two iterations, parallelism one). Seven-day
-sessions store SHA-256 token hashes; cookies are Secure, HttpOnly, SameSite=Lax
-and host-scoped. Password changes revoke sessions. Browser mutations require
-the configured Origin and bounded input. External keys have member permissions,
-a shared 60/minute quota and separate invalid-key limit, without permissive CORS.
-Credentials remain in ignored local files and never enter client bundles.
+## Database schema
 
-## Modules and points
+| Model | Purpose and relationships |
+| --- | --- |
+| User | Unique email, public name, password hash, MEMBER/ADMIN role; sessions and X/O game seats |
+| Session | Hash-only token, expiry, User foreign key; revoked on password change/deletion |
+| RateLimitBucket | Persistent per-action quotas and reset times |
+| Game | Mode, nine-cell board, seats, turn, status/result, unique invitation, version/times |
+| GameMove | Game foreign key, mark/cell/ply; unique game+cell and game+ply |
 
-| Selected module | Points |
-| --- | ---: |
-| Frontend/backend frameworks | 2 |
-| Advanced permissions | 2 |
-| Secured public API | 2 |
-| ORM | 1 |
-| Advanced search | 1 |
-| Custom design system | 1 |
-| Three languages | 1 |
-| RTL | 1 |
-| Additional browsers | 1 |
-| SSR | 1 |
-| Import/export | 1 |
-| **Core target** | **14** |
-| Domain notifications buffer | 1 |
-| Personal activity analytics buffer | 1 |
-| **Selected target** | **16** |
+Game seats become null when an account is deleted, after the game is safely
+resolved. Moves/results remain. Transactions and version predicates ensure two
+concurrent joins or conflicting actions cannot both claim the same state.
 
-Themes are included in the design system and have no separate points. Mandatory
-requirements remain a separate gate. The [module matrix](docs/requirements/module-matrix.md)
-and [observed evidence](docs/evaluation/evidence.md) map implementation/tests and
-limitations. Point values are the selected scope, not an official assessment.
+## Features and candidate modules
 
-## Verification
+Mandatory frontend/backend/database, secure accounts, concurrent use, HTTPS,
+responsive access, legal pages and one-command container startup apply separately.
+
+| ID | Candidate module | Points |
+| --- | --- | ---: |
+| G01 | Frontend/backend frameworks | 2 |
+| G02 | Complete web game | 2 |
+| G03 | Computer opponent | 2 |
+| G04 | Real-time updates | 2 |
+| G05 | ORM | 1 |
+| G06 | Shared design system | 1 |
+| G07 | English, French, Arabic | 1 |
+| G08 | RTL support | 1 |
+| G09 | Additional browsers (unclaimed: Firefox runner blocked) | 0 |
+| G10 | Meaningful server rendering | 1 |
+| | Core currently demonstrated target | **13** |
+| G11 | Advanced permissions | 2 |
+| | Current target with permissions buffer | **15** |
+
+These are candidate mappings, not official awarded points. Theme switching and
+basic authentication do not add points. No remote-player, public API, tournament,
+statistics, task/search/transfer or notification module is claimed. See
+[traceability](docs/requirements/module-matrix.md) and
+[current evidence](docs/evaluation/tic-tac-toe-evidence.md).
+
+## Verification and fresh setup
 
 ```sh
-npm run db:migrate
-npm run db:seed
 npm test
 npm run typecheck
 npm run lint
 npm run build
 npm run audit:source
 npm run smoke:auth
-npm run smoke:tasks
-./docs/api/examples.sh
-npx playwright install --with-deps chrome firefox msedge
+npm run smoke:games
+npm run test:e2e
 npm run verify
+npm run rehearse
 ```
 
-`verify` runs types, lint, real-database tests, build, artifact audit and actual
-Chrome/Firefox/Edge suites. [OpenAPI and examples](docs/api/README.md) document
-the external API; [auth](docs/api/auth.md) and [tasks](docs/api/tasks.md) cover
-internal frontend contracts. Recorded versions are in the
-[browser matrix](docs/evaluation/browser-matrix.md).
+Smoke checks use validated local HTTPS, temporary demonstration accounts and
+normal game actions; game records remain on the administrator account.
+`verify` runs sequential checks including Chrome and Edge. Firefox remains an
+explicit optional project (`npx playwright test --project=firefox`); its Windows
+SxS loader fails before startup on this computer. G09 is unclaimed. Install
+actual Chrome, Firefox and Edge; `npx playwright install chrome firefox` installs
+the managed versions where available. Edge uses the installed Microsoft product.
+Browser tests use project `tictactoe-e2e-mahdi`, port 8443 and own ignored
+`.env.e2e`. Their guarded reset affects only that isolated database. Normal
+runtime data and certificates are never reset. The test public CA must also be
+trusted. Certificate validation remains enabled in both browsers and Node API
+requests. Override `TICTACTOE_E2E_PROJECT`, `TICTACTOE_E2E_PORT` and
+`TICTACTOE_E2E_ENV_FILE` consistently if needed.
 
-Browser tests use separate `.env.e2e`, taskboard-e2e-mahdi/8443 and independent
-data/certificate volumes. Override TASKBOARD_E2E_PROJECT and TASKBOARD_E2E_PORT
-for another checkout; Joseph's suggested port is 9443. Reset requires the test
-project/port/database guard and verified Compose label. Normal volumes are never
-reset. Browser automation explicitly allows the local CA; setup separately
-verifies real CA/hostname TLS. Manual trusted-browser checks use imported CA
-without a bypass. Non-root hosts may extract official branded browsers locally
-and supply TASKBOARD_CHROME_EXECUTABLE/TASKBOARD_EDGE_EXECUTABLE.
+`rehearse` exports the exact uncommitted working source (including new files,
+excluding ignored credentials/builds/databases), hashes it and performs a fresh
+npm install/setup/migration/seed/check/build plus isolated HTTPS Chrome flows on
+9443. It makes no commit. Only the already trusted test certificate volume is
+reused; rehearsal game data is separate. Ignored logs, traces and screenshots
+may contain private test inputs and must never be shared unredacted.
 
-`npm run rehearse` clones the exact committed branch, performs npm ci, private
-setup, migrations/seed, checks/build, and isolated Chrome flows at port 9443.
-TASKBOARD_E2E_IMAGE can reuse an image built from the same application source;
-otherwise the test app builds normally. Ignored logs identify the exact revision.
+## Team, project management and AI use
 
-## Team, management and individual contributions
+Mahdi (`mahajj-h`) and Joseph (`jboustan`) are the accepted two-member roster.
+The owner authorized Mahdi/Codex to complete staging implementation. The original
+Taskboard batches/manifests are historical delivery evidence. Current game work
+is a Mahdi/Codex-assisted replacement authorized for staging delivery; it must not be relabeled as
+Joseph's original implementation. Record Joseph's actual review, adaptation and
+explanation only after they occur. No human understanding is inferred from tests.
 
-Mahdi (`mahajj-h`, MahdiHajjHassan) directs scope, implementation and staging.
-Joseph (`jboustan`, josephboustany) is the second team member. Both 42 logins are
-owner-confirmed. The original split assigned Mahdi infrastructure/security/
-writes/admin/API/transfers/events and Joseph UI/query/localization/browser/
-activity work.
+The design/spec and ordered implementation plan are in `docs/superpowers/`.
+Superpowers supplied the planning/TDD/debugging/review workflow; the vendored
+Impeccable 4.7.1 guided the UI. Codex assisted architecture, implementation, tests
+and documentation. Both students must understand the code and honestly explain
+AI assistance during evaluation. See [contributions](docs/team/contributions/mahdi.md)
+and [delivery map](docs/delivery/PUSH-MAP.md). After local verification, the owner
+authorized committing and pushing this replacement to Transcendence2 staging.
 
-The owner then requested every package be completed now with Codex in staging
-for Claude to reuse. **Current source provenance is Mahdi/Codex; a Joseph batch
-label does not make that source Joseph-authored.** Joseph's actual later review,
-adaptation, understanding and commits are recorded only when they happen.
-Pushing unchanged commits preserves their original author; no identity/signature
-or contribution is fabricated.
+## Resources
 
-The [technical plan](docs/superpowers/plans/2026-10-26-taskboard.md),
-[contribution schedule](docs/superpowers/plans/2026-10-26-team-contributions.md),
-[delivery map](docs/delivery/PUSH-MAP.md), immutable batch manifests and
-[Mahdi](docs/team/contributions/mahdi.md)/[Joseph](docs/team/contributions/joseph.md)
-records separate plans, source commits, automated checks, human review and
-delivery. Final-history publishing remains unauthorized.
-
-## Resources and AI use
-
-- Original [subject](docs/reference/en.subject.pdf), v21.1, and
-  [evaluation sheet](docs/reference/EVALUATION-SHEET.pdf), unchanged.
-- [Node](https://nodejs.org/docs/latest-v24.x/api/), [Next](https://nextjs.org/docs),
-  [React](https://react.dev/), [Prisma](https://www.prisma.io/docs),
-  [SQLite](https://sqlite.org/docs.html), [Caddy](https://caddyserver.com/docs/),
-  [Playwright](https://playwright.dev/docs/intro) and
-  [OWASP password guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
-- Superpowers guided planning, test-first backend work, debugging, review and
-  verification. Pinned [Impeccable](https://github.com/pbakaus/impeccable) 4.7.1
-  guided the restrained interface; upstream LICENSE/NOTICE remain vendored.
-
-Codex assisted implementation, tests, documentation and automated review. Claude
-can consume the tested source; no Claude/Joseph work is claimed in advance.
-The app makes no AI calls. Members must inspect, run and explain the code and
-their actual contributions; generated records do not replace a real defense.
+- [Original subject](docs/reference/en.subject.pdf) and [evaluation sheet](docs/reference/EVALUATION-SHEET.pdf), unchanged.
+- [Next.js documentation](https://nextjs.org/docs), [Prisma documentation](https://www.prisma.io/docs), [Caddy documentation](https://caddyserver.com/docs/).
+- [Game API](docs/api/games.md), [auth contract](docs/api/auth.md), [design system](DESIGN.md).
