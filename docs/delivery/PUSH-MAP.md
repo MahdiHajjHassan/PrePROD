@@ -7,6 +7,14 @@
 
 # Staging Source and Final Delivery Map
 
+## Current game delivery
+
+Game source acfb60facedc71166c272276aa361ad69da0cb5b is pushed to
+`codex/tic-tac-toe` in this staging repository. The remote SHA was verified.
+[Draft PR #1](https://github.com/MahdiHajjHassan/Transcendence2/pull/1) targets
+staging main. Exact provenance/checks are in [the game receipt](batches/tic-tac-toe.md).
+The separate final history repository remains untouched.
+
 ## Product replacement requested — 2026-10-27
 
 The owner requested a tic-tac-toe replacement with friend and computer modes,
