@@ -37,6 +37,13 @@ The handoff file's remaining instructions define file boundaries and Git steps.
 
 ## Before the first commit or push
 
+Staging checkpoint on 2026-10-27: M01 foundation, M02 auth backend, and M03 task
+writes are staged on main. Start with J01, then J02, then J03; inspect the live
+map/history to confirm. Read docs/api/auth.md, docs/api/tasks.md, and each M01–M03
+bundle for exact source commits, verified behavior and known limitations. M03
+does not implement your query/search backend or board/SSR. Your first browser
+work includes the guarded isolated Playwright harness described below.
+
 - Confirm the repository is MahdiHajjHassan/Transcendence2, not the older project.
 - Joseph's owner-confirmed GitHub username is josephboustany. Use that exact
   account, not the old 42 login jboustan. His author email is selected in his

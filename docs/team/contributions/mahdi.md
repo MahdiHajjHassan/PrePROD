@@ -60,3 +60,21 @@ Critical/Important issues and one nonblocking logout-body strictness inconsisten
 Own human walkthrough and counterpart human review: pending. No Joseph source
 work, personal understanding, or final-repo delivery is claimed. Next unlocked
 Mahdi work: M03 task writes. Joseph J01 remains the next UI/design package.
+
+### M03 task write backend — 2026-10-27
+
+Source commit: f18302969902012801b3d6115975c1faba0b1aa8, branch mahdi/m03-task-writes.
+Implemented strict task inputs, public projection/basic reads, task writes with
+current database roles and ownership, revision-conflict checks, bounded SQLite
+retry, internal HTTP routes and the contract in docs/api/tasks.md.
+
+Observed 73/73 tests, typecheck, zero-warning lint, production build, healthy
+container rebuild and CA/hostname-verified HTTPS task lifecycle. Fresh automated
+review found no Critical/Important issues and independently passed ten two-DB-
+connection update/delete races. One minor diagnostic cleanup limitation is
+recorded in docs/delivery/batches/M03.md with the unchanged baseline limitations.
+
+Own human walkthrough and counterpart human review: pending. Full query/search
+and board UI/SSR are Joseph J03; no Joseph implementation is claimed. Joseph
+starts J01, then J02/J03; Mahdi M04 waits for his foundations. Final-repo delivery
+remains unset. All current source commits/pushes use Mahdi's actual identity.
