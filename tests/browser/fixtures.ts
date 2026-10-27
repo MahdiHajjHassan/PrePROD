@@ -6,6 +6,24 @@ import { dictionaries } from "../../src/i18n/dictionaries";
 export const t = dictionaries.en;
 type ExpectedFailure = { path: string; status: number };
 export const test = base.extend<{ isolated: void; expectedFailures: ExpectedFailure[] }>({
+  browser: [async ({ browser }, provide) => {
+    const warmup = await browser.newContext({ ignoreHTTPSErrors: true });
+    try {
+      const page = await warmup.newPage();
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const response = await page.goto(`${testSettings().values.APP_ORIGIN}/api/health`, { waitUntil: "networkidle" });
+          if (response?.status() !== 200) throw new Error("Browser HTTPS warmup failed");
+          break;
+        } catch (error) {
+          // Docker bridge creation can notify Chrome after Compose is healthy.
+          // Retry only this initial idempotent health GET, never test actions.
+          if (attempt !== 0 || !String(error).includes("ERR_NETWORK_CHANGED")) throw error;
+        }
+      }
+    } finally { await warmup.close(); }
+    await provide(browser);
+  }, { scope: "worker" }],
   isolated: [async ({}, provide) => { resetTestDb(); await provide(); }, { auto: true }],
   expectedFailures: async ({}, provide) => { await provide([]); },
   page: async ({ page, expectedFailures, browser }, provide, info) => {
