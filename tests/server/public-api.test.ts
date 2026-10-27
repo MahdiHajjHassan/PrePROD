@@ -66,3 +66,25 @@ test("deleted or elevated API actor cannot gain administrator access through its
   await db.user.delete({ where: { id: api.id } });
   expect((await handlers.list(request())).status).toBe(403);
 });
+
+test.each(["update", "remove"] as const)("API member capability survives a promotion while %s body is being read", async (operation) => {
+  const { db, api, other, handlers } = await fixture();
+  const foreign = await db.task.create({ data: { ownerId: other.id, title: "Keep foreign task" } });
+  // readJson obtains its reader only after key authentication. Promoting at
+  // that boundary deterministically exercises the real async request race.
+  const body = new ReadableStream<Uint8Array>({ start(controller) { controller.enqueue(new TextEncoder().encode(JSON.stringify({ title: "Privilege race", version: 1 }))); controller.close(); } });
+  const originalReader = body.getReader.bind(body);
+  Object.defineProperty(body, "getReader", { value: () => {
+    const reader = originalReader(); const read = reader.read.bind(reader); let promoted = false;
+    reader.read = async () => { if (!promoted) { promoted = true; await db.user.update({ where: { id: api.id }, data: { role: "ADMIN" } }); } return read(); };
+    return reader;
+  } });
+  const input = new Request("https://localhost/api/public/v1/tasks", { method: operation === "update" ? "PUT" : "DELETE", headers: { "X-API-Key": key, "Content-Type": "application/json" }, body: operation === "update" ? body : JSON.stringify({ version: 1 }), ...(operation === "update" ? { duplex: "half" } : {}) } as RequestInit);
+  if (operation === "remove") {
+    const stream = input.body!; const getReader = stream.getReader.bind(stream);
+    Object.defineProperty(stream, "getReader", { value: () => { const reader = getReader(); const read = reader.read.bind(reader); reader.read = async () => { await db.user.update({ where: { id: api.id }, data: { role: "ADMIN" } }); return read(); }; return reader; } });
+  }
+  const response = await handlers[operation](input, foreign.id);
+  expect(response.status).toBe(403);
+  expect(await db.task.findUnique({ where: { id: foreign.id } })).toMatchObject({ title: "Keep foreign task", version: 1 });
+});

@@ -9,7 +9,7 @@ import { readJson } from "../security/origin";
 import { parseInput } from "../validation";
 
 export function createPublicApiHandlers(db: PrismaClient, config: Pick<ServerConfig, "publicApiKey" | "apiActorEmail">) {
-  const authenticate = createApiAuthenticator(db, config); const tasks = createTaskService(db);
+  const authenticate = createApiAuthenticator(db, config); const tasks = createTaskService(db, { memberOnly: true });
   return {
     list(request: Request) { return handleApi(async () => { await authenticate(request); return jsonData(await tasks.list(parseTaskQuery(new URL(request.url).searchParams))); }); },
     read(request: Request, id: string) { return handleApi(async () => { await authenticate(request); return jsonData(await tasks.read(id)); }); },

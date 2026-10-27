@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const fields = {
-  title: z.string().trim().min(1).max(120),
-  description: z.string().max(1000),
+  title: z.string().trim().min(1).max(120).refine((text) => text.isWellFormed(), "invalid_unicode"),
+  description: z.string().max(1000).refine((text) => text.isWellFormed(), "invalid_unicode"),
   status: z.enum(["OPEN", "DONE"]),
   priority: z.enum(["LOW", "NORMAL", "HIGH"]),
 };

@@ -46,3 +46,14 @@ test("filtered export returns all 60 matches independent of displayed page", asy
   const records = JSON.parse(new TextDecoder().decode(exported.bytes)); expect(records).toHaveLength(60);
   expect(Object.keys(records[0]).sort()).toEqual(["description", "priority", "status", "title"]);
 });
+
+test("escaped lone surrogates are rejected before writes while valid Unicode is preserved", async () => {
+  const { transfers, actor, db } = await fixture();
+  for (const invalid of [{ ...row, title: "\ud800" }, { ...row, description: "\udfff" }]) {
+    await expect(transfers.import(actor, bytes([row, invalid]), "json")).rejects.toMatchObject({ code: "VALIDATION" });
+    expect(await db.task.count()).toBe(0);
+  }
+  const valid = { ...row, title: "صحيح 😀 café", description: "Literal Unicode محفوظ" };
+  await transfers.import(actor, bytes([valid]), "json");
+  expect(JSON.parse(new TextDecoder().decode((await transfers.export({}, "json")).bytes))).toEqual([valid]);
+});

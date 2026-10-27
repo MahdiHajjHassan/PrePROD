@@ -10,8 +10,13 @@ import { taskCreateSchema, taskIdSchema, taskPatchSchema, taskPortableSchema, ve
 import { queryTasks } from "./query";
 import { recordDomainEvent } from "../activity/writer";
 
-async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id: string, version: number) {
+async function taskActor(tx: Prisma.TransactionClient, supplied: Actor | null, memberOnly: boolean) {
   const actor = await currentActor(tx, supplied);
+  if (memberOnly && actor.role !== "MEMBER") throw new DomainError("FORBIDDEN");
+  return actor;
+}
+async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id: string, version: number, memberOnly: boolean) {
+  const actor = await taskActor(tx, supplied, memberOnly);
   const task = await tx.task.findUnique({ where: { id }, select: { ownerId: true, version: true, title: true, status: true } });
   if (!task) throw new DomainError("NOT_FOUND");
   if (task.ownerId !== actor.id && actor.role !== "ADMIN") throw new DomainError("FORBIDDEN");
@@ -19,12 +24,13 @@ async function writable(tx: Prisma.TransactionClient, supplied: Actor | null, id
   return { task, actor };
 }
 
-export function createTaskService(db: PrismaClient) {
+export function createTaskService(db: PrismaClient, options: { memberOnly?: boolean } = {}) {
+  const memberOnly = options.memberOnly ?? false;
   return {
     async create(supplied: Actor | null, input: unknown): Promise<TaskDTO> {
       const data = parseInput(taskCreateSchema, input);
       return withWriteRetry(() => db.$transaction(async (tx) => {
-        const actor = await currentActor(tx, supplied);
+        const actor = await taskActor(tx, supplied, memberOnly);
         const task = await tx.task.create({ data: { ...data, ownerId: actor.id }, select: taskSelect });
         await recordDomainEvent(tx, { actorId: actor.id, action: "CREATE", entityType: "TASK", entityId: task.id, label: task.title });
         return toTaskDTO(task);
@@ -39,7 +45,7 @@ export function createTaskService(db: PrismaClient) {
     async importMany(supplied: Actor | null, input: unknown): Promise<{ created: number }> {
       const rows = parseInput(z.array(taskPortableSchema).min(1).max(200), input);
       return withWriteRetry(() => db.$transaction(async (tx) => {
-        const actor = await currentActor(tx, supplied);
+        const actor = await taskActor(tx, supplied, memberOnly);
         for (const data of rows) {
           const task = await tx.task.create({ data: { ...data, ownerId: actor.id }, select: { id: true, title: true } });
           await recordDomainEvent(tx, { actorId: actor.id, action: "CREATE", entityType: "TASK", entityId: task.id, label: task.title });
@@ -56,7 +62,7 @@ export function createTaskService(db: PrismaClient) {
       const data = parseInput(taskPatchSchema, input);
       const version = parseInput(versionSchema, expectedVersion);
       return withWriteRetry(() => db.$transaction(async (tx) => {
-        const { task: before, actor } = await writable(tx, supplied, id, version);
+        const { task: before, actor } = await writable(tx, supplied, id, version, memberOnly);
         const changed = await tx.task.updateMany({ where: { id, version }, data: { ...data, version: { increment: 1 } } });
         if (changed.count !== 1) throw new DomainError("CONFLICT");
         const task = await tx.task.findUniqueOrThrow({ where: { id }, select: taskSelect });
@@ -68,7 +74,7 @@ export function createTaskService(db: PrismaClient) {
       const id = parseInput(taskIdSchema, rawId);
       const version = parseInput(versionSchema, expectedVersion);
       await withWriteRetry(() => db.$transaction(async (tx) => {
-        const { task, actor } = await writable(tx, supplied, id, version);
+        const { task, actor } = await writable(tx, supplied, id, version, memberOnly);
         const removed = await tx.task.deleteMany({ where: { id, version } });
         if (removed.count !== 1) throw new DomainError("CONFLICT");
         await recordDomainEvent(tx, { actorId: actor.id, action: "DELETE", entityType: "TASK", entityId: id, label: task.title });
