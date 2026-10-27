@@ -25,3 +25,5 @@ playwright-report/
 playwright/.auth/
 *.tsbuildinfo
 .DS_Store
+.impeccable/*
+!.impeccable/surfaces/
