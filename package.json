@@ -21,7 +21,11 @@
     "setup": "node -- scripts/setup.mjs",
     "smoke": "node scripts/smoke.mjs",
     "smoke:auth": "node -- scripts/smoke-auth.mjs",
-    "smoke:tasks": "node -- scripts/smoke-tasks.mjs"
+    "smoke:tasks": "node -- scripts/smoke-tasks.mjs",
+    "smoke:api": "node -- scripts/smoke-api.mjs",
+    "audit:source": "node -- scripts/audit-source.mjs",
+    "verify": "node -- scripts/verify.mjs",
+    "rehearse": "node -- scripts/rehearse.mjs"
   },
   "dependencies": {
     "@node-rs/argon2": "2.2.2",
