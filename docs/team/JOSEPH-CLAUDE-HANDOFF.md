@@ -38,8 +38,10 @@ The handoff file's remaining instructions define file boundaries and Git steps.
 ## Before the first commit or push
 
 - Confirm the repository is MahdiHajjHassan/Transcendence2, not the older project.
-- Ask Joseph/the owner for his actual GitHub username if not confirmed. The old
-  42 login jboustan must not be assumed to identify his GitHub account.
+- Joseph's owner-confirmed GitHub username is josephboustany. Use that exact
+  account, not the old 42 login jboustan. His author email is selected in his
+  own environment. The 2026-10-27 staging access check returned none; recheck and
+  have the owner grant access before his first clone/push if still missing.
 - Inspect the authenticated account through the connected GitHub tool, or
   gh api user --jq .login. Verify write access to this private repository.
 - Inspect local git user.name/user.email. Joseph sets his own verified email or

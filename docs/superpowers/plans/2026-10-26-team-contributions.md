@@ -22,10 +22,15 @@ The owner confirmed that the team is Mahdi and Joseph. Codex assists Mahdi;
 Claude assists Joseph. This does not establish that either person has already
 implemented or understood future features.
 
-Mahdi's GitHub account is MahdiHajjHassan. Joseph's GitHub account must be confirmed
-by Joseph/the owner and checked in Joseph's own session. The older project's
-jboustan is a 42 login, not a verified GitHub account. Do not infer his email or
-configure an account for him using that guess.
+Mahdi's GitHub account is MahdiHajjHassan. The owner confirmed Joseph Boustany's
+account as josephboustany from his profile screenshot on 2026-10-27. Verify that
+actor and repository access in Joseph's own session. His verified email/noreply
+address is chosen there; never infer it from a name or 42 login. The older
+project's jboustan is a separate 42 login, not his GitHub account.
+
+A read-only access check on 2026-10-27 returned permission none for josephboustany
+on Transcendence2. No invitation or grant was sent. Recheck before his first
+clone/push; see docs/delivery/PUSH-MAP.md for this staging setup requirement.
 
 At preparation time the repository contains references, skills, and planning
 documents only. Existing commits are Mahdi-authored. New feature ownership starts
@@ -462,8 +467,9 @@ to share a password/token with the other.
   precheck future implementation, reviews, learning, or evaluation success.
 - Final README references the real feature ownership and Git history, and discloses
   AI assistance. It must not claim that pushing a file proves comprehension.
-- Team member 42 logins and Joseph's GitHub identity still need confirmation for
-  final attribution; the working split can be used before those fields are filled.
+- Team member 42 logins and each person's author email still need confirmation
+  for final attribution. Joseph's GitHub handle is confirmed as josephboustany;
+  the working split can be used while account access is being set up.
 
 The evaluation asks for meaningful contributions and cross-project understanding,
 not merely two names appearing in git log. This plan supplies concrete work for

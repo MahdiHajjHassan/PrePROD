@@ -556,9 +556,9 @@ AGENTS.md with real commands, actual test/build results.
   switching, mandatory authentication, or basic accessibility.
 - Current application/test scripts do not exist. Their listed commands are the
   interfaces the implementer must create and subsequently verify.
-- The owner confirmed Mahdi and Joseph as the team. Remaining facts are actual
-  42 logins, Joseph's verified GitHub identity, and campus clarifications;
-  no old-project identity assumptions are imported.
+- The owner confirmed Mahdi and Joseph as the team and josephboustany as Joseph's
+  GitHub account. Remaining facts are 42 logins, local author-email choices,
+  repository access setup, and campus clarifications; no old identity is guessed.
 - Execution is split by the contribution schedule: each agent implements only
   the acting person's unlocked batch using Superpowers, with Impeccable for UI.
   No additional skill is needed. Publishing the split is not application execution.

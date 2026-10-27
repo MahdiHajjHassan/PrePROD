@@ -65,9 +65,10 @@ The owner has confirmed the two members, Mahdi and Joseph. The proposed technica
 responsibilities and push order are in
 docs/superpowers/plans/2026-10-26-team-contributions.md.
 
-Actual 42 logins, Joseph's GitHub identity, and any campus-specific clarifications
-still require confirmation. Do not infer identities from old repository labels
-or treat planned responsibilities as completed contributions.
+The owner confirmed Joseph Boustany's GitHub username as josephboustany from his
+profile screenshot. His author email is selected in his own environment. Actual
+42 logins and any campus-specific clarifications still require confirmation. Do
+not treat planned responsibilities as completed contributions.
 
 The complete proposed behavior, module allocation, and acceptance criteria are
 in docs/superpowers/specs/2026-10-26-taskboard-design.md.

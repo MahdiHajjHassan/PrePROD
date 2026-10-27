@@ -24,9 +24,10 @@ environment; Codex availability does not prove Claude availability. Read the
 project-local Impeccable SKILL.md under .agents/skills/impeccable/ and follow the
 relevant references. Ask the owner before adding any other project skill.
 
-Joseph's GitHub username/email must be confirmed, not guessed from his name or
-42 login. Never impersonate Joseph using Mahdi's environment or relabel already
-authored commits. Preserve actual contribution and AI-assistance records.
+Joseph's owner-confirmed GitHub username is josephboustany. Verify that account
+and repository write access in Joseph's session; he selects his verified author
+email/noreply address there. Do not infer email from his name or 42 login. Never
+impersonate Joseph using Mahdi's environment or relabel already authored commits. Preserve actual contribution and AI-assistance records.
 
 Use docs/team/contributions/joseph.md for Joseph-side actual results. Follow the
 handoff's end-of-batch report and stop at the next-owner boundary. No app code,

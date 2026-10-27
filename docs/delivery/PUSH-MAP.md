@@ -13,6 +13,18 @@ commits separate. A future Joseph-side push does not reattribute Mahdi's source
 commits. Joseph/Claude implements or meaningfully adapts and verifies Joseph's
 assigned work in his own session, preserving actual provenance.
 
+## Confirmed accounts and access
+
+Mahdi: MahdiHajjHassan. Joseph: josephboustany, confirmed by the owner from his
+profile screenshot on 2026-10-27. Each person uses their own verified Git author
+email in their own session; no email or credential is inferred/shared here.
+
+A read-only GitHub check on 2026-10-27 returned permission none for Joseph on
+this private staging repository. The owner must grant him access before his first
+clone/push if that is still the case. No invitation/access mutation was performed.
+Recheck the live permission when starting Joseph's session. This does not block
+Mahdi's staging work and says nothing about the as-yet-uncreated final repo.
+
 ## Status meanings
 
 - PLANNED: no completed implementation bundle.

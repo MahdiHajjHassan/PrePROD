@@ -50,8 +50,9 @@ than letting either agent implement the entire technical plan.
 - Read the contribution schedule before editing shared files. Keep DTOs and
   service interfaces compatible and hand off the explicit query/event boundaries.
 - Each acting session uses its person's own authenticated GitHub account and
-  normal Git author identity. Joseph's GitHub username/email remain unconfirmed;
-  do not infer them from his name or 42 login. Verify before his first commit/push.
+  normal Git author identity. Joseph's owner-confirmed GitHub username is
+  `josephboustany`; his Git author email is selected in his own environment.
+  Verify the acting account and current repository access before his first push.
 - Push meaningful passing slices on the listed owner branches. Preserve actual
   authors when merging; no author overrides, empty contribution commits, or
   relabeling work from the other side. Reviews and personal understanding are
