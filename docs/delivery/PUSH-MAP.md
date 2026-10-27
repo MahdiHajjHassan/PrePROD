@@ -13,10 +13,11 @@ An unchanged source commit keeps its author regardless of who later pushes it.
 
 ## Current source
 
-Application source tip: efc86be989eec0edbc1f7c02a2df7da8d65ea870.
+Application source tip: cc05a2c0b27c456f37ed253a8aed677389e4f881.
 Branch: staging/complete-taskboard, integrated into staging main only after checks.
-The first three backend bundles were already staged; the rest are implemented,
-with the final integrated browser/rehearsal gate in progress. Read
+Every planned implementation bundle is staged. Full verification passed103
+server tests and33 actual-browser scenarios; a fresh clone additionally passed
+installation/bootstrap/checks/build and11 Chrome flows. Read
 [verification evidence](../evaluation/evidence.md), [review resolutions](../evaluation/review.md),
 and the [machine manifest](STAGING-MANIFEST.json) for exact immutable sources.
 
@@ -25,23 +26,23 @@ and the [machine manifest](STAGING-MANIFEST.json) for exact immutable sources.
 | Batch | Requested delivery track | State | Application source commits |
 | --- | --- | --- | --- |
 | [M00](batches/M00.md) | Mahdi | STAGED | bd7ba87, 4e5c9fc, 0959e97, 2a6a96b |
-| [M01](batches/M01.md) | Mahdi | STAGED | 651f259, c54d2d9 |
-| [J01](batches/J01.md) | Joseph | IMPLEMENTING | 9b19355, 6cad511, 8cecd5b |
+| [M01](batches/M01.md) | Mahdi | STAGED | 651f259, c54d2d9, cc05a2c |
+| [J01](batches/J01.md) | Joseph | STAGED | 9b19355, 6cad511, 8cecd5b |
 | [M02](batches/M02.md) | Mahdi | STAGED | bb803d4 |
-| [J02](batches/J02.md) | Joseph | IMPLEMENTING | bbae134, efc86be |
+| [J02](batches/J02.md) | Joseph | STAGED | bbae134, efc86be |
 | [M03](batches/M03.md) | Mahdi | STAGED | f183029, efc86be |
-| [J03](batches/J03.md) | Joseph | IMPLEMENTING | 6688b58, d33bb0c, 8cecd5b, efc86be |
-| [M04](batches/M04.md) | Mahdi | IMPLEMENTING | 27c5b43, 048db79, efc86be |
-| [M05](batches/M05.md) | Mahdi | IMPLEMENTING | 791a858, 3e807f7, efc86be |
-| [M06](batches/M06.md) | Mahdi | IMPLEMENTING | 3967cec, 3a035a2, efc86be |
-| [J04](batches/J04.md) | Joseph | IMPLEMENTING | 9b19355 |
-| [J05](batches/J05.md) | Joseph | IMPLEMENTING | 60fb320, 4f553df, efc86be |
-| [M07](batches/M07.md) | Mahdi | IMPLEMENTING | 4f553df, efc86be |
-| [M08](batches/M08.md) | Mahdi | IMPLEMENTING | 3bdd1d3, a483127, efc86be |
-| [J06](batches/J06.md) | Joseph | IMPLEMENTING | 3bdd1d3, a483127 |
-| [J07](batches/J07.md) | Joseph | IMPLEMENTING | 8cecd5b, efc86be |
-| [M09](batches/M09.md) | Mahdi | IMPLEMENTING | 4f553df, efc86be |
-| [J08](batches/J08.md) | Joseph | IMPLEMENTING | 4f553df, efc86be |
+| [J03](batches/J03.md) | Joseph | STAGED | 6688b58, d33bb0c, 8cecd5b, efc86be |
+| [M04](batches/M04.md) | Mahdi | STAGED | 27c5b43, 048db79, efc86be |
+| [M05](batches/M05.md) | Mahdi | STAGED | 791a858, 3e807f7, efc86be |
+| [M06](batches/M06.md) | Mahdi | STAGED | 3967cec, 3a035a2, efc86be |
+| [J04](batches/J04.md) | Joseph | STAGED | 9b19355 |
+| [J05](batches/J05.md) | Joseph | STAGED | 60fb320, 4f553df, efc86be, 8a54f85 |
+| [M07](batches/M07.md) | Mahdi | STAGED | 4f553df, efc86be |
+| [M08](batches/M08.md) | Mahdi | STAGED | 3bdd1d3, a483127, efc86be |
+| [J06](batches/J06.md) | Joseph | STAGED | 3bdd1d3, a483127 |
+| [J07](batches/J07.md) | Joseph | STAGED | 8cecd5b, efc86be |
+| [M09](batches/M09.md) | Mahdi | STAGED | 4f553df, efc86be, cc05a2c |
+| [J08](batches/J08.md) | Joseph | STAGED | 4f553df, efc86be, cc05a2c |
 
 ## Safe reuse and delivery
 

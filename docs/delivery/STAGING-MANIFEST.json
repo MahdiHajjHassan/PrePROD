@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "stagingRepository": "MahdiHajjHassan/Transcendence2",
   "stagingBranch": "staging/complete-taskboard",
-  "applicationSourceTip": "efc86be989eec0edbc1f7c02a2df7da8d65ea870",
+  "applicationSourceTip": "cc05a2c0b27c456f37ed253a8aed677389e4f881",
   "finalRepository": {
     "ownerLabel": "Final Trans Repo",
     "verifiedRemote": null,
     "pushAuthorized": false
   },
   "actualStagingSource": "Mahdi / Codex",
-  "status": "IMPLEMENTING",
+  "status": "STAGED",
   "globalSourceOrder": [
     "bd7ba874914332da91fb60d9097386c00f54e259",
     "4e5c9fc9309bbe225c3f1bd7491f0ca3f21e8700",
@@ -41,7 +41,9 @@
     "3e807f7e4f69da5cd7b4a721708bd06e9982c356",
     "4f553dfcab15df16746ef155f9df43e0d6d2517d",
     "efc86be989eec0edbc1f7c02a2df7da8d65ea870",
-    "8a54f853f86cd3d15137213208f29262e9c00c39"
+    "8a54f853f86cd3d15137213208f29262e9c00c39",
+    "bd42e4fba1d5d62396972129a8d36313d7abf891",
+    "cc05a2c0b27c456f37ed253a8aed677389e4f881"
   ],
   "rules": [
     "Preserve original authors and atomic commits.",
@@ -153,7 +155,8 @@
       "actualSource": "Mahdi / Codex",
       "sourceCommits": [
         "651f259958584efed373fba77e009f7d8ada1c48",
-        "c54d2d926edc58cc35df60f9804f2475f6af0fe5"
+        "c54d2d926edc58cc35df60f9804f2475f6af0fe5",
+        "cc05a2c0b27c456f37ed253a8aed677389e4f881"
       ],
       "files": [
         ".dockerignore",
@@ -249,7 +252,7 @@
         "src/server/auth/page.ts",
         "tests/server/dictionaries.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -324,7 +327,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -403,7 +406,7 @@
         "tests/server/tasks.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -436,7 +439,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -469,7 +472,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -503,7 +506,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -540,7 +543,7 @@
         "src/server/auth/page.ts",
         "tests/server/dictionaries.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -589,7 +592,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -622,7 +625,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -665,7 +668,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -698,7 +701,7 @@
         "tests/server/events.test.ts",
         "tests/server/notifications.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -725,7 +728,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -736,7 +739,8 @@
       "actualSource": "Mahdi / Codex",
       "sourceCommits": [
         "4f553dfcab15df16746ef155f9df43e0d6d2517d",
-        "efc86be989eec0edbc1f7c02a2df7da8d65ea870"
+        "efc86be989eec0edbc1f7c02a2df7da8d65ea870",
+        "cc05a2c0b27c456f37ed253a8aed677389e4f881"
       ],
       "files": [
         "README.md",
@@ -758,7 +762,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -769,7 +773,8 @@
       "actualSource": "Mahdi / Codex",
       "sourceCommits": [
         "4f553dfcab15df16746ef155f9df43e0d6d2517d",
-        "efc86be989eec0edbc1f7c02a2df7da8d65ea870"
+        "efc86be989eec0edbc1f7c02a2df7da8d65ea870",
+        "cc05a2c0b27c456f37ed253a8aed677389e4f881"
       ],
       "files": [
         "README.md",
@@ -791,7 +796,7 @@
         "tests/server/rehearsal-env.test.ts",
         "tests/server/transfers.test.ts"
       ],
-      "status": "IMPLEMENTING",
+      "status": "STAGED",
       "finalDelivery": null,
       "humanWalkthrough": "pending actual recording",
       "dependencies": "All earlier applicable commits in globalSourceOrder; shared commits are atomic and applied once."
@@ -822,6 +827,13 @@
     "lint": "passed",
     "build": "passed",
     "artifactAudit": "passed",
-    "freshClone": "pending"
+    "freshClone": {
+      "revision": "cc05a2c0b27c456f37ed253a8aed677389e4f881",
+      "status": "passed",
+      "serverTests": 103,
+      "chromeScenarios": 11,
+      "coldContainerBuild": "passed; VFS cache reclaimed before healthy startup; complete rehearsal reused that image",
+      "externalDatabaseAndDotenvSentinels": "remained absent"
+    }
   }
 }

@@ -78,3 +78,20 @@ Own human walkthrough and counterpart human review: pending. Full query/search
 and board UI/SSR are Joseph J03; no Joseph implementation is claimed. Joseph
 starts J01, then J02/J03; Mahdi M04 waits for his foundations. Final-repo delivery
 remains unset. All current source commits/pushes use Mahdi's actual identity.
+
+### Complete staging implementation —2026-10-27
+
+Under the owner's revised instruction, Codex/Mahdi completed all remaining
+original M/J packages once for reuse by Claude. Final application/bootstrap
+source:cc05a2c0b27c456f37ed253a8aed677389e4f881; exact source commits/files and original delivery tracks are in
+STAGING-MANIFEST.json. All actual source authorship is preserved.
+
+Observed:103 real SQLite/HTTP tests; typecheck/lint/build/audit;33/33 actual
+Chrome/Firefox/Edge cases; real HTTPS auth/task/API flows; fresh-clone install/
+setup/migrations/seed/checks/build plus11 Chrome flows. Four Important independent
+review findings were fixed RED→GREEN; fresh bootstrap generation was also fixed.
+VFS resource recovery and three baseline nonblocking limits are documented.
+
+Human walkthrough and counterpart review: pending actual recording. Joseph's
+actual contribution is not inferred from source generation. Final history repo
+remains untouched; only Transcendence2 staging receives this implementation.

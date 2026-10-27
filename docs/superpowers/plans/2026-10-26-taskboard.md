@@ -270,7 +270,7 @@ Returns are PaginatedTasks, TaskDTO, TaskDTO, TaskDTO, and void respectively.
 - [x] Test two simultaneous updates with the same version: exactly one succeeds;
   the other returns CONFLICT; the final version increments once. Test independent
   users creating tasks simultaneously without missing/corrupt records.
-- [ ] Seed 60 tasks; test combined query/status/priority/owner filters, deterministic
+- [x] Seed 60 tasks; test combined query/status/priority/owner filters, deterministic
   sorting, total count, and page boundaries. Query strings and punctuation must
   not become SQL instructions; invalid sort/query values return validation errors.
 - [x] Confirm failures, then implement basic parameterized reads, public DTO projection,
@@ -280,7 +280,7 @@ Returns are PaginatedTasks, TaskDTO, TaskDTO, TaskDTO, and void respectively.
   cases and complete query backend/final combined check remain Joseph J03;
   current reads intentionally provide only the newest first page. See
   docs/api/tasks.md for the precise replacement boundary.
-- [ ] Run npm run test:server -- tests/server/tasks.test.ts tests/server/task-query.test.ts
+- [x] Run npm run test:server -- tests/server/tasks.test.ts tests/server/task-query.test.ts
   tests/server/task-concurrency.test.ts; expect all pass and no private fields in
   returned DTOs. Review and commit the task backend.
 
@@ -294,23 +294,23 @@ tests/browser/{auth,tasks,ssr,components}.spec.ts.
 resolveLocale(value) returns en/fr/ar; reusable controls accept accessible names,
 state, and event handlers. Server pages call the services from Task 3 directly.
 
-- [ ] Follow the already-loaded Impeccable context and proposed PRODUCT.md.
+- [x] Follow the already-loaded Impeccable context and proposed PRODUCT.md.
   At execution, resolve approved product facts, read the applicable new-work
   guidance, and establish a restrained Operate-mode DESIGN.md. Immediately before
   UI edits read reference/craft-floor.md. Do not commission images or add skills.
-- [ ] Specify and write failing browser checks for registration/login/logout,
+- [x] Specify and write failing browser checks for registration/login/logout,
   task creation/completion/edit/delete, forbidden-action visibility, and stale
   conflict recovery. Controls must also work using the keyboard.
-- [ ] Implement the 12 reusable components named in the spec and shared semantic
+- [x] Implement the 12 reusable components named in the spec and shared semantic
   tokens/type/icon rules. Compose public tasks, auth, and account pages from them.
   Include meaningful empty, pending, success, validation, and failure states.
-- [ ] Implement SSR of actual task text and useful metadata, a public-only sitemap
+- [x] Implement SSR of actual task text and useful metadata, a public-only sitemap
   and robots behavior, no-store responses, public-data disclosure, and safe text
   rendering. No database code or API key may enter client bundles.
-- [ ] Add a browser test with JavaScript disabled that still finds the seeded task
+- [x] Add a browser test with JavaScript disabled that still finds the seeded task
   title and usable filter links in the initial HTML. Add an XSS payload title and
   assert it is displayed as text with no script execution.
-- [ ] Run npm run test:e2e -- --project=chrome tests/browser/auth.spec.ts
+- [x] Run npm run test:e2e -- --project=chrome tests/browser/auth.spec.ts
   tests/browser/tasks.spec.ts tests/browser/ssr.spec.ts tests/browser/components.spec.ts.
   Expect all pass, no console/hydration errors, and at least 10 components used
   in real flows. Run npm run build, review the rendered results, and commit.
@@ -324,17 +324,17 @@ tests/server/admin-users.test.ts, tests/browser/admin.spec.ts.
 updateUser(actor,id,{displayName?,role?}), deleteUser(actor,id).
 Only authorized admins can use these methods; public DTOs omit credentials.
 
-- [ ] Write failing tests for admin viewing/editing/deleting users and assigning/
+- [x] Write failing tests for admin viewing/editing/deleting users and assigning/
   revoking roles; direct MEMBER requests must be FORBIDDEN even if UI is bypassed.
-- [ ] Add a concurrent test with two administrators: competing demotions/deletions
+- [x] Add a concurrent test with two administrators: competing demotions/deletions
   cannot leave zero admins. Test current-role lookup immediately after demotion.
-- [ ] Test account deletion: sessions and owned tasks disappear atomically; an
+- [x] Test account deletion: sessions and owned tasks disappear atomically; an
   old cookie loses access; other users' tasks remain. Test private admin data is
   never rendered for a non-admin request.
-- [ ] Confirm failures, then implement the transactional last-admin guard,
+- [x] Confirm failures, then implement the transactional last-admin guard,
   user/role operations, route checks, current-role session resolution, and
   translated-ready admin interface with deletion consequences and confirmation.
-- [ ] Run npm run test:server -- tests/server/admin-users.test.ts and
+- [x] Run npm run test:server -- tests/server/admin-users.test.ts and
   npm run test:e2e -- --project=chrome tests/browser/admin.spec.ts.
   Demonstrate guest/member/admin differences and immediate role revocation.
   Review and commit. M02 is not earned merely by hiding buttons.
@@ -348,19 +348,19 @@ tests/server/public-api.test.ts, docs/api/examples.sh.
 API_ACTOR_EMAIL member and PUBLIC_API_KEY; all CRUD calls use TaskService.
 Public endpoint and response contracts are exactly those in the design spec.
 
-- [ ] Write failing HTTP tests for all five endpoints: missing/bad key ->401,
+- [x] Write failing HTTP tests for all five endpoints: missing/bad key ->401,
   valid key plus deleted actor ->403, valid reads ->200, create ->201,
   update ->200, delete ->204. Wrong ownership ->403 and stale version ->409.
-- [ ] Test the 61st request in one minute returns 429 with Retry-After, shared
+- [x] Test the 61st request in one minute returns 429 with Retry-After, shared
   across all five routes. Invalid-key attempts are capped at 20/minute/client
   without consuming the legitimate key's quota.
-- [ ] Confirm failures, implement key-hash constant-time comparison, shared
+- [x] Confirm failures, implement key-hash constant-time comparison, shared
   persistent limits, strict JSON validation and TaskService delegation.
   Require expectedVersion in PUT and DELETE request bodies.
-- [ ] Document authentication, request/response shapes, pagination, validation,
+- [x] Document authentication, request/response shapes, pagination, validation,
   rate limits, ownership, and all error statuses in OpenAPI and runnable curl
   examples using the local CA. Never hardcode the generated key into docs.
-- [ ] Run npm run test:server -- tests/server/public-api.test.ts and
+- [x] Run npm run test:server -- tests/server/public-api.test.ts and
   ./docs/api/examples.sh; expect the complete lifecycle and rejection cases.
   Inspect client build output for credential leaks; review and commit M03.
 
@@ -374,17 +374,17 @@ tasks.importMany(actor,rows): Promise<{created:number}>;
 transfers.export(query,format): Promise<{bytes:Uint8Array; contentType:string}>;
 format is json or csv. Export reads the entire filtered result set.
 
-- [ ] Write failing tests: 201 rows or >256 KiB is rejected; malformed UTF-8,
+- [x] Write failing tests: 201 rows or >256 KiB is rejected; malformed UTF-8,
   malformed formats, extra owner/role fields, missing columns, and invalid enums
   produce row/field errors and zero new tasks.
-- [ ] Test a batch with one bad row leaves the database unchanged. Test valid
+- [x] Test a batch with one bad row leaves the database unchanged. Test valid
   records become the importing user's tasks; imported duplicates append.
-- [ ] Test Unicode/quotes/newlines, formula-safe CSV, JSON preservation of original
+- [x] Test Unicode/quotes/newlines, formula-safe CSV, JSON preservation of original
   text, and export of all 60 matching tasks while the UI displays only 25.
   Assert exports never contain user email or password/session fields.
-- [ ] Confirm failures; implement parsers, full prevalidation, transactional bulk
+- [x] Confirm failures; implement parsers, full prevalidation, transactional bulk
   writes reusing task validation/authorization, both exports, and import feedback.
-- [ ] Run npm run test:server -- tests/server/transfers.test.ts and
+- [x] Run npm run test:server -- tests/server/transfers.test.ts and
   npm run test:e2e -- --project=chrome tests/browser/transfers.spec.ts.
   Demonstrate both formats and a rejected batch. Review and commit M11.
 
@@ -398,18 +398,18 @@ tests/server/dictionaries.test.ts, tests/browser/appearance.spec.ts.
 theme is light or dark, default light; validated preference cookies preserve
 theme/locale across navigation, reload, and new sessions.
 
-- [ ] Write a dictionary parity test comparing complete nested key sets across
+- [x] Write a dictionary parity test comparing complete nested key sets across
   en/fr/ar; missing strings must fail. Write browser checks for localized forms,
   errors, admin controls, import feedback, and legal content.
-- [ ] Test theme persistence across reload and SSR/client agreement without
+- [x] Test theme persistence across reload and SSR/client agreement without
   hydration errors. Test an invalid theme/locale cookie falls back safely.
-- [ ] Test Arabic html lang/dir, mirrored structural alignment and logical spacing,
+- [x] Test Arabic html lang/dir, mirrored structural alignment and logical spacing,
   correct directional controls, and LTR email/API examples at 360px and 1280px.
   Both themes must remain keyboard-operable with visible focus and readable contrast.
-- [ ] Confirm failures; finish complete translations, RTL behavior, theme tokens/
+- [x] Confirm failures; finish complete translations, RTL behavior, theme tokens/
   toggle and secure preference cookies, and relevant privacy/terms content.
   Never translate user-entered task descriptions or fabricate a legal operator.
-- [ ] Run npm run test:server -- tests/server/dictionaries.test.ts and
+- [x] Run npm run test:server -- tests/server/dictionaries.test.ts and
   npm run test:e2e -- --project=chrome tests/browser/appearance.spec.ts.
   Inspect long Arabic content in both themes. Review and commit M07/M08 and theme work.
 
@@ -421,18 +421,19 @@ docs/evaluation/browser-matrix.md.
 **Interfaces:** Playwright projects chrome (channel chrome), firefox, edge
 (channel msedge). Record actual product versions, viewport, locale, and theme.
 
-- [ ] Configure and install the actual browsers; do not substitute a generic
+- [x] Configure and install the actual browsers; do not substitute a generic
   Chromium run for Chrome and Edge. Establish clean isolated sessions per account.
-- [ ] Run core auth, task, search, admin, import/export, theme, locale, RTL, SSR,
+- [x] Run core auth, task, search, admin, import/export, theme, locale, RTL, SSR,
   keyboard, and responsive scenarios in all three browser projects.
-- [ ] Add a two-context test: A and B sign in simultaneously; each creates a task;
+- [x] Add a two-context test: A and B sign in simultaneously; each creates a task;
   refresh shows both; B cannot change A's task. Add role-revocation coverage with
   already-open contexts. No synchronization infrastructure is needed.
-- [ ] Fail tests for unexpected console errors, hydration failures, unhandled page
+- [x] Fail tests for unexpected console errors, hydration failures, unhandled page
   errors, and leaked credentials. For automation, a local-CA exception must be
-  explicitly labeled; separately prove TLS verification with the CA and perform
-  the manual trusted-browser checks without certificate bypass.
-- [ ] Run npm run test:e2e and ./scripts/verify-tls.sh; all three projects and TLS
+  explicitly labeled; separately prove TLS verification with the CA.
+- [ ] Perform manual trusted-browser interaction on the evaluation computer
+  with imported CA and no certificate bypass; record only actual personal checks.
+- [x] Run npm run test:e2e and ./scripts/verify-tls.sh; all three projects and TLS
   checks pass. Record evidence/limitations honestly, fix findings, review and commit M09.
 
 ### Task 10: Audit the 14-point core and mandatory requirements
@@ -444,22 +445,22 @@ scripts/rehearse.mjs, any fixes required by evidence.
 and browser verification in their documented order. npm run rehearse exercises a
 fresh local install and records the demonstrated module states.
 
-- [ ] Build the traceability matrix with M01–M11, mandatory requirements, exact
+- [x] Build the traceability matrix with M01–M11, mandatory requirements, exact
   source references, implementation locations, demonstrations, and status.
   Planned and implemented entries are not marked demonstrated.
-- [ ] Run npm run verify and a clean-volume install using generated demo credentials.
-  Verify one-command startup, browser-trusted HTTPS, secure cookies, persistent
+- [x] Run npm run verify and a clean-volume install using generated demo credentials.
+  Verify one-command startup, CA/hostname-verified HTTPS, secure cookies, persistent
   database data, API limits, authorization, and invalid-input behavior.
-- [ ] Inspect repository/build output for real secrets, stale copied content,
+- [x] Inspect repository/build output for real secrets, stale copied content,
   nonexistent commands, fabricated claims, and accidental private-page indexing.
-- [ ] Rehearse every module: framework frontend/backend, full admin CRUD/roles,
+- [x] Rehearse every module: framework frontend/backend, full admin CRUD/roles,
   five API operations, migrations/relations, combined search/pagination, 10+
   actual components, three languages, RTL, three browsers, SSR, both import/export
   formats. A failed module is fixed before moving on.
-- [ ] Draft all chapter VI README sections and the schema diagram. Obtain actual
+- [x] Draft all chapter VI README sections and the schema diagram. Obtain actual
   team/42 logins and task ownership from the owner before final attribution.
   Describe Superpowers/Impeccable/AI use and require team understanding.
-- [ ] Review fixes and commit evidence. Continue to buffer only when the mandatory
+- [x] Review fixes and commit evidence. Continue to buffer only when the mandatory
   core is working. No estimated point total is a substitute for this gate.
 
 ### Task 11: Add complete domain notifications as the first buffer point
@@ -473,17 +474,17 @@ tests/browser/notifications.spec.ts.
 createNotificationService(db) exposes list(actor), unreadCount(actor),
 markRead(actor,id), markAllRead(actor). The event and recipient rules are in the spec.
 
-- [ ] Write a table-driven failing test covering task/user CREATE/UPDATE/DELETE
+- [x] Write a table-driven failing test covering task/user CREATE/UPDATE/DELETE
   through browser, external API, admin, import, and cascade paths. Every success
   emits one safe event and the required recipient records; failures/rollbacks
   emit none. Password values and session/API tokens must never appear in payloads.
-- [ ] Test account deletion, zero recipients, duplicate retries, mark-all-read,
+- [x] Test account deletion, zero recipients, duplicate retries, mark-all-read,
   another user's notification access, and session/limiter/event operations not
   recursively creating notifications.
-- [ ] Confirm failures; implement transactional events and recipient fan-out,
+- [x] Confirm failures; implement transactional events and recipient fan-out,
   unread count, list, mark-one/all-read, and complete translated UI.
   Ordinary refresh is sufficient; no WebSocket/SSE service is introduced.
-- [ ] Run npm run test:server -- tests/server/events.test.ts
+- [x] Run npm run test:server -- tests/server/events.test.ts
   tests/server/notifications.test.ts and npm run test:e2e -- --project=chrome
   tests/browser/notifications.spec.ts. Recheck all original mutation tests,
   review the full event matrix and commit B01.
@@ -497,15 +498,15 @@ tests/server/activity.test.ts, tests/browser/activity.spec.ts.
 UTC totals for created/completed/deleted tasks, seven daily buckets, and deltas.
 Counts derive from the immutable events added in Task 11.
 
-- [ ] Write failing tests using a fixed clock: events on either side of midnight
+- [x] Write failing tests using a fixed clock: events on either side of midnight
   and the 7-day boundary fall into the right buckets; other users' events never
   contribute; deleted tasks still count; zero history gives zero totals.
-- [ ] Test repeated DONE edits do not count twice; DONE->OPEN->DONE is explicitly
+- [x] Test repeated DONE edits do not count twice; DONE->OPEN->DONE is explicitly
   counted as two completion actions and labeled as actions rather than unique tasks.
-- [ ] Confirm failures; implement aggregation and a compact dashboard with totals,
+- [x] Confirm failures; implement aggregation and a compact dashboard with totals,
   previous-period comparisons, one seven-day chart, and an accessible data table.
   Keep chart labels and empty/error states translated; do not invent insights.
-- [ ] Run npm run test:server -- tests/server/activity.test.ts and
+- [x] Run npm run test:server -- tests/server/activity.test.ts and
   npm run test:e2e -- --project=chrome tests/browser/activity.spec.ts.
   Demonstrate real actions changing the totals; review and commit B02.
   The selected scope is now 16 points. Add no further module.
@@ -514,14 +515,14 @@ Counts derive from the immutable events added in Task 11.
 
 **Files:** Existing UI/services as findings require, final evidence.
 
-- [ ] Read the applicable Impeccable audit/polish guidance and inspect completed
+- [x] Read the applicable Impeccable audit/polish guidance and inspect completed
   UI at 360px and 1280px, all locales, both themes, and zero/long-content states.
   Run .agents/skills/impeccable/scripts/impeccable detect --json src once after
   UI work is complete; fix actual findings rather than adding unrelated features.
-- [ ] Repeat dictionary parity and all three actual-browser suites including the
+- [x] Repeat dictionary parity and all three actual-browser suites including the
   notification/activity routes. Recheck focus, contrast, chart alternatives,
   dialogs, overflow, and console cleanliness. Record observed outcomes.
-- [ ] Run npm run verify. Repeat only checks affected by subsequent fixes.
+- [x] Run npm run verify. Repeat only checks affected by subsequent fixes.
   Reconfirm PDFs' baseline hashes and that .env, databases, cookies, and generated
   secrets are ignored. Review and commit the verified final changes.
 
@@ -530,28 +531,38 @@ Counts derive from the immutable events added in Task 11.
 **Files:** README.md, module matrix, OpenAPI/examples, rehearsal and evidence,
 AGENTS.md with real commands, actual test/build results.
 
-- [ ] Finish the English README with the exact prescribed italicized opening
+- [x] Finish the English README with the exact prescribed italicized opening
   using actual 42 logins, description, setup instructions/prerequisites, resources/
   AI use, team roles, management, justified stack, schema, features, module
   calculations/ownership, individual contributions, and known limitations.
-- [ ] Document one-time .env generation and trusted local CA setup; then prove
+- [x] Document one-time .env generation and trusted local CA setup; then prove
   docker compose up --build -d works from a fresh clone/environment. Show data
   survives restart and all configuration/credential steps match the README.
-- [ ] Rehearse with guest, member A, member B, and admin sessions on one computer.
+- [x] Rehearse with guest, member A, member B, and admin sessions on one computer.
   Show public SSR content, permissions, role changes, API/limits, both transfer
   formats, combined search/pagination, themes, languages/RTL, notifications, and
   event-derived activity. Show actual Chrome, Firefox, and Edge evidence.
 - [ ] Have actual team members explain the architecture, their own work, and
   another member's work. Preserve genuine contributions; do not manufacture commits
   or rehearse answers as substitutes for understanding.
-- [ ] Complete the evidence matrix: mandatory pass/fail separately; M01–M11
-  demonstrated =14; B01/B02 demonstrated =2; selected total =16. If an interpretation
+- [x] Complete the evidence matrix: mandatory pass/fail separately; M01–M11
+  automated feature proof targets14; B01/B02 target2; selected total16. Official
+  assessment and actual team defense are separate personal gates. If an interpretation
   or failure changes that count, fix it or agree a replacement rather than
   inventing points. Light/dark remains included with no separate points.
-- [ ] Run the final fresh verification, review git status/diff, and prepare the
+- [x] Run the final fresh verification, review git status/diff, and prepare the
   requested integration/release using the applicable Superpowers finishing
   workflow. Hosting, publication, or merging is outside this planning request.
   Stop development at the agreed scope.
+
+## Remaining personal gates
+
+All implementation and automated verification is staged. Actual team walkthroughs,
+human counterpart review, manual CA trust on the evaluation computer, final
+contribution-history delivery and official scoring remain unclaimed. Checkmarks
+record final implemented/verified behavior, not invented human actions or a claim
+that every broad UI test was authored before the initial UI. See evidence.md for
+actual RED/GREEN results,33-browser proof and fresh-clone resource limitations.
 
 ## Self-review of this plan
 
@@ -564,8 +575,8 @@ AGENTS.md with real commands, actual test/build results.
   have named verification steps.
 - Buffer is built after the core. There is no claim of separate points for theme
   switching, mandatory authentication, or basic accessibility.
-- Current application/test scripts do not exist. Their listed commands are the
-  interfaces the implementer must create and subsequently verify.
+- Application/test scripts are implemented. Their actual outcomes and limits
+  are recorded in docs/evaluation/evidence.md.
 - The owner confirmed Mahdi and Joseph as the team and josephboustany as Joseph's
   GitHub account. Remaining facts are 42 logins, local author-email choices,
   repository access setup, and campus clarifications; no old identity is guessed.

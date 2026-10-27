@@ -30,3 +30,14 @@ Append one entry after a real completed slice. Include:
 - Known unresolved issues.
 
 Do not store credentials, tokens, local session state, or private user data here.
+
+## Full staging handoff —2026-10-27
+
+The owner requested all originally Joseph-assigned features be implemented now
+by Codex/Mahdi in staging so Claude can reuse the tested source. They are mapped
+in docs/delivery/STAGING-MANIFEST.json and the per-batch Markdown manifests.
+No redevelopment is needed. Their original source author remains Mahdi.
+
+Joseph's own review/adaptation/understanding and actual authenticated commits/
+pushes remain pending his session. These fields are not filled by this handoff.
+No final-history repository push is authorized yet.
