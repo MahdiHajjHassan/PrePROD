@@ -11,6 +11,13 @@ push substantial parts of Taskboard using their own configured identities.
 
 ## Team and actual state
 
+Repository clarification: Transcendence2 is staging/development. The final
+contribution-history repository has not been created/provided. The owner permits
+staging pushes whenever useful. Exact staged source commits and later owner-side
+deliveries are tracked separately in docs/delivery/PUSH-MAP.md. Do not infer the
+old Transcendence repository as the destination. The schedule below describes
+owner packages, not a claim that staging pushes already satisfy final delivery.
+
 The owner confirmed that the team is Mahdi and Joseph. Codex assists Mahdi;
 Claude assists Joseph. This does not establish that either person has already
 implemented or understood future features.
@@ -142,6 +149,12 @@ Suggested checkpoints:
 Before push: build/typecheck, component/appearance checks, and actual rendered
 inspection. Do not implement Mahdi's auth backend or task writes. Handoff the
 component props, supported states, dictionary conventions, and layout entry points.
+
+J01 owns the first actual isolated Playwright fixture/configuration alongside its
+first browser tests. M01 installs Playwright and provides real-db helpers but does
+not prebuild Joseph's unused browser harness. Before running UI cases, implement
+the technical plan's guarded test-only Compose project/port/database isolation.
+J05 extends the working harness to the complete three-browser coverage.
 
 ### M02 — Mahdi identity backend
 

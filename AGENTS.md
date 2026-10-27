@@ -3,10 +3,11 @@
 ## Current state
 
 This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
-`ft_transcendence` project. It currently contains the reference PDFs, this
-guidance, planning documents, and the project-local Impeccable skill. There is
-no application code, dependency manifest, build system, test suite, or deployment
-configuration yet.
+`ft_transcendence` project. M01 supplies a minimal Next.js scaffold, typed contracts,
+Prisma/SQLite schema and migrations, private bootstrap, safe initial accounts,
+database readiness, real-db server tests, and Caddy HTTPS/container deployment.
+The board page is only a buildable heading. Authentication, actual task features,
+Joseph's UI/design system, and the selected modules remain in their assigned batches.
 
 The application concept, module selection, team roster, and responsibilities
 are described as proposals or open facts in the planning documents below.
@@ -25,9 +26,8 @@ Do not carry over those decisions or application code from the separate
   dependency order, branches, commit/push checkpoints, and review/handoff rules.
 - `docs/team/JOSEPH-CLAUDE-HANDOFF.md`: ready-to-use Joseph/Claude entry point.
 
-These documents were prepared in response to the request for a concrete plan.
-They describe future implementation and do not establish that application code,
-commands, or module demonstrations already exist.
+These documents define the implementation scope. Read the delivery map and actual
+source/test evidence for current status; a plan alone does not prove a module.
 
 ## Team execution and Git identity
 
@@ -157,9 +157,32 @@ requirements. In particular:
 
 ## Commands and verification
 
-Run commands from the repository root. No application setup, development, build,
-lint, or test commands exist yet. Do not suggest commands such as `npm test` or
-`docker compose up` as working until the corresponding configuration exists.
+Run commands from the current checkout root using Node.js 24 and npm. M01 provides:
+
+```sh
+npm ci
+./scripts/setup.sh
+npm run db:migrate
+npm run db:seed
+npm test
+npm run typecheck
+npm run lint
+npm run build
+docker compose up --build -d
+./scripts/verify-tls.sh
+```
+
+Setup creates private random credentials and refuses to overwrite an existing
+`.env`. Database bootstrap preserves existing accounts. The runtime is non-root,
+only the proxy publishes HTTPS, and the database uses a persistent volume.
+See README.md for local CA trust and the managed-cloud build-only CA override.
+For a named Compose project, pass `COMPOSE_PROJECT_NAME` consistently to the TLS
+verifier as well. Do not print generated credentials or use insecure TLS flags.
+
+Tests use real disposable SQLite files. `npm test` and `typecheck` generate the
+Prisma client; typecheck also generates Next route types. Playwright is installed
+but its actual browser fixture/configuration and UI cases belong to Joseph's J01
+and J05 work. Do not claim browser tests or module points have passed yet.
 
 Useful inspection commands, when Poppler utilities are available:
 
@@ -186,4 +209,4 @@ Baseline SHA-256 checksums:
 For documentation-only work, review the diff, check paths and source claims, and
 confirm the PDFs are unchanged. Once executable code exists, run checks appropriate
 to the change and report the actual commands and outcomes. Distinguish document
-integrity checks from application tests; there are no application tests to run yet.
+integrity checks from executed application tests and manual demonstrations.

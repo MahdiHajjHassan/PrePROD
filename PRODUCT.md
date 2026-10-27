@@ -27,9 +27,9 @@ when that scope is complete and demonstrated.
   Each side implements and pushes its assigned substantive packages using its
   own identity, following the contribution schedule.
 
-## Planning Baseline — Proposed for Review
+## Implementation Baseline
 
-The implementation plan proposes one shared public task board. Visitors can read
+The implementation plan specifies one shared public task board. Visitors can read
 tasks; registered members manage their own tasks; administrators manage tasks,
 users, and role assignments. There are no separate workspaces or boards.
 
@@ -38,12 +38,12 @@ evaluation-focused application; no existing customer base or usage is claimed.
 The people using it during development and evaluation will create demonstration
 accounts and clearly labeled sample tasks.
 
-## Stack — Planning Choice
+## Stack
 
-The recommendation is Next.js App Router, React, TypeScript, Tailwind CSS,
-Prisma, SQLite, and Caddy for local HTTPS. This implements the user's preference
-for the simplest complete solution. These are proposed choices for the plan,
-not claims about an existing implementation.
+The implementation uses Next.js App Router, React, TypeScript, Tailwind CSS,
+Prisma, SQLite, and Caddy for local HTTPS. Exact dependencies and image digests
+are pinned in the source. M01 implements the application/database/deployment
+foundation; the functional feature and UI modules remain in their assigned batches.
 
 ## Operating Context
 

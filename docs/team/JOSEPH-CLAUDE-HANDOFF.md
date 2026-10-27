@@ -8,6 +8,7 @@ MahdiHajjHassan/Transcendence2. Use Joseph's own GitHub connection and normal
 verified Git author identity. Codex is working with Mahdi on the other packages.
 
 First read CLAUDE.md, AGENTS.md, PRODUCT.md,
+docs/delivery/PUSH-MAP.md,
 docs/superpowers/specs/2026-10-26-taskboard-design.md,
 docs/superpowers/plans/2026-10-26-taskboard.md, and
 docs/superpowers/plans/2026-10-26-team-contributions.md.
@@ -111,9 +112,20 @@ over code Mahdi has already written.
 9. Preserve your commits when integrating. After merge, stop and report the next
    unlocked owner/batch instead of continuing into Mahdi's packages.
 
-The original technical plan's test/build commands are future interfaces until
-M01 creates them. Read the actual package scripts on each checkout and report
-missing setup rather than claiming tests ran.
+Read actual package scripts on each checkout and report missing setup rather
+than claiming tests ran. M01 provides server/db checks and deployment; J01 owns
+the first guarded, isolated Playwright harness and actual UI tests, and J05
+extends that harness to the complete browser matrix.
+
+## When Joseph asks to push his parts to the final repository
+
+Transcendence2 is staging. The final contribution-history repository has not been
+created/provided. Read docs/delivery/PUSH-MAP.md and the exact READY Joseph bundle;
+verify the destination and actor before any final push. Preserve actual source
+authorship and record meaningful Joseph-side implementation/adaptation separately.
+A staging push does not mark a batch DELIVERED. Do not copy a whole staging tree
+over another person's final work or guess that the older Transcendence repo is
+the destination.
 
 ## Explain the feature with Joseph
 

@@ -1,6 +1,7 @@
 import { afterEach, expect, test } from "vitest";
 import { verify } from "@node-rs/argon2";
 import { createTestDb } from "../helpers/db";
+import { seedUser } from "../helpers/fixtures";
 
 const cleanup: Array<() => Promise<void>> = [];
 afterEach(async () => { for (const close of cleanup.splice(0).reverse()) await close(); });
@@ -50,12 +51,12 @@ test("restarting preserves edited credentials and does not resurrect a deleted A
 
 test("foreign keys remove only the deleted user's sessions and tasks", async () => {
   const { db } = await fixture();
-  const a = await db.user.create({ data: { email: "a@example.test", displayName: "A", passwordHash: "test-only-not-a-real-password" } });
-  const b = await db.user.create({ data: { email: "b@example.test", displayName: "B", passwordHash: "test-only-not-a-real-password" } });
-  await db.session.create({ data: { id: "f".repeat(64), userId: a.id, expiresAt: new Date(Date.now() + 60000) } });
-  await db.task.create({ data: { title: "A task", ownerId: a.id } });
-  await db.task.create({ data: { title: "B task", ownerId: b.id } });
-  await db.user.delete({ where: { id: a.id } });
+  const a = await seedUser(db, { email: "a@example.test", displayName: "A" });
+  const b = await seedUser(db, { email: "b@example.test", displayName: "B" });
+  await db.session.create({ data: { id: "f".repeat(64), userId: a.actor.id, expiresAt: new Date(Date.now() + 60000) } });
+  await db.task.create({ data: { title: "A task", ownerId: a.actor.id } });
+  await db.task.create({ data: { title: "B task", ownerId: b.actor.id } });
+  await db.user.delete({ where: { id: a.actor.id } });
   expect(await db.session.count()).toBe(0);
   expect((await db.task.findMany()).map((task) => task.title)).toEqual(["B task"]);
 });
