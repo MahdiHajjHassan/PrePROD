@@ -9,3 +9,16 @@ test("fresh-clone rehearsal isolates DB/app/dotenv/preload settings without losi
   expect(env.HTTPS_PROXY).toBe(original.HTTPS_PROXY); expect(env.NODE_EXTRA_CA_CERTS).toBe(original.NODE_EXTRA_CA_CERTS);
   expect(original.DATABASE_URL).toBe("file:/tmp/unrelated.db");
 });
+
+test("fresh-clone rehearsal strips inherited configuration regardless of Windows key casing", async () => {
+  const { rehearsalEnvironment } = await import("../../scripts/lib/rehearsal-env.mjs");
+  const env = rehearsalEnvironment({
+    App_Origin: "https://unrelated.example", Admin_Password: "synthetic-inherited-password",
+    Dotenv_Config_Path: "unrelated.env", Node_Options: "--require unrelated-preload",
+    Database_Url: "file:unrelated.db", Tictactoe_E2e_Project: "unrelated",
+    Node_Extra_Ca_Certs: "trusted-ca.crt",
+  }, "fresh-clone");
+  expect(Object.keys(env).map((key) => key.toUpperCase()).sort()).toEqual(["DATABASE_URL", "NODE_EXTRA_CA_CERTS"]);
+  expect(env.DATABASE_URL).toBe(`file:${resolve("fresh-clone/data/tictactoe.db")}`);
+  expect(env.Node_Extra_Ca_Certs).toBe("trusted-ca.crt");
+});
