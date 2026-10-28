@@ -13,7 +13,7 @@ text occupies a stable heading; one main action sits below. Phone layouts stack
 lobby sections; logical spacing and bdi support Arabic. Room codes stay LTR.
 Both 360px and desktop layouts, light/dark and RTL must be inspected as rendered.
 
-Tokens in src/app/globals.css: --bg, --surface, --text, --muted,
+Tokens in src/frontend/styles/index.css: --bg, --surface, --text, --muted,
 --muted-surface, --accent, --line, --error, --success and --radius. Body is 1rem;
 page titles use a restrained 2rem scale and board titles adapt with clamp. Controls
 have 44px minimum targets, visible focus and 4.5:1 body contrast. Theme preference

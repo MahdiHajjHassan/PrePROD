@@ -9,8 +9,8 @@ afterEach(async () => {
 async function fixture() {
   const { db, close } = await createTestDb();
   cleanup.push(close);
-  const { createAuthService } = await import("@/server/auth/service");
-  const { createAuthHandlers } = await import("@/server/auth/http");
+  const { createAuthService } = await import("@/backend/modules/auth/auth.service");
+  const { createAuthHandlers } = await import("@/backend/modules/auth/auth.controller");
   const auth = createAuthService(db);
   return { db, auth, handlers: createAuthHandlers(auth, { appOrigin: "https://localhost" }) };
 }
@@ -178,7 +178,7 @@ test("account PATCH requires authentication and cannot assign a role", async () 
 });
 
 test("rate-limit identity uses the proxy client address and rejects malformed addresses", async () => {
-  const { clientKey } = await import("@/server/security/origin");
+  const { clientKey } = await import("@/backend/common/security/origin");
   for (const address of ["127.0.0.1", "2001:db8::42"]) {
     expect(
       clientKey(

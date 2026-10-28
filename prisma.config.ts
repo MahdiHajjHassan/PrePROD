@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
-import { resolveDatabaseUrl } from "./src/server/config";
+import { resolveDatabaseUrl } from "./src/backend/config/env";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",

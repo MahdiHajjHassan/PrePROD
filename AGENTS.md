@@ -132,6 +132,10 @@ requirements. In particular:
   stack before scaffolding application code or installing dependencies.
 - Once implementation exists, follow its actual architecture and coding style.
   Keep this guide updated with real paths and commands as they are introduced.
+- Source is grouped into `src/frontend` (components, features, layout, browser
+  helpers and styles), `src/backend` (modules, common, config and database), and
+  `src/shared` (contracts and i18n). Next.js pages and API routes stay in `src/app`.
+  Keep code comments short and plain, explaining the decisions that need a note.
 - Make changes understandable to the team: members must be able to explain their
   contributions, the overall project, and the technical choices during evaluation.
 - When the project README is requested, follow chapter VI. It must be in English,
