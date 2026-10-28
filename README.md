@@ -6,7 +6,8 @@ A complete web game for two signed-in friends using separate browser sessions on
 one computer, or one player against the computer. X starts; three in a line wins.
 Accounts and committed matches survive restarts. The server owns every move.
 
-This is **MahdiHajjHassan/Transcendence2 staging**. No delivery to the separate final history repository is authorized.
+This is **MahdiHajjHassan/Transcendence2 (ppd)**. Production source is maintained in
+[MahdiHajjHassan/Final-Trans-Repo](https://github.com/MahdiHajjHassan/Final-Trans-Repo).
 The owner explicitly accepted two members, Mahdi and Joseph, on 2026-10-27.
 
 ## Instructions

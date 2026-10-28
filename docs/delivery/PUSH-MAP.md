@@ -1,7 +1,9 @@
 # Tic-tac-toe staging delivery map
 
-Repository: MahdiHajjHassan/Transcendence2. This is the staging repository;
-no separate final-history destination is verified or authorized.
+PPD: MahdiHajjHassan/Transcendence2. Prod: MahdiHajjHassan/Final-Trans-Repo.
+On 2026-10-28 the owner authorized promoting the code comments and folder
+refactor to both main branches. Each destination retains its existing history
+and runtime conventions.
 
 | Checkpoint | Source |
 | --- | --- |

@@ -43,10 +43,12 @@ Each acting session uses its person's normal Git author and authenticated
 GitHub account. Joseph's owner-confirmed GitHub username is josephboustany;
 verify identity and repository access before his first push.
 
-Only Transcendence2 staging commits/pushes are authorized. Do not push to the
-older Transcendence repository or guess a destination for the separate
-"Final Trans Repo". No final-history delivery or external deployment is
-authorized. Keep the managed checkout; do not modify a separate history repo.
+Transcendence2 is ppd; Final-Trans-Repo is prod, both under MahdiHajjHassan.
+On 2026-10-28 the owner authorized pushing the code comments and folder refactor
+to both main branches. Preserve each repository's existing history and runtime
+conventions when promoting changes. Do not push to the older Transcendence repo.
+Keep the managed checkout; use an isolated worktree to validate prod changes.
+This request covers Git delivery; no external deployment was requested.
 
 Preserve private .env files, certificate material, databases, Docker data and
 certificate volumes, original reference PDFs and vendored skills. Source cleanup
