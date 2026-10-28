@@ -8,7 +8,8 @@ function request(input: unknown, origin = "https://localhost") {
   vi.stubEnv("ADMIN_EMAIL", "admin@example.test");
   vi.stubEnv("ADMIN_PASSWORD", "test-only-admin-password");
   return new Request("https://localhost/api/preferences", {
-    method: "POST", headers: { "Content-Type": "application/json", Origin: origin },
+    method: "POST",
+    headers: { "Content-Type": "application/json", Origin: origin },
     body: JSON.stringify(input),
   });
 }
@@ -19,10 +20,11 @@ test("preferences issue secure, host-only game cookies for locale and theme", as
   expect(response.headers.get("Cache-Control")).toBe("private, no-store");
   const cookies = response.headers.getSetCookie();
   expect(cookies).toHaveLength(2);
-  expect(cookies.some(cookie => cookie.startsWith("__Host-tictactoe_locale=ar;"))).toBe(true);
-  expect(cookies.some(cookie => cookie.startsWith("__Host-tictactoe_theme=dark;"))).toBe(true);
+  expect(cookies.some((cookie) => cookie.startsWith("__Host-tictactoe_locale=ar;"))).toBe(true);
+  expect(cookies.some((cookie) => cookie.startsWith("__Host-tictactoe_theme=dark;"))).toBe(true);
   for (const cookie of cookies) {
-    for (const attribute of ["Path=/", "HttpOnly", "Secure", "SameSite=lax"]) expect(cookie).toContain(attribute);
+    for (const attribute of ["Path=/", "HttpOnly", "Secure", "SameSite=lax"])
+      expect(cookie).toContain(attribute);
     expect(cookie).not.toContain("Domain=");
   }
 });
