@@ -21,3 +21,29 @@ Joseph's actual review/adaptation remains unrecorded until it happens.
 
 Earlier contributions and their original authors are preserved in Git history.
 No final-history delivery or external deployment is authorized.
+
+## Strict game evaluation fixes - 2026-10-28
+
+The owner assigned evaluation findings, behavior/security corrections and regressions
+to this audit, with readability and final integration owned by the coordinated chat.
+Mahdi/Codex worked on codex/evaluation-fixes from preprod 3135e9f. No Joseph
+review, adaptation, authorship or personal understanding is inferred.
+
+Verified source commits: 810cbd0, 5a59d23, 7bccae4, 2e82ed8, 3810c92, 45453f0
+and c9d5005. They cover SQLite/session recovery, canonical user/game/SSE references,
+shared account validation, private setup/test isolation, visible control boundaries
+and safe native credential form submission. The borrowed worker configuration
+dc26d50 remains the integration chat's separate change.
+
+Executed complete npm run verify: 116/116 server tests, types/lint/build/artifact
+audit and 48/48 actual Chrome/Edge cases. Final Docker build, strict HTTPS smokes,
+108-file runtime/source matching and 18 rendered views also passed. Earlier host
+resource failures and the isolated test-credential rotation are recorded honestly.
+
+[Strict audit evidence](../../evaluation/2026-10-28-game-strict-audit.md) contains
+the exact commits, image, checks, dependencies and verification limits. This is
+game evidence; the older Desktop audit remains separate. Both owned 9843 test
+containers were stopped with all volumes retained. Ready commits and the heavy
+window were handed to the integration chat for independent preprod/prod review
+and fresh-clone verification. This audit performed no push, main merge or direct
+prod edit.
