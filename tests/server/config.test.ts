@@ -24,3 +24,13 @@ test("configuration needs only game settings and rejects short administrator pas
   expect(() => loadConfig({APP_ORIGIN:valid.APP_ORIGIN,ADMIN_EMAIL:valid.ADMIN_EMAIL,ADMIN_PASSWORD:valid.ADMIN_PASSWORD})).not.toThrow();
   expect(() => loadConfig({...valid,ADMIN_PASSWORD:"short"})).toThrow();
 });
+
+test("bootstrap rejects administrator email addresses that cannot use the browser login", async () => {
+  const { loadConfig } = await import("@/server/config");
+  expect(() => loadConfig({ ...valid, ADMIN_EMAIL: `a@${"a.".repeat(126)}com` })).toThrow();
+});
+
+test("bootstrap rejects malformed administrator passwords before account seeding", async () => {
+  const { loadConfig } = await import("@/server/config");
+  expect(() => loadConfig({ ...valid, ADMIN_PASSWORD: "correct-password-\ud800" })).toThrow();
+});
