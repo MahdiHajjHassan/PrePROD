@@ -137,7 +137,10 @@ requirements. In particular:
 - Source is grouped into `src/frontend` (components, features, layout, browser
   helpers and styles), `src/backend` (modules, common, config and database), and
   `src/shared` (contracts and i18n). Next.js pages and API routes stay in `src/app`.
-  Keep code comments short and plain, explaining the decisions that need a note.
+  Follow the comment style in tawbinho/ft_transcendence: short explanations before
+  functions and components, route labels before HTTP actions, and a few numbered
+  steps in longer flows. Cover how the main parts work in plain English and keep
+  individual notes brief.
 - Make changes understandable to the team: members must be able to explain their
   contributions, the overall project, and the technical choices during evaluation.
 - When the project README is requested, follow chapter VI. It must be in English,
