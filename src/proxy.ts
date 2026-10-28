@@ -6,4 +6,6 @@ export function proxy(request: NextRequest) {
   headers.set("x-tictactoe-locale", isLocale(candidate) ? candidate : "en");
   return NextResponse.next({ request: { headers } });
 }
-export const config = { matcher: ["/((?!api|_next|favicon.ico|icon.svg|robots.txt|sitemap.xml).*)"] };
+export const config = {
+  matcher: ["/((?!api|_next|favicon.ico|icon.svg|robots.txt|sitemap.xml).*)"],
+};

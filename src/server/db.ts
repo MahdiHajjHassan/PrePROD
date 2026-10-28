@@ -22,9 +22,11 @@ export async function createDb(databaseUrl: string): Promise<PrismaClient> {
 
 const globalDb = globalThis as typeof globalThis & { tictactoeDb?: Promise<PrismaClient> };
 export function getDb(): Promise<PrismaClient> {
-  globalDb.tictactoeDb ??= createDb(process.env.DATABASE_URL ?? "file:./data/tictactoe.db").catch((error) => {
-    globalDb.tictactoeDb = undefined;
-    throw error;
-  });
+  globalDb.tictactoeDb ??= createDb(process.env.DATABASE_URL ?? "file:./data/tictactoe.db").catch(
+    (error) => {
+      globalDb.tictactoeDb = undefined;
+      throw error;
+    },
+  );
   return globalDb.tictactoeDb;
 }
