@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import Sqlite from "better-sqlite3";
 
 export async function createTestDb(options: { migrate?: boolean } = {}) {
-  const dir = await mkdtemp(join(tmpdir(), "taskboard-test-"));
+  const dir = await mkdtemp(join(tmpdir(), "tictactoe-test-"));
   const filename = join(dir, "test.db");
   if (options.migrate !== false) {
     const raw = new Sqlite(filename);

@@ -12,7 +12,7 @@ async function fixture() {
   return { db, auth, handlers: createAuthHandlers(auth, { appOrigin: "https://localhost" }) };
 }
 function request(path: string, data: unknown = {}, options: { method?: string; origin?: string | null; contentType?: string; cookie?: string } = {}) {
-  const headers = new Headers({ "Content-Type": options.contentType ?? "application/json", "X-Taskboard-Client-IP": "127.0.0.1" });
+  const headers = new Headers({ "Content-Type": options.contentType ?? "application/json", "X-TicTacToe-Client-IP": "127.0.0.1" });
   if (options.origin !== null) headers.set("Origin", options.origin ?? "https://localhost");
   if (options.cookie) headers.set("Cookie", options.cookie);
   return new Request(`https://localhost${path}`, { method: options.method ?? "POST", headers, ...(options.method === "GET" ? {} : { body: typeof data === "string" ? data : JSON.stringify(data) }) });
@@ -41,7 +41,7 @@ test("registration and login return safe account data with the raw session only 
   const response = await handlers.login(request("/api/auth/login", { email: registration.email, password: registration.password }));
   expect(response.status).toBe(200);
   const cookie = response.headers.get("Set-Cookie")!;
-  expect(cookie).toMatch(/^__Host-taskboard_session=[a-f0-9]{64};/);
+  expect(cookie).toMatch(/^__Host-tictactoe_session=[a-f0-9]{64};/);
   for (const attribute of ["HttpOnly", "Secure", "SameSite=Lax", "Path=/", "Max-Age=604800"]) expect(cookie).toContain(attribute);
   expect(cookie).not.toContain("Domain=");
   const text = await response.text();
@@ -99,4 +99,14 @@ test("account PATCH requires authentication and cannot assign a role", async () 
   expect(await changed.json()).toMatchObject({ data: { id: user.actor.id, displayName: "Changed" } });
   expect((await handlers.updateAccount(request("/api/account", { role: "ADMIN" }, { method: "PATCH", cookie }))).status).toBe(400);
   expect((await db.user.findUniqueOrThrow({ where: { id: user.actor.id } })).role).toBe("MEMBER");
+});
+
+test("rate-limit identity uses the proxy client address and rejects malformed addresses", async () => {
+  const { clientKey } = await import("@/server/security/origin");
+  for (const address of ["127.0.0.1", "2001:db8::42"]) {
+    expect(clientKey(new Request("https://localhost", { headers: { "X-TicTacToe-Client-IP": address } }))).toBe(address);
+  }
+  for (const address of ["", "spoofed", "127.0.0.1, 192.0.2.1"]) {
+    expect(clientKey(new Request("https://localhost", { headers: { "X-TicTacToe-Client-IP": address } }))).toBe("unknown");
+  }
 });

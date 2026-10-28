@@ -14,7 +14,7 @@
 
 ## Global constraints
 
-- The owner permits removing/replacing Taskboard code and stopping that app.
+- The owner permits removing superseded code and documents.
 - Both friend and computer modes; one computer with separate browser sessions.
 - Target: G01-G10 = 14 points; G11 advanced permissions = 2-point buffer.
 - Superpowers and Impeccable are required. Other project skills need approval.
@@ -22,8 +22,8 @@
 - Preserve .env and public/private certificate material. Do not reset accounts in an existing database; use a new game database/volume.
 - Keep both reference PDFs and historical staging manifests unchanged.
 - English/French/Arabic, Arabic RTL, light/dark, keyboard access, HTTPS and meaningful SSR are required.
-- Source and helpers may be reused selectively. Taskboard feature compatibility is not a requirement.
-- New games and tests must not use the normal/old Taskboard database as a disposable fixture.
+- Source and helpers may be reused selectively. Compatibility with previous features is not required.
+- New games and tests must not use the normal runtime database as a disposable fixture.
 - Run resource-heavy Windows commands sequentially and server tests with one worker. Observe disk/commit memory before repeated builds.
 
 ## Review focus
@@ -36,8 +36,7 @@
 
 ## Shared contracts
 
-Move Actor and Role into src/shared/auth.ts; src/shared/tasks.ts may re-export
-them only during replacement so reusable services can be disentangled safely.
+Actor and Role live in src/shared/auth.ts.
 The new game types live in src/shared/games.ts:
 
 - Mark = X | O; Cells is exactly nine entries of X | O | null.
@@ -59,7 +58,7 @@ The new game types live in src/shared/games.ts:
 
 ## Task 1: Establish the game foundation and executable contracts
 
-**Files:** Replace task-specific composition in src/server/services.ts,
+**Files:** Use game composition in src/server/services.ts,
 src/shared/auth.ts and prisma/schema.prisma; create src/shared/games.ts and the
 new game's initial migration; adapt src/server/db.ts, scripts/setup.mjs,
 scripts/migrate.mjs, scripts/seed.ts and tests/helpers/{db,fixtures}.ts.
@@ -69,8 +68,8 @@ above, isolated real-SQLite helpers, and secret-safe setup.
 
 - [x] Write tests for a fresh game database, schema relations, duplicate game/cell or game/ply rejection, safe repeated seeding and setup refusal to overwrite .env.
 - [x] Run the new migration/setup tests before implementation and observe the expected missing-schema failure.
-- [x] Implement the schema and bootstrap. Game human references are nullable with safe deletion handling in Task 4. Use a fresh game-data volume, not the old app-data volume.
-- [x] Separate generic auth/security infrastructure from task events and imports. Keep private .env values intact; unused legacy keys do not become requirements for new installations.
+- [x] Implement the schema and bootstrap. Game human references are nullable with safe deletion handling in Task 4. Use the game-data volume.
+- [x] Use generic auth/security infrastructure. Keep private .env values intact; unused legacy keys do not become requirements for new installations.
 - [x] Verify fresh migration and rerun with unchanged seeded-account IDs. On Windows test actual NTFS access behavior rather than interpreting Unix permission bits as ACLs.
 
 ## Task 2: Implement and prove game rules and the computer policy
@@ -94,7 +93,7 @@ the spec; wire src/server/services.ts; create tests/server/{games,game-http,
 game-concurrency}.test.ts.
 
 **Consumes/produces:** The exact GameService contracts above and the existing
-origin/session/input/rate-limit helpers, stripped of Taskboard coupling.
+origin/session/input/rate-limit helpers, using game cookies and proxy headers.
 
 - [x] Write failing HTTP/service cases for anonymous and unseated actors, self-join, invalid/used codes, illegal/out-of-turn moves, resignation and cancellation.
 - [x] Add real independent-connection races: two joiners; duplicate moves with the same version; move versus resignation. Assert one committed result and consistent move rows.
@@ -161,25 +160,22 @@ tests/browser/appearance.spec.ts; preserve/update registration-legal.spec.ts.
 - [x] Add complete en/fr/ar wording, including the AI, room codes, all HTTP errors, confirmation text, rules and connection states.
 - [x] Preserve form contents on validation errors; keep invitation codes LTR inside Arabic, mirror layout logically and distinguish X/O without color.
 - [x] Verify light/dark persistence, 360px/1280px layouts, keyboard focus and contrast. Inspect actual rendered gameplay in both themes and Arabic.
-- [x] Update Privacy/Terms for accounts and stored game records. Do not describe task transfers or claim services/features that are absent.
+- [x] Update Privacy/Terms for accounts and stored game records. Do not claim services/features that are absent.
 - [x] Verify all registration legal links open separately and return to an intact form in all three languages.
 
-## Task 8: Remove the old product and document the replacement
+## Task 8: Keep one product and document it accurately
 
-**Files:** Remove/replace src/features/{tasks,transfers,notifications}.tsx,
-task/activity/transfer-only service and route trees, old task smoke scripts and
-obsolete browser cases. Update package.json, compose.yaml, .env.example,
-AGENTS.md, PRODUCT.md, README.md, docs/requirements/module-matrix.md,
-docs/api/ and delivery routing. Keep reference PDFs/manifests.
+**Files:** package.json, compose.yaml, .env.example, AGENTS.md, PRODUCT.md,
+README.md, docs/requirements/module-matrix.md, docs/api/ and delivery routing.
 
-**Produces:** One game product, with no Taskboard navigation or obsolete feature claims.
+**Produces:** One game application with current documentation and dependencies.
 
-- [x] Remove task-only routes/logic once their reusable auth/security helpers are independent; obsolete public task API endpoints no longer operate.
-- [x] Replace normal Compose storage with game-data; keep existing Caddy data/config volumes and trusted CA. The old app-data volume is left unused, not pruned.
-- [x] Keep smoke:auth; replace task/API smoke commands with smoke:games for real human and AI HTTPS flows. Scripts never print credentials/session tokens.
-- [x] Update seed/config so new installs require only actual game settings, while tolerating preserved unused .env entries.
-- [x] Rewrite the English README with the prescribed italic attribution, real team details, game architecture/schema, exact commands, 14+2 matrix, AI explanation and honest AI-use/contribution records.
-- [x] Mark Taskboard plans, APIs and evidence as historical. Never convert their passing counts into claimed game results or relabel their authors.
+- [x] Remove superseded feature routes, services, scripts, dependencies and styles.
+- [x] Use game-data and retain all data/certificate volumes without pruning.
+- [x] Keep smoke:auth and smoke:games for verified HTTPS flows without printing credentials.
+- [x] Require only actual game settings in setup/seed/config; preserve private .env files.
+- [x] Document real architecture/schema, commands, module IDs, AI policy and contribution records.
+- [x] Remove superseded documents at the owner's request; retain original work/authors in Git history.
 
 ## Task 9: Verify the complete replacement and stop
 
@@ -203,7 +199,7 @@ docs/evaluation/tic-tac-toe-evidence.md.
 ## Review and execution status
 
 Owner approved the plan and instructed execution on 2026-10-27. Both play
-modes, replacement of Taskboard, and the accepted two-member roster are
+modes and the accepted two-member roster are
 confirmed. Execute directly and keep evidence in the plan ledger.
 
 Builder check: a fresh software-engineering reviewer read the spec and plan

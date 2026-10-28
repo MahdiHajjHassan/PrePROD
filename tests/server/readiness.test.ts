@@ -6,7 +6,7 @@ import { seedUser } from "../helpers/fixtures";
 const cleanup: Array<() => Promise<void>> = [];
 afterEach(async () => { for (const close of cleanup.splice(0).reverse()) await close(); });
 async function fixture(migrate = true) { const value = await createTestDb({ migrate }); cleanup.push(value.close); return value; }
-const seedInput = { adminEmail: "admin@taskboard.local", adminPassword: "local-seed-password-42", apiActorEmail: "api@taskboard.local" };
+const seedInput = { adminEmail: "admin@tictactoe.local", adminPassword: "local-seed-password-42" };
 
 test("readiness fails when the database exists without its migrations", async () => {
   const { db } = await fixture(false);

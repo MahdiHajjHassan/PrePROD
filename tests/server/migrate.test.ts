@@ -9,7 +9,7 @@ const dirs: string[] = [];
 afterEach(async () => { for (const dir of dirs.splice(0)) await rm(dir, { recursive: true, force: true }); });
 
 test("deployment migrates a fresh nested SQLite location and preserves data on rerun", async () => {
-  const dir = await mkdtemp(join(tmpdir(), "taskboard-migrate-test-")); dirs.push(dir);
+  const dir = await mkdtemp(join(tmpdir(), "tictactoe-migrate-test-")); dirs.push(dir);
   const path = join(dir, "nested", "test.db");
   const run = () => spawnSync(process.execPath, ["--", resolve("scripts/migrate.mjs")], { env: { ...process.env, DATABASE_URL: `file:${path}` }, encoding: "utf8" });
   const first = run(); expect(first.status, first.stdout + first.stderr).toBe(0);

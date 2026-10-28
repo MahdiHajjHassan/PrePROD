@@ -14,7 +14,7 @@ export async function generateMetadata({params}:{params:Promise<{locale:string}>
 }
 export default async function LocaleLayout({children,params}:{children:React.ReactNode;params:Promise<{locale:string}>}){
   const {locale}=await params;if(!isLocale(locale))notFound();const t=dictionaries[locale];
-  const actor=await getPageActor(),theme=readTheme((await cookies()).get("__Host-taskboard_theme")?.value);
+  const actor=await getPageActor(),theme=readTheme((await cookies()).get("__Host-tictactoe_theme")?.value);
   return <><a className="skip-link" href="#main">{t.skip}</a>
     <header className="site-header"><div className="shell header-inner">
       <Link className="brand" href={"/"+locale+"/play"}>{t.brand}</Link>

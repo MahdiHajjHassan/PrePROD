@@ -6,7 +6,9 @@ warm neutral surfaces/charcoal dark theme and blue action accent. No remote font
 illustrations, new visual assets or additional skills were introduced.
 
 A large square nine-cell board is the focal element. X/O use authored SVG with
-different geometry and text labels. Opponents sit above the board; turn/result
+different geometry and text labels. The browser icon pairs X/O in the light
+accent (#145bb3), supplied as SVG plus a matching 16/32/48px ICO fallback.
+Next.js metadata conventions advertise both assets. Opponents sit above the board; turn/result
 text occupies a stable heading; one main action sits below. Phone layouts stack
 lobby sections; logical spacing and bdi support Arabic. Room codes stay LTR.
 Both 360px and desktop layouts, light/dark and RTL must be inspected as rendered.
@@ -21,7 +23,7 @@ Eleven actual shared primitives compose the application: Button, FormField,
 TextField, SelectField, CheckboxField, Alert, Badge, Dialog, DataTable, Pagination,
 EmptyState. Auth/account/admin use fields and feedback; lobby uses fields/buttons;
 board uses Badge/Alert/Button/Dialog; recent games use EmptyState/Pagination;
-admin uses DataTable. Tabs remains available in ui.tsx but is not counted as used.
+admin uses DataTable.
 
 Board buttons expose row, column and current state. aria-disabled plus a guarded
 handler keeps focus stable when a played square becomes unavailable. Native

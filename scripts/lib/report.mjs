@@ -3,7 +3,7 @@ import {parse} from "dotenv";
 export function redactLog(text,files=[".env",".env.e2e"]){
   for(const file of files)if(existsSync(file)){
     const values=parse(readFileSync(file));
-    for(const key of ["ADMIN_PASSWORD","PUBLIC_API_KEY"])if(values[key])text=text.split(values[key]).join("[REDACTED]");
+    for(const key of Object.keys(values).filter(key=>/(?:PASSWORD|SECRET|TOKEN|KEY)$/.test(key)))if(values[key])text=text.split(values[key]).join("[REDACTED]");
   }
   return text.replace(/\b[a-f0-9]{40,128}\b/gi,"[REDACTED]").replace(/\$argon2[^\s"']+/g,"[REDACTED HASH]");
 }

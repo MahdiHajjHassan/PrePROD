@@ -36,7 +36,7 @@ All responses are private/no-store.
 
 ## Session and rate-limit behavior
 
-__Host-taskboard_session is Secure, HttpOnly, SameSite=Lax, Path=/, with a seven-day
+__Host-tictactoe_session is Secure, HttpOnly, SameSite=Lax, Path=/, with a seven-day
 lifetime. The database stores only a SHA-256 hash of a random 32-byte token.
 Roles are read from the current user row, so role changes apply on the next
 request; account deletion invalidates access. Password changes atomically replace
@@ -47,7 +47,7 @@ Registration: 5 per 15 minutes/client. Password changes: 5 per 15 minutes/user.
 Limits are persistent atomic SQLite counters. Stale buckets are pruned on use,
 at most once per hour per limiter instance, after 24 hours.
 
-Caddy overwrites X-Taskboard-Client-IP with the actual incoming peer; no app port
+Caddy overwrites X-TicTacToe-Client-IP with the actual incoming peer; no app port
 is published. The backend does not trust a client-supplied JSON identity or
 X-Forwarded-For. Missing/invalid trusted IP metadata shares an unknown bucket.
 

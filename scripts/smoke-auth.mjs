@@ -5,7 +5,7 @@ import { readFile } from "node:fs/promises";
 
 const origin = process.env.APP_ORIGIN ?? "https://localhost";
 if (new URL(origin).protocol !== "https:") throw new Error("Auth smoke requires HTTPS");
-const ca = await readFile(process.env.TASKBOARD_CA_FILE ?? "local-certs/root.crt");
+const ca = await readFile(process.env.TICTACTOE_CA_FILE ?? "local-certs/root.crt");
 if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) throw new Error("Local admin credentials are missing");
 function call(path, options = {}) {
   const body = options.body === undefined ? undefined : JSON.stringify(options.body);
@@ -35,7 +35,7 @@ assert.equal((await call("/api/account")).status, 401);
 const login = await call("/api/auth/login", { method: "POST", body: credentials });
 assert.equal(login.status, 200);
 const header = login.headers["set-cookie"]?.[0] ?? "";
-if (!/^__Host-taskboard_session=[a-f0-9]{64};/.test(header) || !header.includes("HttpOnly") || !header.includes("Secure") || !header.includes("SameSite=Lax")) throw new Error("Secure session cookie missing or invalid");
+if (!/^__Host-tictactoe_session=[a-f0-9]{64};/.test(header) || !header.includes("HttpOnly") || !header.includes("Secure") || !header.includes("SameSite=Lax")) throw new Error("Secure session cookie missing or invalid");
 const cookie = header.split(";")[0];
 const account = await call("/api/account", { cookie });
 assert.equal(account.status, 200);

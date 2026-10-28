@@ -5,7 +5,7 @@ export function requireSameOrigin(request: Request, appOrigin: string): void {
   if (request.headers.get("Origin") !== appOrigin) throw new DomainError("FORBIDDEN");
 }
 export function clientKey(request: Request): string {
-  const address = request.headers.get("X-Taskboard-Client-IP") ?? "";
+  const address = request.headers.get("X-TicTacToe-Client-IP") ?? "";
   return isIP(address) ? address : "unknown";
 }
 

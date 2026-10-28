@@ -88,7 +88,7 @@ test("registration, profile changes, secure cookies, password revocation and log
   await page.getByLabel(t.password,{exact:true}).fill(credentials().password);
   await page.getByRole("button",{name:t.login,exact:true}).click();
   await expect(page).toHaveURL(/\/en\/play$/);
-  const cookie=(await context.cookies()).find(c=>c.name==="__Host-taskboard_session");
+  const cookie=(await context.cookies()).find(c=>c.name==="__Host-tictactoe_session");
   expect(cookie?.httpOnly).toBe(true);expect(cookie?.secure).toBe(true);expect(cookie?.sameSite).toBe("Lax");
   await page.getByRole("link",{name:t.account,exact:true}).click();
   await page.getByLabel(t.displayName,{exact:true}).fill("Renamed player");

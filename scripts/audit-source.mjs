@@ -11,7 +11,7 @@ for (const [path, expected] of Object.entries(references)) if (createHash("sha25
 for (const path of await sourceFiles()) {
   if (/(^|\/)\.env(?:\.|$)/.test(path) && path !== ".env.example" || /\.(?:db|sqlite)(?:-|$)|(?:^|\/)(?:test-results|playwright-report|local-certs)\/|\.(?:pem|key)$/.test(path)) throw new Error(`Private/generated artifact in source: ${path}`);
 }
-const secrets = ["ADMIN_PASSWORD", "PUBLIC_API_KEY"].map((name) => [name, process.env[name]]).filter(([, value]) => value);
+const secrets = Object.entries(process.env).filter(([name, value]) => /(?:PASSWORD|SECRET|TOKEN|KEY)$/.test(name) && value && value.length >= 12);
 async function inspect(dir) {
   for (const file of await readdir(dir, { withFileTypes: true })) {
     const path = join(dir, file.name);

@@ -1,6 +1,6 @@
 # Tic-tac-toe traceability
 
-Supersedes Taskboard's M/B matrix. Candidate points are not awarded scores.
+Candidate points are not awarded scores.
 The two-member roster is accepted by the owner (2026-10-27).
 
 | ID | Module | Points | Source | Proof |
@@ -20,6 +20,5 @@ The two-member roster is accepted by the owner (2026-10-27).
 | | Current target | 15 | | No extra auth/theme points |
 
 See ../evaluation/tic-tac-toe-evidence.md for executed results and limits.
-Taskboard's old APIs/modules/evidence and immutable manifests are historical;
-they establish no game verification. Human contribution and understanding require
+Human contribution and understanding require
 actual recorded demonstration, independently of automation.

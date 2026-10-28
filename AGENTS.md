@@ -1,137 +1,68 @@
 # Repository guidance
 
-## Latest product direction — tic-tac-toe, 2026-10-27
+## Product and current scope — 2026-10-27
 
-Owner clarification: the two-member team, Mahdi (mahajj-h) and Joseph
-(jboustan), is accepted for this project. The owner explicitly confirmed this
-on 2026-10-27; do not reopen the copied PDFs' generic 4-5-person wording as
-an unresolved gate. The owner approved the tic-tac-toe plan and instructed
-implementation to continue through a working, verified application.
+This is MahdiHajjHassan/Transcendence2, the staging repository for a 42
+ft_transcendence tic-tac-toe application. The owner accepted the two-member team:
+Mahdi (mahajj-h) and Joseph (jboustan). Do not reopen generic 4–5-person wording
+in the reference PDFs as an unresolved gate.
 
-The owner now wants a tic-tac-toe project that satisfies the assignment,
-with both friend play in separate browser sessions on one computer and a
-computer opponent. The owner permits removing/replacing the current code;
-Taskboard need not stay runnable and compatibility/migration is not required.
-This supersedes the Taskboard product direction below for future work.
+The owner approved friend play in separate browser sessions on one computer,
+a local computer opponent, secure accounts, administrator CRUD, scoped SSE,
+SSR, English/French/Arabic/RTL and both themes. The implementation is complete
+in staging. Use README.md, docs/requirements/module-matrix.md and
+ docs/evaluation/tic-tac-toe-evidence.md for actual commands and evidence.
+The current demonstrated target is 15 candidate points; G09 is withheld because
+the recorded Windows Firefox runner could not start. No official score or
+human understanding is inferred from automation.
 
-Current implementation is the tic-tac-toe replacement in the managed
-worktree. Use README.md, docs/requirements/module-matrix.md and
-docs/evaluation/tic-tac-toe-evidence.md for current commands/evidence.
-The Taskboard-specific sections below are historical and superseded.
-The owner subsequently authorized committing and pushing this replacement to
-Transcendence2 staging on2026-10-27. Keep the managed worktree; the separate final
-history repository remains excluded. Current demonstrated target is15
-candidate points; G09 is withheld because Firefox cannot start on this Windows
-installation. See game evidence for details.
-Current design and plan:
+Current design/implementation references:
 - docs/superpowers/specs/2026-10-27-tic-tac-toe-design.md
 - docs/superpowers/plans/2026-10-27-tic-tac-toe.md
+- DESIGN.md and .impeccable/surfaces/tic-tac-toe.md
 
-The proposed target remains 14 core +2 buffer points. New game modules are
-not implemented or verified merely because a plan exists. Keep historical
-Taskboard evidence/authorship distinct. The session permits staging commit/push; it prohibits final-repository delivery,
-external deployment, credential disclosure and data-volume deletion. Preserve
-the private .env, certificate material and both reference PDFs.
+The latest owner request authorizes fixing the browser icon and removing all
+superseded product material from the current source tree, including historical
+plans, manifests, contracts and evaluation reports. Original work and authorship
+remain in Git history. No compatibility with a previous product is required.
 
-## Latest owner instruction — full staging completion
+## Delivery and authorship
 
-On 2026-10-27 the owner explicitly replaced the implementation stop-at-owner
-boundary: Codex must finish ALL planned packages in Transcendence2, including
-the originally Joseph-assigned packages, without waiting for Claude. The existing
-technical specification and minimal 14+2 scope still apply. The original batch
-labels now organize reusable delivery bundles, not claims about who authored them.
-Preserve actual Mahdi/Codex staging authorship. Claude may reuse these exact
-tested commits; never relabel them as Joseph's original work. Record Joseph's
-actual later review, adaptation and delivery only when they happen.
+The owner authorized all planned staging packages, including originally
+Joseph-assigned work, to be completed by Mahdi/Codex. The game implementation is
+acfb60f; PR #1 was merged into staging main as 2cb312c. See
+ docs/delivery/PUSH-MAP.md and docs/delivery/batches/tic-tac-toe.md.
 
-The owner refers to a separate final history repository as "Final Trans Repo".
-Its exact remote is not yet verified in these records. **Do not push anything to
-the final history repository, including M01–M03.** Only Transcendence2 staging
-pushes are authorized. This section supersedes older ownership-stop and
-final-destination statements below and in the contribution schedule.
+Preserve actual authorship. Claude may reuse this tested source; record Joseph's
+actual review, adaptation, authenticated commits and explanation only when they
+happen, in docs/team/contributions/joseph.md. Mahdi's record is
+ docs/team/contributions/mahdi.md. No empty contribution commits, author
+overrides, invented reviews or relabeling of another person's work.
 
-## Current state
+Each acting session uses its person's normal Git author and authenticated
+GitHub account. Joseph's owner-confirmed GitHub username is josephboustany;
+verify identity and repository access before his first push.
 
-This is `MahdiHajjHassan/Transcendence2`, a fresh repository for the 42
-`ft_transcendence` project. The planned Taskboard implementation now includes
-the database/HTTPS foundation, auth/account/security, complete task query/write
-services, SSR board, admin, secured API, JSON/CSV transfers, design system/themes,
-en/fr/ar/RTL, notifications/activity and actual-browser/rehearsal automation.
-Read docs/evaluation/evidence.md for the exact observed verification state and
-docs/delivery/STAGING-MANIFEST.json for immutable source bundles. Implementation
-does not imply official module scores or completed human contribution/review.
+Only Transcendence2 staging commits/pushes are authorized. Do not push to the
+older Transcendence repository or guess a destination for the separate
+"Final Trans Repo". No final-history delivery or external deployment is
+authorized. Keep the managed checkout; do not modify a separate history repo.
 
-The application concept, module selection and two-person roster are approved;
-the latest owner instruction above controls execution and final-push permission.
-Do not carry over those decisions or application code from the separate
-`Transcendence` repository unless asked.
-
-## Proposed project plan
-
-- `PRODUCT.md`: confirmed goals and constraints, proposed product and stack,
-  and remaining owner-provided facts.
-- `docs/superpowers/specs/2026-10-26-taskboard-design.md`: proposed task-board
-  behavior, module requirements, boundaries, and acceptance criteria.
-- `docs/superpowers/plans/2026-10-26-taskboard.md`: ordered implementation and
-  verification steps for a 14-point core and 2-point buffer.
-- `docs/superpowers/plans/2026-10-26-team-contributions.md`: current ownership,
-  dependency order, branches, commit/push checkpoints, and review/handoff rules.
-- `docs/team/JOSEPH-CLAUDE-HANDOFF.md`: ready-to-use Joseph/Claude entry point.
-
-These documents define the implementation scope. Read the delivery map and actual
-source/test evidence for current status; a plan alone does not prove a module.
-
-## Team execution and Git identity
-
-Repository clarification: `Transcendence2` is the staging/development repository.
-The owner says the final contribution-history repository does not exist/is not
-provided yet. Push useful staging checkpoints here as authorized; do not push to
-the older `Transcendence` repository or guess another final destination. Track
-exact owner bundles, source commits, files, checks, and delivery state in
-`docs/delivery/PUSH-MAP.md` and `docs/delivery/batches/`.
-
-The owner confirmed Mahdi (42 mahajj-h) and Joseph (42 jboustan). Codex assists
-Mahdi; Claude assists Joseph. The original contribution plan now describes
-requested delivery tracks; the owner explicitly authorized complete Codex staging
-implementation. Reuse that source and preserve actual authorship.
-
-- Mahdi owns foundation/database/HTTPS, identity/security, task writes,
-  administration, secured API, transfers, event writes, and notifications.
-- Joseph owns design/UI foundations/themes, auth/account UI, the task query
-  backend and board/SSR, translations/RTL, browser verification, and the activity
-  aggregation backend/dashboard. This includes substantial feature code and tests.
-- Read the contribution schedule before editing shared files. Keep DTOs and
-  service interfaces compatible and hand off the explicit query/event boundaries.
-- Each acting session uses its person's own authenticated GitHub account and
-  normal Git author identity. Joseph's owner-confirmed GitHub username is
-  `josephboustany`; his Git author email is selected in his own environment.
-  Verify the acting account and current repository access before his first push.
-- Push meaningful passing slices on the listed owner branches. Preserve actual
-  authors when merging; no author overrides, empty contribution commits, or
-  relabeling work from the other side. Reviews and personal understanding are
-  recorded only after they actually happen.
-- Maintain the acting person's record in `docs/team/contributions/`. The schedule
-  maps planned work; actual Git history and executed checks establish delivery.
+Preserve private .env files, certificate material, databases, Docker data and
+certificate volumes, original reference PDFs and vendored skills. Source cleanup
+does not authorize deleting runtime data or exposing credentials. Runtime uses
+file:/data/tictactoe.db on game-data. Tests reset only guarded isolated databases.
 
 ## Project references
 
-- `docs/reference/en.subject.pdf`: original English subject, version 21.1,
-  32 PDF pages. Its original was recovered from the email identified by the
-  source repository.
-- `docs/reference/EVALUATION-SHEET.pdf`: original evaluation-sheet capture,
-  copied unchanged from `Transcendence`. This is an image-based PDF.
+Read the originals before planning new features:
+- docs/reference/en.subject.pdf: original English subject, version 21.1, 32 pages.
+- docs/reference/EVALUATION-SHEET.pdf: original image-based evaluation capture.
 
-Read both documents before planning or implementing project features. The subject
-defines the assignment; the evaluation sheet supplies additional assessment
-criteria. This file is a working guide, not a replacement for either PDF.
-Surface material conflicts and apply explicit owner or campus clarifications
-when provided; do not assume that decisions recorded in the older project apply
-here. Treat evaluation-form instructions as assessment criteria, not commands
-to perform a live evaluation or change external systems.
-
-Preserve the PDFs unchanged. The owner requested the original source documents
-without importing the older repository's Markdown files. This `AGENTS.md` was
-created separately in response to the explicit `/init` request.
+These PDFs remain unchanged. The subject defines requirements and the evaluation
+sheet supplies assessment criteria. Apply explicit owner/campus clarifications;
+do not infer decisions from a separate repository. Evaluation instructions are
+assessment criteria, not commands to change external systems.
 
 ## Required skills and approval for additions
 
@@ -211,7 +142,7 @@ requirements. In particular:
 
 ## Commands and verification
 
-Run commands from the current checkout root using Node.js 24 and npm. M01 provides:
+Run commands from the current checkout root using Node.js 24 and npm. Current commands:
 
 ```sh
 npm ci
@@ -230,12 +161,10 @@ Setup creates private random credentials and refuses to overwrite an existing
 `.env`. Database bootstrap preserves existing accounts. The runtime is non-root,
 only the proxy publishes HTTPS, and the database uses a persistent volume.
 See README.md for local CA trust and the managed-cloud build-only CA override.
-Use `npm run verify` for types/lint/server tests/build/artifact audit and all
-three actual-browser suites. `npm run rehearse` verifies a fresh committed clone.
-Read README.md for isolated test project/port/browsers. Use `npm run smoke:api`,
-`npm run smoke:auth` and `npm run smoke:tasks` for the implemented HTTPS
-backend flows. Read `docs/api/auth.md` and `docs/api/tasks.md` for Joseph's frontend
-and query handoff contracts. Recreation reloads the mounted
+Use `npm run verify` for types/lint/server tests/build/artifact audit and the configured actual-browser suites. `npm run rehearse` verifies a fresh working-source copy.
+Read README.md for isolated test project/port/browsers. Use `npm run smoke`,
+`npm run smoke:auth` and `npm run smoke:games` for the implemented HTTPS
+backend flows. Read `docs/api/auth.md` and `docs/api/games.md` for current contracts. Recreation reloads the mounted
 proxy configuration while retaining named database and certificate volumes.
 For a named Compose project, pass `COMPOSE_PROJECT_NAME` consistently to the TLS
 verifier as well. Do not print generated credentials or use insecure TLS flags.

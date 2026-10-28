@@ -6,8 +6,7 @@ A complete web game for two signed-in friends using separate browser sessions on
 one computer, or one player against the computer. X starts; three in a line wins.
 Accounts and committed matches survive restarts. The server owns every move.
 
-This is **MahdiHajjHassan/Transcendence2 staging**. The Taskboard product has been
-replaced. No delivery to the separate final history repository is authorized.
+This is **MahdiHajjHassan/Transcendence2 staging**. No delivery to the separate final history repository is authorized.
 The owner explicitly accepted two members, Mahdi and Joseph, on 2026-10-27.
 
 ## Instructions
@@ -33,8 +32,7 @@ verified and no email is sent. Use distinct demonstration addresses privately.
 Only Caddy publishes a port, bound to loopback HTTPS. The Node process runs as
 non-root. Startup deploys migrations and seeds the administrator. Named volumes
 retain game data and certificates across recreation. Do not delete volumes.
-For this replacement, `game-data` stores `file:/data/tictactoe.db`; any previous
-Taskboard `app-data` volume is left unused and untouched.
+The `game-data` volume stores `file:/data/tictactoe.db`.
 
 Verify the real certificate chain and hostname:
 
@@ -95,8 +93,9 @@ current session/role and checks Origin, membership, turn, cell and version.
 Passwords use Argon2id. Sessions are random, stored only as hashes server-side,
 and sent in Secure, HttpOnly, SameSite=Lax cookies. Password changes revoke all
 sessions. Auth and game actions are rate-limited. Private game projections contain
-player display names, never email, passwords or tokens. The old internal cookie
-namespace is retained for compatibility with the reused security foundation.
+player display names, never email, passwords or tokens. Cookies use the `__Host-tictactoe_` namespace. After the namespace change,
+existing users sign in again and reselect their language/theme; saved accounts
+and games are unaffected.
 
 Game state is committed before publication. Scoped HTTPS server-sent events send
 full snapshots, with monotonic versions and 15-second authorization heartbeats.
@@ -146,7 +145,7 @@ responsive access, legal pages and one-command container startup apply separatel
 
 These are candidate mappings, not official awarded points. Theme switching and
 basic authentication do not add points. No remote-player, public API, tournament,
-statistics, task/search/transfer or notification module is claimed. See
+statistics or notification module is claimed. See
 [traceability](docs/requirements/module-matrix.md) and
 [current evidence](docs/evaluation/tic-tac-toe-evidence.md).
 
@@ -168,8 +167,8 @@ npm run rehearse
 Smoke checks use validated local HTTPS, temporary demonstration accounts and
 normal game actions; game records remain on the administrator account.
 `verify` runs sequential checks including Chrome and Edge. Firefox remains an
-explicit optional project (`npx playwright test --project=firefox`); its Windows
-SxS loader fails before startup on this computer. G09 is unclaimed. Install
+explicit optional project (`npx playwright test --project=firefox`); the recorded Windows
+verification could not start its SxS loader. G09 is unclaimed. Install
 actual Chrome, Firefox and Edge; `npx playwright install chrome firefox` installs
 the managed versions where available. Edge uses the installed Microsoft product.
 Browser tests use project `tictactoe-e2e-mahdi`, port 8443 and own ignored
@@ -189,10 +188,8 @@ may contain private test inputs and must never be shared unredacted.
 ## Team, project management and AI use
 
 Mahdi (`mahajj-h`) and Joseph (`jboustan`) are the accepted two-member roster.
-The owner authorized Mahdi/Codex to complete staging implementation. The original
-Taskboard batches/manifests are historical delivery evidence. Current game work
-is a Mahdi/Codex-assisted replacement authorized for staging delivery; it must not be relabeled as
-Joseph's original implementation. Record Joseph's actual review, adaptation and
+The owner authorized Mahdi/Codex to complete staging implementation. Current game work is a Mahdi/Codex-assisted implementation authorized for
+staging delivery; it must not be relabeled as Joseph's original implementation. Record Joseph's actual review, adaptation and
 explanation only after they occur. No human understanding is inferred from tests.
 
 The design/spec and ordered implementation plan are in `docs/superpowers/`.

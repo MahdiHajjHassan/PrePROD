@@ -18,6 +18,6 @@ describe("complete locale dictionaries", () => {
     expect(isLocale("../en")).toBe(false);
     expect(readTheme("dark")).toBe("dark");
     expect(readTheme("anything")).toBe("light");
-    expect(localePath("/en/tasks", "q=hello&page=2", "fr")).toBe("/fr/tasks?q=hello&page=2");
+    expect(localePath("/en/play", "q=hello&page=2", "fr")).toBe("/fr/play?q=hello&page=2");
   });
 });

@@ -3,7 +3,7 @@ import type { Actor } from "@/shared/auth";
 import type { AuthService } from "./service";
 import { DomainError } from "../errors";
 
-export const sessionCookieName = "__Host-taskboard_session";
+export const sessionCookieName = "__Host-tictactoe_session";
 export function readSessionToken(request: Request): string | null {
   const matches = (request.headers.get("Cookie") ?? "").split(";").map((item) => item.trim()).filter((item) => item.startsWith(`${sessionCookieName}=`));
   return matches.length === 1 ? matches[0].slice(sessionCookieName.length + 1) : null;

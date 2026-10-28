@@ -6,32 +6,17 @@ Status: owner-approved for implementation on 2026-10-27; execution evidence is r
 
 ## Owner direction
 
-On 2026-10-27 the owner replaced the Taskboard goal with a tic-tac-toe project
-that satisfies the assignment. Both friend and computer modes are confirmed.
-The owner permits replacing or removing the current application code and does
-not require Taskboard to remain runnable. There is no Taskboard compatibility
-or account/data migration deliverable.
+On 2026-10-27 the owner approved a tic-tac-toe project that satisfies the
+assignment, with friend and computer modes and an accepted two-member team.
+The selected approach uses the existing Node/Next/Prisma/SQLite/Caddy stack and
+its secure account foundation for one focused game application.
 
-The standing constraints remain: one-computer demonstration, secure accounts,
-HTTPS, containers, English/French/Arabic, Arabic RTL, light/dark mode,
-Superpowers and Impeccable, genuine contribution records, and no commits,
-pushes, publishing, credential disclosure, or data-volume deletion in this
-session. Existing private .env and certificate material are not source cleanup.
-
-## Approaches and recommendation
-
-1. **Focused replacement, recommended.** Build one game application with the
-   existing installed Node/Next/Prisma/SQLite/Caddy stack. Reuse correct helpers
-   when useful, replace coupled Taskboard code, and remove task-only features.
-   This minimizes setup changes while allowing a clean game architecture.
-2. **Entirely new stack.** Adds installation and integration work without earning
-   more points or improving the required tic-tac-toe behavior.
-3. **Game added alongside Taskboard.** Retains an unwanted product and adds
-   navigation, maintenance and explanation work.
-
-The owner approved discarding the old code; reuse is an engineering choice,
-not a preservation requirement. Technical choices below are proposals, not
-claims that the owner has approved every implementation detail.
+Standing constraints: one-computer demonstration, secure accounts, HTTPS,
+containers, English/French/Arabic, RTL, light/dark mode, Superpowers/Impeccable
+and genuine contribution records. Later owner instructions authorize staging
+commits/pushes and removal of superseded product files. Preserve private .env,
+certificate material, runtime data and original reference PDFs. No external
+deployment or final-history delivery is authorized.
 
 ## Product and scope
 
@@ -53,14 +38,15 @@ Create friend game, and Join with code. The playable board is the main surface.
 - Retain secure account/profile/password controls, admin user management,
   relevant legal pages and complete translated interface/error states.
 
-Task management, transfers, task API keys, activity dashboards and Taskboard
-notifications are not part of this product. Friends/social chat, avatars,
+Unrelated productivity features and public API keys are outside this product. Friends/social chat, avatars,
 tournaments, leaderboards, ranks, achievements, extra games, OAuth, PWA, and
 game customization are outside this bounded plan.
 
 ## Module target and evidence
 
-These are candidate points, awarded only after functional demonstration.
+These are planned candidate points, awarded only after functional demonstration.
+The current evidence withholds G09 and records 13 core + 2 buffer = 15 points;
+README.md and docs/requirements/module-matrix.md use the same module IDs.
 Basic email/password login and theme switching do not earn separate points.
 Remote-players points are not claimed: a second computer is not required.
 
@@ -69,13 +55,13 @@ Remote-players points are not claimed: a second computer is not required.
 | G01 | Frontend and backend frameworks | 2 | React pages and real Next server routes/services |
 | G02 | Complete web-based game | 2 | Two humans complete live wins, losses and draws |
 | G03 | AI opponent | 2 | Explainable, competent and imperfect computer player |
-| G04 | ORM | 1 | Prisma relations, migrations and actual SQLite queries |
-| G05 | Custom design system | 1 | At least 10 actual reusable components, tokens and consistent icons |
-| G06 | Three languages | 1 | Complete English, French and Arabic flows and errors |
-| G07 | RTL | 1 | Proper Arabic direction, mirrored layout and mixed text |
-| G08 | Additional browsers | 1 | Actual Chrome, Firefox and Edge verification |
-| G09 | SSR | 1 | Meaningful initial game/lobby HTML and metadata |
-| G10 | Real-time features | 2 | Scoped server push, reconnect/resync and cleanup |
+| G04 | Real-time features | 2 | Scoped server push, reconnect/resync and cleanup |
+| G05 | ORM | 1 | Prisma relations, migrations and actual SQLite queries |
+| G06 | Custom design system | 1 | Eleven used shared components, tokens, authored X/O marks and game favicon |
+| G07 | Three languages | 1 | Complete English, French and Arabic flows and errors |
+| G08 | RTL | 1 | Proper Arabic direction, mirrored layout and mixed text |
+| G09 | Additional browsers | 1 | Actual Chrome, Firefox and Edge verification |
+| G10 | SSR | 1 | Meaningful initial game/lobby HTML and metadata |
 | | Core target | 14 | Every mandatory requirement also passes |
 | G11 | Advanced permissions | 2 | Admin user CRUD, role management and distinct guest/member/admin access |
 | | Target with buffer | 16 | No game/customization/social/statistics points double-counted |
@@ -193,8 +179,8 @@ login/registration limits. Return 429 with Retry-After on exhaustion.
 Operate mode: make playing, turn ownership and recovery obvious. Reuse a
 restrained shared visual system where useful, with a large square board as the
 focal element, clear X/O shapes, obvious turn/result text and a single next
-action. The layout adapts to 360px phones and desktop. It is a game interface,
-not a task dashboard. Aesthetic elaboration cannot expand the functional scope.
+action. The layout adapts to 360px phones and desktop. Aesthetic elaboration
+cannot expand the functional scope.
 
 Routes: /[locale]/play, /[locale]/games/[id], auth/account, admin users, Privacy
 and Terms. Header navigation is Play, Account, and Users for administrators,
@@ -212,17 +198,13 @@ Use icons as consistent authored SVG where needed, not decorative emoji.
 
 ## Delivery and stop condition
 
-Use a fresh game-data volume/database; old Taskboard data need not migrate.
-Leave old data volumes unused rather than deleting them, retain the private
-.env, and reuse the existing Caddy certificate volumes/local CA. The app can be
-stopped during replacement. This is not a staged compatibility deployment.
-Normal runtime DATABASE_URL is file:/data/tictactoe.db on game-data, with the
-current Compose project name retained so Caddy's named volumes remain usable.
+Runtime DATABASE_URL is file:/data/tictactoe.db on game-data. Retain private
+.env files, all runtime data, and existing Caddy certificate volumes/local CA.
+Keep the Compose project name consistent so certificates and data are reused.
 
-Remove Taskboard routes, UI, task-only services, scripts and obsolete test
-expectations. Keep original reference PDFs and historical staging manifests
-unchanged; mark old plans/evidence as superseded for future game work rather
-than relabeling them as game verification.
+The owner requested removal of superseded product code, scripts, contracts,
+plans and evidence. Preserve original reference PDFs and actual Git authorship;
+only current game checks establish game verification.
 
 Finish only with working human and AI modes, live recovery/concurrency checks,
 fresh setup, HTTPS, all selected module demonstrations, browser/theme/locale/

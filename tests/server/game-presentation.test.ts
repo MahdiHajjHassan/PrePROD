@@ -1,6 +1,6 @@
 import {test,expect,vi} from "vitest";
 import {dictionaries} from "../../src/i18n/dictionaries";
-test("sitemap lists public game and legal routes without removed task pages",async()=>{
+test("sitemap lists public game and legal routes without private account or match pages",async()=>{
   vi.stubEnv("APP_ORIGIN","https://localhost");vi.stubEnv("ADMIN_EMAIL","admin@example.test");vi.stubEnv("ADMIN_PASSWORD","test-only-config-password");
   try{
     const {default:sitemap}=await import("../../src/app/sitemap");

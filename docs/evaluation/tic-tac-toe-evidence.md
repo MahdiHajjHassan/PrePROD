@@ -3,8 +3,7 @@
 This is the replacement in the managed codex/tic-tac-toe worktree,
 based on c9df8f81aa79ca8e9dc5fe53cf1bd77b02e1d896. The owner later authorized
 staging commit/push on2026-10-27. No external deployment or volume deletion
-was authorized. Original subject/evaluation PDFs and historical staging
-manifests are unchanged. The owner explicitly accepted Mahdi/Joseph as the two
+was authorized. Original subject/evaluation PDFs are unchanged. The owner explicitly accepted Mahdi/Joseph as the two
 members; no additional contributor or personal understanding is inferred.
 
 ## Observed verification
@@ -75,8 +74,7 @@ and administrative account creation. No second review was dispatched.
 - Implementation and testing initially prohibited commits/pushes. The subsequent
   owner request authorizes staging Git delivery. Preserve the worktree, actual
   source-copy evidence and the ignored execution ledger.
-- Old product compatibility was waived by the owner. Taskboard routes/services
-  are retired; its data volume remains untouched. New game-data and existing
+- Runtime game-data and existing
   Caddy certificate volumes survive recreation.
 - Reuse the restrained Operate tokens, without additional skills/assets/fonts.
 - Rehearsal uses exact present tracked + nonignored untracked files, excludes
@@ -93,9 +91,43 @@ and administrative account creation. No second review was dispatched.
   the workspace. Original Desktop dependencies stayed untouched; cost:disk/time.
 - Single application process and one computer/separate sessions are the target.
   No multi-instance broker, remote-play, tournament, public API, statistics,
-  notifications or task module is claimed. AI is intentionally beatable.
+  notifications module is claimed. AI is intentionally beatable.
 - Joseph review/adaptation/contribution and both members' explanation are pending
   actual human work. No score or understanding is inferred from automation.
 
 Private credentials are in the worktree .env. Ignored test logs/traces may contain
 private inputs and must not be shared unredacted.
+
+## Product cleanup verification — 2026-10-27
+
+At the owner's request, removed 30 superseded product documents, 53 unused CSS
+rules, the unused Tabs component and the CSV parsing/stringifying packages.
+Renamed cookies, proxy headers, database cache and CA overrides consistently;
+updated all three 404 translations and aligned spec module IDs with this matrix.
+Original source authorship remains in Git history; private environment files,
+normal runtime data, certificate volumes and reference PDFs were preserved.
+
+- Linux Node 24: 85/85 server tests across 22 files; types and lint passed.
+- Production build and managed-cloud Docker build passed. Final unused-selector
+  cleanup also received a fresh production build.
+- Artifact audit passed; reference PDF SHA-256 values match the originals.
+- Current project-source scan found zero retired product identifiers/routes;
+  local Markdown links resolve. Only the two CSV dependency entries were removed;
+  no other dependency versions changed.
+- Cookie/IP and preference-cookie tests were observed RED, then GREEN. A source
+  export regression test reproduced ENOTDIR when a tracked route directory was
+  replaced by a file; the corrected exporter and full suite passed.
+- Isolated HTTPS browser suite: 13/13 passed using system Chromium 154.0.8037.57
+  through the chrome project executable override. Chain/hostname verification
+  remained enabled. This run used tictactoe-e2e-cleanup, port 8443 and its own
+  ignored environment/database/certificate volumes. It does not add evidence
+  for the branded Chrome/Edge, Firefox or Safari compatibility claims.
+- Direct verified-HTTPS requests confirmed /favicon.ico returns a real ICO with
+  16/32/48px images and /icon.svg returns SVG, both matching the authored source.
+  Rendered HTML advertises both with versioned URLs. The X/O icon uses #145bb3;
+  its 16px rendering and the 360px Arabic light/dark game captures were inspected.
+- A fresh independent read-only review found no actionable regressions.
+
+The cookie namespace is now __Host-tictactoe_. Existing users sign in again and
+reselect language/theme; saved accounts and games are unaffected. This cleanup
+was verified locally; it adds no official points or personal contribution claims.

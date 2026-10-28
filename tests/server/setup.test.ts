@@ -6,7 +6,7 @@ import { spawnSync } from "node:child_process";
 
 const dirs: string[] = [];
 afterEach(async () => { await Promise.all(dirs.splice(0).map((dir) => rm(dir, { recursive: true, force: true }))); });
-async function envPath() { const dir = await mkdtemp(join(tmpdir(), "taskboard-setup-test-")); dirs.push(dir); return join(dir, ".env"); }
+async function envPath() { const dir = await mkdtemp(join(tmpdir(), "tictactoe-setup-test-")); dirs.push(dir); return join(dir, ".env"); }
 function setup(path: string, port = "443") { return spawnSync(process.execPath, ["--", resolve("scripts/setup.mjs"), "--env-file", path, "--port", port], { encoding: "utf8" }); }
 
 test("bootstrap generates private credentials without printing them", async () => {
@@ -18,7 +18,6 @@ test("bootstrap generates private credentials without printing them", async () =
   expect(entries.APP_ORIGIN).toBe("https://localhost:8443");
   expect(entries.HTTPS_PORT).toBe("8443");
   expect(entries.ADMIN_PASSWORD).toMatch(/^[a-f0-9]{48}$/);
-  expect(entries.PUBLIC_API_KEY).toBeUndefined();
   expect(entries.DATABASE_URL).toBe("file:./data/tictactoe.db");
   expect(entries.ADMIN_EMAIL).toBe("admin@tictactoe.local");
   expect(result.stdout).not.toContain(entries.ADMIN_PASSWORD);

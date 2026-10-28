@@ -7,7 +7,8 @@ to Transcendence2 staging after local verification.
 - Branch: codex/tic-tac-toe; base c9df8f81aa79ca8e9dc5fe53cf1bd77b02e1d896.
 - Implementation source: acfb60facedc71166c272276aa361ad69da0cb5b.
 - Delivery: source push completed and remote SHA matched the local commit.
-- Pull request: https://github.com/MahdiHajjHassan/Transcendence2/pull/1 (draft).
+- Pull request: https://github.com/MahdiHajjHassan/Transcendence2/pull/1
+  (subsequently merged as 2cb312c).
 - Acting GitHub account: MahdiHajjHassan. Normal Git author: Mahdi Hajj Hassan.
 - Codex-assisted implementation; Joseph review/adaptation remains unrecorded.
 
@@ -25,6 +26,6 @@ Chrome cases, types/lint/build, strict HTTPS auth/game smoke and persistence.
 Current target:15 candidate points. Firefox/G09 remains unclaimed. Official
 evaluation and human understanding are not inferred from automation.
 
-Original reference PDFs, vendored skill and historical staging manifests are
-unchanged. Credentials/test outputs remain ignored. No merge to main, external
-deployment, final-repository delivery or data-volume deletion occurred.
+Original reference PDFs and the vendored skill are unchanged. Credentials/test outputs remain ignored. At this delivery checkpoint no merge, external deployment, final-repository
+delivery or data-volume deletion occurred. PR #1 was subsequently merged
+into staging main; the original source authorship remains intact.
