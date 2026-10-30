@@ -1,6 +1,9 @@
 # Email ownership verification
 
-Status: proposed for owner review; application changes have not started.
+Status: the owner confirmed implementing signup email verification on 2026-10-30.
+The owner approved the email-best-practices guidance and selected their college
+Google Workspace mailbox as sender. SMTP authentication remains pending.
+Application changes have not started.
 
 ## Intent and confirmed scope
 
@@ -108,16 +111,23 @@ password access to someone else's historical account or matches.
 
 ## Delivery and configuration
 
-The connected Resend account has an enabled, verified sending domain,
-notify.doctoleb.net. Sender selection is pending the owner's answer; this is not
-authorization to send messages from that domain. No runtime email API key is
-configured by the current application. Prefer a restricted sending-only key for
-the selected domain and a clear Tic Tac Toe From identity, held server-side in a
-private environment. Never commit keys or print them. Do not send real messages
-to arbitrary addresses during testing.
+The owner selected their college Google Workspace mailbox as sender. Its address
+belongs in private configuration, not this document. An unrelated domain found
+in a connected account must not be reused. No runtime SMTP credentials are yet
+configured. Use a project-approved
+sender, restricted sending credentials, and a clear Tic Tac Toe From identity,
+held server-side in a private environment. Never commit keys or print them.
+Do not send real messages to arbitrary addresses during testing.
 
-Use an injectable sender boundary and a real HTTPS Resend adapter, with bounded
-timeouts and generation-specific idempotency. No new service is publicly hosted
+Use an injectable sender boundary and a Nodemailer SMTP adapter. Public SMTP
+requires verified TLS (465 implicit TLS or 587 STARTTLS), ten-second connection,
+greeting and socket timeouts, and no debug logging. SMTP provides no guaranteed
+idempotency; use a stable Message-ID per generation and do not automatically
+retry an ambiguous submission. Explicit resend issues a new generation instead.
+Use no more than five sends/hour per address, one send/minute per address,
+five wrong guesses per generation, and a one-hour overall pending lifetime.
+The code expires after ten minutes or the pending lifetime, whichever is first.
+No new service is publicly hosted
 or deployed by this request. Provider delivery acceptance is not inbox delivery;
 only entering the code proves ownership. Missing sender configuration fails
 clearly and never silently disables verification. Update setup instructions,
@@ -125,9 +135,8 @@ placeholders, Compose configuration, auth contracts and privacy text in all
 three languages to reflect the new delivery processor.
 
 AGENTS.md requires explicit owner approval before adopting another project skill.
-The available Resend plugin's email-best-practices skill is recommended for
-transactional email delivery, address validation, safe retries, and verification
-mail reliability; it has not been adopted pending that approval.
+The owner approved the Resend plugin's email-best-practices guidance, which is
+applied to SMTP verification messages and does not select Resend as a provider.
 
 ## Interface constraints
 
@@ -161,10 +170,9 @@ passwords or codes in browser storage. Support 360px and desktop in both themes.
   existing test data, preserving rows and refusing inaccessible admin defaults.
 - Update module evidence honestly: email verification adds no module points.
 
-## Decisions awaiting owner review
+## Remaining setup decisions
 
-- Approve the proposed signup-code flow and verified-only access for existing
-  accounts, including the operator step for undeliverable legacy addresses.
-- Confirm the sending domain/service and approve the additional email skill.
+- Authenticate the selected Google Workspace sender using an App Password if
+  college policy permits it; otherwise choose a supported authenticated sender.
 - Supply/select a real administrator email privately when configuring the
   runtime. Never ask for passwords or API keys to be pasted into chat.

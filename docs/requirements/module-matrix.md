@@ -1,7 +1,7 @@
 # Tic-tac-toe traceability
 
 Candidate points are not awarded scores.
-The two-member roster is accepted by the owner (2026-10-27).
+The owner added Khalid to Mahdi/Joseph on 2026-10-29; new module work is under discussion.
 
 | ID | Module | Points | Source | Proof |
 | --- | --- | ---: | --- | --- |
@@ -13,11 +13,11 @@ The two-member roster is accepted by the owner (2026-10-27).
 | G06 | Design system | 1 | components/ui.tsx, DESIGN.md | Eleven composed shared primitives, rendered appearance checks |
 | G07 | Three languages | 1 | i18n/dictionaries | Key parity, en/fr/ar UI/legal flows |
 | G08 | RTL | 1 | locale layout, logical CSS, bdi | Arabic 360px, code direction, no overflow |
-| G09 | Extra browsers (unclaimed) | 0 | playwright.config.ts | Chrome/Edge verified; Firefox Windows SxS startup blocked |
+| G09 | Extra browsers | 1 | playwright.config.ts | 2026-10-29 Linux Chrome/Firefox/Edge: 72/72 checks; local public CA trusted |
 | G10 | SSR | 1 | play and game server pages | Real saved board and metadata with JavaScript disabled |
-| | Current core | 13 | | Mandatory requirements separate |
+| | Current core | 14 | | Mandatory requirements separate |
 | G11 | Advanced permissions | 2 | auth/users/admin | Current-role CRUD, revocation, last-admin concurrency, deletion |
-| | Current target | 15 | | No extra auth/theme points |
+| | Current target | 16 | | No extra auth/theme points |
 
 See ../evaluation/tic-tac-toe-evidence.md for executed results and limits.
 Human contribution and understanding require

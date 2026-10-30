@@ -131,3 +131,52 @@ normal runtime data, certificate volumes and reference PDFs were preserved.
 The cookie namespace is now __Host-tictactoe_. Existing users sign in again and
 reselect language/theme; saved accounts and games are unaffected. This cleanup
 was verified locally; it adds no official points or personal contribution claims.
+
+## Additional-browser verification — 2026-10-29
+
+G09 was previously withheld because Playwright Firefox could not start in the
+recorded Windows installation. On the current Linux environment, Firefox starts
+successfully. The final full matrix passed **72/72 checks**, with no skips or
+retries: 24 each in Google Chrome 156.0.8078.79, Playwright-managed Firefox
+157.0, and Microsoft Edge 156.0.4314.56. G09 now contributes one candidate point:
+14 core + 2 advanced-permissions points = **16 candidate points**.
+
+The application was built and started in the separate Compose project
+`tictactoe-e2e-browser-recovery`, HTTPS port 8643, with its own ignored
+`.env.e2e.browser-recovery`, database and certificate volumes. Normal runtime
+data and credentials were not reset. Browser and Node certificate/hostname
+validation stayed enabled throughout the successful runs.
+
+Linux trust setup: Chrome and Edge use the test public root imported into the
+user's NSS store. For Firefox, the existing enterprise-root preference alone
+did not trust the local authority in temporary automation profiles. A local
+launcher imports only that public root into each Playwright-created Firefox
+profile with `certutil`, then starts the original Firefox binary with the
+original arguments. A positive HTTPS health check passed; a negative unsupported
+hostname check was rejected. No TLS verification bypass was used.
+
+The first trusted Firefox suite passed 23/24 checks. The failing Unicode profile
+test immediately reloaded while its save-triggered server refresh was still in
+flight, producing `NS_BINDING_ABORTED` and a Next.js fallback navigation. A
+focused repeat reproduced the race. The test now reads a fresh server-rendered
+account page in another tab while preserving the original page and its console
+checks. It still verifies the exact saved accented/Arabic/emoji name. This
+correction passed twice in every browser (6/6), followed by the full 72/72 matrix.
+Application authentication and game code were unchanged.
+
+Executed commands included `npm test` (116/116, 26 files), `npm run typecheck`,
+`npm run lint`, and the three-project Playwright suite. The final browser run
+used `.superpowers/browser-recovery/playwright.config.ts`, which extends the
+repository configuration with absolute helper/test paths and the Firefox CA
+launcher; Chrome and Edge used their existing executable-path overrides. The
+same 24 repository tests ran per browser. Local setup, logs and the launcher
+remain under ignored `.superpowers/browser-recovery/`; private environments,
+test traces and certificate material remain private. Formatting and diff checks
+passed, and both reference PDF SHA-256 checksums match the original baselines.
+
+This verifies the current application in this Linux environment; it does not
+claim that the earlier Windows loader installation was repaired or that an
+official score was awarded. All claimed browsers must be reverified after
+adding new modules. The owner added Khalid to the team and made preprod the
+default for development; the proposed four new minor points are not implemented
+or included in the current total.

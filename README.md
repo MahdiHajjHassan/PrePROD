@@ -165,11 +165,11 @@ responsive access, legal pages and one-command container startup apply separatel
 | G06 | Shared design system | 1 |
 | G07 | English, French, Arabic | 1 |
 | G08 | RTL support | 1 |
-| G09 | Additional browsers (unclaimed: Firefox runner blocked) | 0 |
+| G09 | Additional browsers (Chrome, Firefox, Edge verified on Linux) | 1 |
 | G10 | Meaningful server rendering | 1 |
-| | Core currently demonstrated target | **13** |
+| | Core currently demonstrated target | **14** |
 | G11 | Advanced permissions | 2 |
-| | Current target with permissions buffer | **15** |
+| | Current target with permissions buffer | **16** |
 
 These are candidate mappings, not official awarded points. Theme switching and
 basic authentication do not add points. No remote-player, public API, tournament,
@@ -198,10 +198,14 @@ npm run rehearse
 
 Smoke checks use validated local HTTPS, temporary demonstration accounts and
 normal game actions; game records remain on the administrator account.
-`verify` runs sequential checks including Chrome and Edge. Firefox remains an
-explicit optional project (`npx playwright test --project=firefox`); the recorded Windows
-verification could not start its SxS loader. G09 is unclaimed. Install
-actual Chrome, Firefox and Edge; `npx playwright install chrome firefox` installs
+`verify` runs sequential checks including Chrome and Edge. Firefox is also an
+explicit project (`npx playwright test --project=firefox`). The 2026-10-29 Linux
+Chrome/Firefox/Edge matrix passed 72/72 checks, restoring G09; the earlier Windows
+SxS startup failure does not establish a browser incompatibility or a repaired
+Windows installation. Reverify all three browsers after changing features.
+Each browser profile must trust the isolated test public CA; see the Linux trust
+setup in [current evidence](docs/evaluation/tic-tac-toe-evidence.md).
+Install actual Chrome, Firefox and Edge; `npx playwright install chrome firefox` installs
 the managed versions where available. Edge uses the installed Microsoft product.
 Browser tests use project `tictactoe-e2e-mahdi`, port 8443 and own ignored
 `.env.e2e`. Their guarded reset affects only that isolated database. Normal
@@ -219,7 +223,10 @@ may contain private test inputs and must never be shared unredacted.
 
 ## Team, project management and AI use
 
-Mahdi (`mahajj-h`) and Joseph (`jboustan`) are the accepted two-member roster.
+The owner-confirmed team is Mahdi (`mahajj-h`), Joseph (`jboustan`), and Khalid,
+who joined on 2026-10-29. Khalid's campus login and GitHub identity have not yet
+been recorded; his prospective new modules are under discussion, not claimed
+as completed contributions.
 The owner authorized Mahdi/Codex to complete staging implementation. Current game work is a Mahdi/Codex-assisted implementation authorized for
 staging delivery; it must not be relabeled as Joseph's original implementation. Record Joseph's actual review, adaptation and
 explanation only after they occur. No human understanding is inferred from tests.
@@ -227,7 +234,7 @@ explanation only after they occur. No human understanding is inferred from tests
 The design/spec and ordered implementation plan are in `docs/superpowers/`.
 Superpowers supplied the planning/TDD/debugging/review workflow; the vendored
 Impeccable 4.7.1 guided the UI. Codex assisted architecture, implementation, tests
-and documentation. Both students must understand the code and honestly explain
+and documentation. All team members must understand the code and honestly explain
 AI assistance during evaluation. See [contributions](docs/team/contributions/mahdi.md)
 and [delivery map](docs/delivery/PUSH-MAP.md). After local verification, the owner
 authorized committing and pushing this replacement to Transcendence2 staging.

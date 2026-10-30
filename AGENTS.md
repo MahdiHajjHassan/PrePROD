@@ -1,30 +1,50 @@
 # Repository guidance
 
-## Product and current scope — 2026-10-27
+## Product and current scope — 2026-10-29
 
 This is MahdiHajjHassan/Transcendence2, the staging repository for a 42
-ft_transcendence tic-tac-toe application. The owner accepted the two-member team:
-Mahdi (mahajj-h) and Joseph (jboustan). Do not reopen generic 4–5-person wording
-in the reference PDFs as an unresolved gate.
+ft_transcendence tic-tac-toe application. The owner-confirmed team is Mahdi
+(mahajj-h), Joseph (jboustan), and Khalid, who joined on 2026-10-29. Khalid's
+campus login and GitHub identity have not yet been recorded. Do not reopen
+generic 4–5-person wording in the reference PDFs as an unresolved gate.
 
 The owner approved friend play in separate browser sessions on one computer,
 a local computer opponent, secure accounts, administrator CRUD, scoped SSE,
 SSR, English/French/Arabic/RTL and both themes. The implementation is complete
 in staging. Use README.md, docs/requirements/module-matrix.md and
  docs/evaluation/tic-tac-toe-evidence.md for actual commands and evidence.
-The current demonstrated target is 15 candidate points; G09 is withheld because
-the recorded Windows Firefox runner could not start. No official score or
-human understanding is inferred from automation.
+The current demonstrated target is 16 candidate points. G09 was restored after
+the 2026-10-29 Linux Chrome/Firefox/Edge matrix passed all 72 checks. The earlier
+Windows Firefox startup failure remains historical evidence, not a claim that
+the Windows installation was repaired. No official score or human understanding
+is inferred from automation. Reverify all three browsers after new features.
 
 Current design/implementation references:
 - docs/superpowers/specs/2026-10-27-tic-tac-toe-design.md
 - docs/superpowers/plans/2026-10-27-tic-tac-toe.md
 - DESIGN.md and .impeccable/surfaces/tic-tac-toe.md
 
-The latest owner request authorizes fixing the browser icon and removing all
+The earlier cleanup request authorized fixing the browser icon and removing all
 superseded product material from the current source tree, including historical
 plans, manifests, contracts and evaluation reports. Original work and authorship
 remain in Git history. No compatibility with a previous product is required.
+
+The 2026-10-29 discussion targets recovering the additional-browser point and
+choosing four new minor-module points for Khalid's prospective work. Module
+selection and design remain under discussion; no new feature implementation or
+contribution is implied. Remote-player support is excluded from this expansion.
+
+The owner clarified that email ownership verification is required even without
+module points. This is signup/account verification, not 2FA; do not count it as
+an extra module or add 2FA under this request. The proposed code flow and legacy
+account handling are in docs/superpowers/specs/2026-10-29-email-verification-design.md.
+The design has passed its builder check. On 2026-10-30 the owner confirmed
+implementing signup email verification; do not ask again whether to add it.
+The owner approved the Resend plugin's email-best-practices guidance and selected
+their college Google Workspace mailbox as sender. This selects SMTP delivery,
+not Resend delivery. Keep the actual sender address and credentials in private
+configuration. Sender authentication remains pending. No email verification
+code has been implemented yet; do not reuse unrelated connected-account domains.
 
 ## Delivery and authorship
 
@@ -44,6 +64,9 @@ GitHub account. Joseph's owner-confirmed GitHub username is josephboustany;
 verify identity and repository access before his first push.
 
 Transcendence2 is ppd; Final-Trans-Repo is prod, both under MahdiHajjHassan.
+The owner's 2026-10-29 instruction makes preprod the default for development.
+Use prod as reference only unless the owner explicitly requests or approves a
+specific promotion. Previous delivery authorization does not cover new work.
 On 2026-10-28 the owner authorized pushing the code comments and folder refactor
 to both main branches. Preserve each repository's existing history and runtime
 conventions when promoting changes. Do not push to the older Transcendence repo.
