@@ -1347,3 +1347,91 @@ tbody tr:hover th {
   inline-size: 20px;
   block-size: 20px;
 }
+
+/* Member identity and relationship lists extend the existing rounded surfaces. */
+.member-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+}
+.member-heading {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-block-end: 2rem;
+  min-width: 0;
+}
+.member-heading > div {
+  min-width: 0;
+}
+.member-heading h1 {
+  overflow-wrap: anywhere;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+.member-list {
+  list-style: none;
+  padding: 0;
+  margin-block: 1.5rem;
+}
+.member-list > li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1rem;
+  border-block-end: 1px solid var(--line);
+}
+.member-detail {
+  flex: 1;
+  min-width: 8rem;
+  overflow-wrap: anywhere;
+}
+.member-detail > span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.section-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block-end: 1.5rem;
+}
+.section-tabs [aria-current="page"] {
+  font-weight: 650;
+  text-decoration-thickness: 2px;
+}
+.avatar-editor {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 32rem);
+  gap: 2rem;
+  align-items: start;
+}
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem;
+  max-width: 38rem;
+}
+.search-form > .field {
+  flex: 1;
+  min-width: 12rem;
+}
+@media (max-width: 520px) {
+  .avatar-editor {
+    grid-template-columns: 1fr;
+  }
+  .member-heading {
+    align-items: start;
+    gap: 1rem;
+  }
+  .member-heading .member-avatar {
+    width: 64px;
+    height: 64px;
+  }
+  .member-list .actions {
+    width: 100%;
+  }
+}
