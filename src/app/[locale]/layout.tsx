@@ -50,10 +50,10 @@ export default async function LocaleLayout({
               <path
                 d="m10 11 10 18m0-18L10 29"
                 stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
+                strokeWidth="2"
+                strokeLinecap="butt"
               />
-              <circle cx="29" cy="20" r="5" stroke="currentColor" strokeWidth="3.5" />
+              <circle cx="29" cy="20" r="5" stroke="currentColor" strokeWidth="2" />
             </svg>
             {t.brand}
           </Link>

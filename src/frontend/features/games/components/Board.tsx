@@ -65,8 +65,8 @@ export function GameBoard({
               viewBox="0 0 100 100"
               fill="none"
               stroke="currentColor"
-              strokeWidth="9"
-              strokeLinecap="round"
+              strokeWidth="5"
+              strokeLinecap="butt"
               aria-hidden="true"
             >
               {cell === "X" ? (
@@ -93,7 +93,7 @@ export function GameBoard({
             pathLength="1"
             stroke="currentColor"
             strokeWidth="5"
-            strokeLinecap="round"
+            strokeLinecap="butt"
           />
         </svg>
       )}

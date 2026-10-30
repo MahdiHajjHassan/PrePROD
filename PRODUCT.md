@@ -36,13 +36,16 @@ never triggers an automatic move retry. Single application process is the target
 
 ## Interface
 
-A welcoming modern game club in warm paper, deep forest green and lime, with
-blue X and coral O. Guest entry introduces the game beside geometric artwork;
-signed-in play prioritizes computer/friend choices, and live matches center a
-large square board, player identities, turn/result feedback and explicit recovery.
-Supporting forms, tables and legal pages share the same accessible controls.
-Readex Pro is self-hosted under the SIL Open Font License for Latin and Arabic;
-all runtime font requests are local. See DESIGN.md for extracted visual tokens.
+An elegant burgundy interface with ivory light surfaces, wine-dark surfaces and
+rose accents. Latin display headings use local Instrument Serif; local Readex
+Pro supplies body text and Arabic fallback. Both fonts are OFL licensed, and all
+runtime font requests are local. Upright monochrome artwork, fine X/O strokes,
+compact corners and restrained navigation carry the shared identity.
+
+Guest entry introduces the game and account actions; signed-in play prioritizes
+computer/friend choices. Live matches center the square board, player identities,
+turn/result feedback and explicit recovery. Forms, tables and legal pages reuse
+the shared controls. See DESIGN.md for extracted visual tokens.
 
 English/French/Arabic, logical RTL layout, LTR room codes and board positions,
 360px and desktop widths, both themes, stable keyboard focus and legal form

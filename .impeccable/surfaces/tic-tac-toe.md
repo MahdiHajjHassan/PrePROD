@@ -12,12 +12,14 @@ separate signed-in browser sessions on one computer.
 
 ## Implemented expression
 
-The shared world is recorded in DESIGN.md: warm paper, forest framing, lime
-actions, blue X, coral O and self-hosted Readex Pro. The guest introduction pairs
-large type and account actions with decorative geometric board artwork. Member
-entry compacts that artwork, places computer play in a forest panel and keeps
-friend creation/joining in an open bordered section; rules and recent games
-follow. The artwork hides on compact member layouts.
+The shared world is recorded in DESIGN.md: burgundy/rose accents, ivory and
+wine-dark surfaces, local Instrument Serif for Latin display and Readex Pro for
+body text and Arabic fallback. The guest introduction pairs account actions with
+upright monochrome board artwork. Member entry compacts that artwork, places
+computer play in a deep-wine panel and keeps friend creation/joining in an open
+bordered section; rules and recent games follow. The artwork hides on compact
+member layouts. Fine butt-cap X/O strokes and compact corners keep the board
+precise; the decorative board has no highlighted tile or winning slash.
 
 Live matches center a stage (42rem maximum) with connection status, two player
 identities, a stable turn/result heading, a square zero-gap board (30rem maximum)
@@ -38,8 +40,7 @@ navigate to the newly saved game without clearing choreography.
 - English/French/Arabic, logical RTL layout and isolated player names; physical
   board positions and room codes remain LTR.
 - Accessible contrast (4.5:1 for body text), light/dark theme and language
-  preferences remembered in cookies and rendered
-  on the server; local font requests and the existing HTTPS contract.
+  preferences remembered in cookies and rendered on the server; local font requests and the existing HTTPS contract.
 - Legal links open separately and leave active form passwords out of browser
   storage; no new product modules, backend contracts or runtime dependencies.
 
@@ -47,12 +48,11 @@ navigate to the newly saved game without clearing choreography.
 
 The shell caps at 1240px. Breakpoints at 1100px, 760px and 520px wrap the header,
 stack play choices and compact the board context. Ordinary controls have 48px
-minimum block size, with 44px navigation links and header preference controls; board cells remain
-square with a 60px minimum block size.
+minimum block size, with 44px navigation links and header preference controls;
+board cells remain square with a 60px minimum block size.
 
-This brief records the implementation source inspected on 2026-10-29. It does
+This brief records the implementation source inspected on 2026-10-30. It does
 not certify a rendered review. Delivery verification must inspect desktop and
 360px and narrow 320px reflow, both themes, French and Arabic RTL, keyboard
-focus, connection recovery,
-waiting/active/finished boards and reduced motion, alongside the existing server
+focus, connection recovery, waiting/active/finished boards and reduced motion, alongside the existing server
 and browser checks. Record observed outcomes separately from this brief.

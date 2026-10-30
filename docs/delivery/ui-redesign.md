@@ -9,11 +9,13 @@ feature work. Nothing was pushed or merged into main.
 
 ## Changes
 
-The whole existing application shares a new paper/forest/lime design system,
-locally hosted OFL Readex Pro for Latin and Arabic, active navigation, responsive
-lobby and authentication compositions, and updated controls, tables, forms,
-legal pages and browser icons. Existing React/Next.js/TypeScript/Tailwind remain
-the stack; package dependencies are unchanged.
+The current visual revision uses burgundy/rose accents, ivory light surfaces
+and wine-dark surfaces, with local OFL Instrument Serif for Latin display and
+Readex Pro for body text and Arabic fallback. Upright monochrome board artwork,
+fine butt-cap X/O marks, compact controls, underlined navigation and restrained
+panels replace the earlier visual direction. Responsive lobby/authentication
+compositions and shared forms, tables, legal pages and browser icons remain.
+React/Next.js/TypeScript/Tailwind and package dependencies are unchanged.
 
 Confirmed X/O marks draw in SVG, player emphasis follows the saved turn, and a
 line draws through a winning trio. The result and dialogs have bounded motion.
@@ -21,7 +23,32 @@ Reduced motion renders finished strokes immediately; old boards do not replay
 their initial marks. Cell buttons and focus remain stable. Rematch navigation is
 immediate rather than waiting for a clearing sequence.
 
-## Verification observed on 2026-10-30
+## Burgundy revision verification — 2026-10-30
+
+The owner requested burgundy and a classy, elegant game, rejecting green,
+orange and the classroom paper/pen impression. The revision changes the visual
+system and typography while keeping the existing game and application flows.
+
+- Fresh production image build passed, including TypeScript checking.
+- All 29 Chromium browser tests passed with HTTPS validation, including both
+  themes, contrast, Arabic/RTL, keyboard focus, motion and reduced motion.
+- ESLint and source/artifact audit passed. No package dependencies were added.
+- Ten valid rendered artifacts show the lobby and a real saved game in light,
+  dark, desktop and phone views, plus two side-by-side comparisons.
+- An independent Impeccable visual reviewer returned `ship` for this directed
+  revision, with no material fixes.
+
+The revision's detector run returned 38 advisory entries and one overused-font
+warning for Instrument Serif. The font was retained for the requested slim,
+high-contrast display voice; the visual reviewer found no visible fit problem.
+
+Current previews are in `.impeccable/review/burgundy-comparison.png` and
+`burgundy-game-comparison.png`, with full-size individual `burgundy-light.png`,
+`burgundy-dark.png` and `burgundy-game-*` captures beside them.
+
+The verification record below is the initial redesign's historical evidence.
+
+## Initial redesign verification — 2026-10-30
 
 | Check | Result |
 | --- | --- |
@@ -73,4 +100,4 @@ no backend service, API route, database schema or game rule.
 
 `DESIGN.md`, `PRODUCT.md`'s Interface section, the tic-tac-toe surface brief and
 `.impeccable/design.json` describe the finished visual system for future screens.
-The local font is a licensed static asset, not another runtime technology.
+The local fonts are licensed static assets, not additional runtime technologies.
