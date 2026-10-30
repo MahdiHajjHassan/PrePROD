@@ -35,6 +35,11 @@ Its dependency inputs match the previously verified running production image;
 the local image reuses that pinned dependency layer and rebuilds the changed
 source. Private configurations, certificates and database volumes are retained.
 
-Source is kept on `codex/admin-email-verification` in staging and the compatible
-local production-validation branch `codex/admin-email-verification-demo`.
-No shared main branch or external deployment is changed by this fix delivery.
+The owner subsequently authorized Git delivery to both repositories on
+2026-10-30. The verified functional fix was pushed to Transcendence2 main as
+`f8ab1d3fc0928e35c446ec4c674d38246b4e791f` and Final-Trans-Repo main as
+`5e10a1b1a04a0bbea03569483a0b1aab2c247383`, preserving each repository's
+history and runtime conventions. Both normal main checkouts were fast-forwarded
+and verified clean and equal to their own origin/main. The source branches
+`codex/admin-email-verification` and `codex/admin-email-verification-demo` are
+retained. No external deployment was requested.
