@@ -55,6 +55,12 @@ The owner approved email-best-practices guidance and selected their business Gma
 
 ## Delivery and authorship
 
+Administrator-created accounts also remain in EmailChallenge until the requesting
+administrator confirms mailbox proof. POST /api/admin/users returns 202 and the
+verification cookie, with no User or privileges before proof. Confirmation and
+resend recheck that same verified administrator. See
+docs/superpowers/specs/2026-10-30-admin-email-verification-design.md.
+
 The owner authorized all planned staging packages, including originally
 Joseph-assigned work, to be completed by Mahdi/Codex. The game implementation is
 acfb60f; PR #1 was merged into staging main as 2cb312c. See

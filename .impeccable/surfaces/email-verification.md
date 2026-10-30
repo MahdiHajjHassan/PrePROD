@@ -59,3 +59,20 @@ input focus in the incumbent system. These captures and source inspection do
 not certify all states, French rendering, 320px reflow or a three-browser matrix.
 The finish review and executed checks belong to delivery evidence. Root design
 artifacts are preserved; this local brief adds no system-wide rule.
+
+## Administrator creation extension — 2026-10-30
+
+Create user now enters this same code screen with an administrator-specific
+heading and explicit explanation that the account and role do not exist yet.
+The only recovery link returns to Users; success returns there while retaining
+the initiating administrator session. Public signup and legacy verification keep
+their existing sign-in destination. No tokens, components, artwork or motion change.
+
+Rendered checks cover English desktop/light, French 320px/light and Arabic
+360px/dark with the code field focused. The local demo remains at five original
+accounts while the selected ADMIN creation awaits proof. Shared loading,
+delivery-failure, cooldown, wrong-code and expiration states are retained.
+Mechanical detector: zero findings. Finish verdict: SHIP for this bounded
+extension after the code review, rendered checks and targeted browser runs.
+All captures contain fictional local-demo data and are kept in ignored evidence;
+no new runtime raster assets were introduced.
