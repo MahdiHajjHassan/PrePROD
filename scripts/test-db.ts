@@ -20,6 +20,9 @@ try {
   await db.$transaction([
     db.gameMove.deleteMany(),
     db.game.deleteMany(),
+    db.tournamentMatch.deleteMany(),
+    db.tournamentEntry.deleteMany(),
+    db.tournament.deleteMany(),
     db.session.deleteMany(),
     db.rateLimitBucket.deleteMany(),
     db.user.deleteMany(),

@@ -11,6 +11,7 @@ import { createProfileService } from "./modules/profiles/profiles.service";
 import { createAvatarService } from "./modules/profiles/avatar.service";
 import { createFriendService } from "./modules/friends/friends.service";
 import { createPresenceService } from "./modules/presence/presence.service";
+import { createTournamentService } from "./modules/tournaments/tournaments.service";
 
 // Connects the database, validated settings and services. Game changes share one event bus.
 async function buildServices() {
@@ -26,6 +27,7 @@ async function buildServices() {
     avatars: createAvatarService(db),
     friends: createFriendService(db),
     presence: createPresenceService(db),
+    tournaments: createTournamentService(db),
   };
 }
 let services: ReturnType<typeof buildServices> | undefined;
