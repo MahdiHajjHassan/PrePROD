@@ -5,7 +5,7 @@
 This is MahdiHajjHassan/Transcendence2, the staging repository for a 42
 ft_transcendence tic-tac-toe application. The owner-confirmed team is Mahdi
 (mahajj-h), Joseph (jboustan), and Khalid, who joined on 2026-10-29. Khalid's
-owner-confirmed GitHub username is ksayour; his campus login is not yet recorded. Do not reopen
+owner-confirmed 42 campus login is ksayour; his GitHub identity is not yet recorded. Do not reopen
 generic 4–5-person wording in the reference PDFs as an unresolved gate.
 
 The owner approved friend play in separate browser sessions on one computer,
@@ -32,7 +32,7 @@ remain in Git history. No compatibility with a previous product is required.
 On 2026-10-30 the owner selected Khalid's prospective four-point package:
 standard user management (2), a fixed four-player tournament (1), and statistics
 with match history, achievements/progression and leaderboard (1). The owner now authorizes complete implementation and delivery to ppd, plus a
-manual for ksayour to verify and promote to prod from his own account. This
+manual for Khalid (42 login ksayour) to verify and promote to prod from his own account. This
 session must not push to prod or relabel implementation authorship. No Khalid
 contribution is claimed before his actual integration/review occurs. See docs/superpowers/plans/2026-10-30-khalid-modules.md
 and its linked spec/module plans. Spectators and remote-player work are excluded.
