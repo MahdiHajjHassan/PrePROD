@@ -66,7 +66,6 @@ test.each(["en", "fr", "ar"] as const)(
 
 test("an SMTP greeting failure is sanitized and never automatically retried", async () => {
   const { createServer } = await import("node:net");
-  const { once } = await import("node:events");
   const { createVerificationSender } =
     await import("@/backend/modules/auth/email/verification-mail");
   let connections = 0;
@@ -74,8 +73,7 @@ test("an SMTP greeting failure is sanitized and never automatically retried", as
     connections++;
     socket.end("421 unavailable\r\n");
   });
-  server.listen(0, "127.0.0.1");
-  await once(server, "listening");
+  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
   const address = server.address();
   if (!address || typeof address === "string") throw new Error("Missing test listener");
   try {
