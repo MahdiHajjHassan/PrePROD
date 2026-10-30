@@ -18,6 +18,7 @@ import {
 import { gameDto, gameInclude, type GameRecord } from "./game-view";
 import { applyMove, decodeBoard, encodeBoard } from "./engine/game.engine";
 import { chooseAiMove } from "./ai/ai";
+import { settleTournamentGame } from "../tournaments/tournament-results";
 type Options = { random?: () => number; publish?: (id: string, version: number) => void };
 
 // The rules around saved games: create, join, read, play, resign and cancel.
@@ -207,6 +208,7 @@ export function createGameService(db: PrismaClient, options: Options = {}) {
 
           // If storing the move history fails, the board update rolls back with it.
           await tx.gameMove.createMany({ data: moves });
+          if (terminal) await settleTournamentGame(tx, game.id);
           return gameDto(
             (await tx.game.findUnique({ where: { id: game.id }, include: gameInclude }))!,
           );
@@ -235,6 +237,7 @@ export function createGameService(db: PrismaClient, options: Options = {}) {
             },
           });
           if (result.count !== 1) throw new DomainError("CONFLICT");
+          await settleTournamentGame(tx, game.id);
           return gameDto(
             (await tx.game.findUnique({ where: { id: game.id }, include: gameInclude }))!,
           );
