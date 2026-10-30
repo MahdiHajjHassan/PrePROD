@@ -26,7 +26,8 @@
     "rehearse": "node -- scripts/rehearse.mjs",
     "smoke:games": "node -- scripts/smoke-games.mjs",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{mjs,ts}\" \"tests/**/*.ts\" \"*.{ts,mjs,json,yaml,yml}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{mjs,ts}\" \"tests/**/*.ts\" \"*.{ts,mjs,json,yaml,yml}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"scripts/**/*.{mjs,ts}\" \"tests/**/*.ts\" \"*.{ts,mjs,json,yaml,yml}\"",
+    "account:email": "tsx scripts/set-account-email.ts"
   },
   "dependencies": {
     "@node-rs/argon2": "2.2.2",

@@ -150,6 +150,50 @@ Game seats become null when an account is deleted, after the game is safely
 resolved. Moves/results remain. Transactions and version predicates ensure two
 concurrent joins or conflicting actions cannot both claim the same state.
 
+## Email verification setup
+
+Signup requires an emailed code before an account can be used. Existing accounts
+must verify too; their saved data is preserved. Future logins use the password
+normally. This feature adds no module points.
+
+The owner selected a Google Workspace mailbox. Configure the following values
+only in the private `.env`, using the mailbox's App Password when institutional
+policy allows it. Do not put a normal Google password, App Password, or real
+sender address in repository files or chat:
+
+```dotenv
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=<your-mailbox-address>
+SMTP_PASSWORD=<your-app-password>
+SMTP_FROM_EMAIL=<your-mailbox-address>
+```
+
+The mailbox administrator may restrict SMTP/App Passwords. The application needs
+outbound SMTP access; a managed environment must grant it before a live test.
+SMTP authentication and an actual received message are separate from automated
+local-inbox checks. The website can still run on localhost.
+
+For a fresh database, set a deliverable `ADMIN_EMAIL` before seeding. If an
+existing administrator still uses `admin@tictactoe.local`, run migrations and
+explicitly correct that address from the operator console:
+
+```sh
+npm run account:email -- --current-email admin@tictactoe.local --new-email <your-real-address>
+```
+
+Inside Compose, run the same command with `docker compose exec app` before
+`npm run account:email`. This updates the selected account and revokes its
+sessions without changing its role, password or saved games. Normal bootstrap
+never renames or silently verifies existing accounts. Then sign in with the
+existing password, enter the emailed code, and sign in normally.
+
+Codes expire after ten minutes and work once. Resend has a one-minute cooldown
+and a five-per-hour address limit. Invalid or undelivered codes never grant
+account access. Test verification uses only the guarded, isolated Mailpit SMTP
+sidecar; its inbox UI/API binds to localhost, with separate test data. It does
+not send real messages. Real sender credentials are not needed for that suite.
+
 ## Features and candidate modules
 
 Mandatory frontend/backend/database, secure accounts, concurrent use, HTTPS,

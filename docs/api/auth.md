@@ -6,8 +6,11 @@ credentials. Browser JavaScript never reads or stores the session token.
 
 | Method and path | Request JSON | Success |
 | --- | --- | --- |
-| POST /api/auth/register | email, displayName, password | 201 with AccountDTO; then show login |
-| POST /api/auth/login | email, password | 200 with AccountDTO plus secure cookie |
+| POST /api/auth/register | email, displayName, password, optional locale | 202 verificationRequired plus pending cookie; no user/session yet |
+| POST /api/auth/login | email, password, optional locale | Verified: 200 AccountDTO/session cookie; unverified correct password: 202 verificationRequired/pending cookie |
+| GET /api/auth/verification | pending cookie | 200 email, expiresAt, resendAt, status; no code/token |
+| POST /api/auth/verification/confirm | code and pending cookie | 200 verified; pending cookie cleared; password login still required |
+| POST /api/auth/verification/resend | empty object and pending cookie | 200 safe metadata for the new generation |
 | POST /api/auth/logout | empty object | 204, cookie cleared and this session revoked |
 | GET /api/account | no body | 200 with the signed-in user's AccountDTO |
 | PATCH /api/account | displayName only | 200 with updated AccountDTO |
@@ -15,7 +18,9 @@ credentials. Browser JavaScript never reads or stores the session token.
 
 AccountDTO is {id,email,displayName,role,createdAt}. Responses use {data: value}.
 Password hashes and raw session tokens are never returned in JSON. Registration
-does not log in automatically. Successful password change requires a new login.
+creates only a pending attempt. A verified MEMBER account is created atomically
+when its browser submits the correct emailed code; verification does not log in
+automatically. Successful password change requires a new login.
 All responses are private/no-store.
 
 ## Validation and errors
@@ -69,3 +74,32 @@ The guarded Playwright harness and real login/account UI are implemented.
 Browser401/403 responses outside auth forms discard stale private documents and
 router state by navigating to login/the public board. See current evaluation
 evidence for executed browser checks; no human demonstration is inferred here.
+
+## Email ownership
+
+A random Secure/HttpOnly/SameSite=Lax verification cookie lasts at most one hour
+and is never a login token. Codes are six digits, expire after ten minutes, and
+work once. Only the browser that requested a code can submit it. Five wrong
+guesses exhaust a generation. Persistent per-address limits apply across new
+attempts: at most one send/minute and five sends/hour, plus client limits.
+Resend changes the generation and invalidates the previous code. Pending attempts
+expire after one hour and are pruned during new verification requests.
+
+The database stores only a hash of the browser token and a code verifier HMAC-bound
+to that token and generation. Passwords are salted Argon2 hashes in pending
+registrations; no account is created for an unverified signup. Code, token and
+password material never appears in JSON, URLs or application logs.
+
+SMTP sends happen outside database transactions. A generation becomes usable
+only after SMTP acceptance. Failed or ambiguous submissions stay unusable and
+can be replaced through an explicit, rate-limited resend. SMTP does not guarantee
+exactly-once delivery; the application does not automatically retry ambiguous
+submissions. Missing credentials never disable the verification gate.
+
+Legacy accounts retain their IDs/passwords/games but must prove ownership before
+private access. Correct-password login starts verification. Confirmation revokes
+all historical sessions; it does not resurrect old session cookies. Console
+operators can correct an undeliverable address with `npm run account:email --
+--current-email <old> --new-email <new>` after migration. That command preserves
+role/password/game rows, clears verification and challenges, and revokes sessions.
+It is not an HTTP route or an administrative verification bypass.
