@@ -2,13 +2,13 @@
 FROM node:24.19.0-bookworm@sha256:4196d66a565c6f195728d9952f161f4adfe2ad753052a08b7ec7f1c5a6bda42b AS build
 WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1 npm_config_nodedir=/usr/local
-COPY package.json package-lock.json ./
-RUN --mount=type=secret,id=proxy_ca \
-    if [ -f /run/secrets/proxy_ca ]; then export NODE_EXTRA_CA_CERTS=/run/secrets/proxy_ca; fi; \
-    npm ci
+# One source layer and one install/build layer avoid duplicating node_modules on VFS.
 COPY . .
 RUN --mount=type=secret,id=proxy_ca \
+    --mount=type=cache,target=/root/.npm \
+    set -eu; \
     if [ -f /run/secrets/proxy_ca ]; then export NODE_EXTRA_CA_CERTS=/run/secrets/proxy_ca; fi; \
+    npm ci; \
     npm run build
 
 FROM node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df AS runtime

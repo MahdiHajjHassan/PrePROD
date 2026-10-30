@@ -171,6 +171,7 @@ test("password changes reject malformed replacements before sending a request", 
 
 test("registration and profile editing preserve valid accented, Arabic and emoji names", async ({
   page,
+  context,
 }) => {
   await page.goto("/en/register");
   await page.getByLabel(t.displayName, { exact: true }).fill("  Joël جوزيف 🎲  ");
@@ -189,8 +190,14 @@ test("registration and profile editing preserve valid accented, Arabic and emoji
   await name.fill("  Léa مها 🌍  ");
   await page.getByRole("button", { name: t.save, exact: true }).click();
   await expect(page.getByText(t.saved, { exact: true })).toBeVisible();
-  await page.reload();
-  await expect(page.getByLabel(t.displayName, { exact: true })).toHaveValue("Léa مها 🌍");
+  // Verify saved data on a fresh page without aborting the original router refresh.
+  const persisted = await context.newPage();
+  try {
+    await persisted.goto("/en/account");
+    await expect(persisted.getByLabel(t.displayName, { exact: true })).toHaveValue("Léa مها 🌍");
+  } finally {
+    await persisted.close();
+  }
 });
 
 test("admin creation rejects whitespace-only names before sending a request", async ({

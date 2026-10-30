@@ -20,6 +20,9 @@ try {
   await db.$transaction([
     db.gameMove.deleteMany(),
     db.game.deleteMany(),
+    db.tournamentMatch.deleteMany(),
+    db.tournamentEntry.deleteMany(),
+    db.tournament.deleteMany(),
     db.session.deleteMany(),
     db.rateLimitBucket.deleteMany(),
     db.user.deleteMany(),
@@ -30,9 +33,11 @@ try {
     data: [
       { email: "member-a@example.test", displayName: "Member A", passwordHash },
       { email: "member-b@example.test", displayName: "Member B", passwordHash },
+      { email: "member-c@example.test", displayName: "Member C", passwordHash },
+      { email: "member-d@example.test", displayName: "Member D", passwordHash },
     ],
   });
-  console.log("Reset only the guarded isolated game database with three demonstration accounts.");
+  console.log("Reset only the guarded isolated game database with five demonstration accounts.");
 } finally {
   await db.$disconnect();
 }

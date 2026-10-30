@@ -25,3 +25,8 @@ playwright-report/
 playwright/.auth/
 *.tsbuildinfo
 .DS_Store
+
+# Approved skills and isolated implementation/review artifacts
+.superpowers/
+.impeccable/*
+!.impeccable/surfaces/
