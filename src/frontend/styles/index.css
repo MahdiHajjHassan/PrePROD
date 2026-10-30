@@ -1507,10 +1507,35 @@ tbody tr:hover th {
   font-weight: 650;
 }
 .level-progress {
+  appearance: none;
   display: block;
   width: min(100%, 22rem);
+  height: 0.75rem;
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
   margin-block: 0.75rem;
   accent-color: var(--accent);
+  background: var(--muted-surface);
+  color: var(--accent);
+}
+.level-progress::-webkit-progress-bar {
+  background: var(--muted-surface);
+}
+.level-progress::-webkit-progress-value {
+  background: var(--accent);
+}
+.level-progress::-moz-progress-bar {
+  background: var(--accent);
+}
+.stats-summary {
+  margin-block-end: 2rem;
+}
+.stats-group {
+  margin-block-start: 2rem;
+}
+.stats-group h3 {
+  margin-block-end: 0.75rem;
 }
 .achievement-list {
   list-style: none;

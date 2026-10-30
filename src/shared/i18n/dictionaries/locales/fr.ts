@@ -245,4 +245,9 @@ export const fr: Dictionary = {
   historyDescription: "Vos résultats enregistrés, votre progression et vos matchs terminés.",
   leaderboardDescription: "Classement des matchs humains terminés sur cette instance.",
   yourTournaments: "Vos tournois",
+  avatarInvalidFormat:
+    "Choisissez une image PNG, JPEG ou WebP. Les images SVG et animées ne sont pas acceptées.",
+  avatarTooLarge: "Choisissez une image de 2 Mio maximum.",
+  avatarInvalidImage: "Choisissez une image valide et non animée de 4096 × 4096 pixels maximum.",
+  avatarUnchanged: "Votre avatar n’a pas été modifié. Choisissez une autre image et réessayez.",
 };

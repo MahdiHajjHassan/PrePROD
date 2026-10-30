@@ -27,6 +27,7 @@ for (const view of views)
     mkdirSync(dir, { recursive: true });
     async function capture(label: string) {
       await page.evaluate(() => document.fonts.ready);
+      await page.evaluate(() => window.scrollTo(0, 0));
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
         label,

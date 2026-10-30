@@ -13,7 +13,7 @@ export function StatsSummary({ summary, t }: { summary: Summary; t: Dictionary }
     [t.winRate, `${summary.winRate}%`],
   ];
   return (
-    <section className="section">
+    <section className="section stats-summary">
       <h2>{t.competitiveSummary}</h2>
       <dl className="stats-facts">
         {facts.map(([label, value]) => (
@@ -26,36 +26,40 @@ export function StatsSummary({ summary, t }: { summary: Summary; t: Dictionary }
         ))}
       </dl>
       <p>{t.rankingRules}</p>
-      <h3>
-        {t.level} <bdi>{summary.level}</bdi>
-      </h3>
-      <label htmlFor="level-progress">{t.levelProgress}</label>
-      <progress
-        id="level-progress"
-        className="level-progress"
-        max={summary.nextLevelPoints}
-        value={summary.progress}
-      />
-      <p>
-        <bdi>
-          {summary.progress}/{summary.nextLevelPoints}
-        </bdi>{" "}
-        {t.pointsToNext}
-      </p>
-      <h3>{t.achievements}</h3>
-      <ul className="achievement-list">
-        {summary.achievements.map((achievement) => (
-          <li key={achievement.id}>
-            <strong>{t[achievement.id]}</strong>
-            <span>
-              {achievement.earned ? t.achievementEarned : t.achievementLocked} ·{" "}
-              <bdi>
-                {achievement.current}/{achievement.target}
-              </bdi>
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div className="stats-group">
+        <h3>
+          {t.level} <bdi>{summary.level}</bdi>
+        </h3>
+        <label htmlFor="level-progress">{t.levelProgress}</label>
+        <progress
+          id="level-progress"
+          className="level-progress"
+          max={summary.nextLevelPoints}
+          value={summary.progress}
+        />
+        <p>
+          <bdi>
+            {summary.progress}/{summary.nextLevelPoints}
+          </bdi>{" "}
+          {t.pointsToNext}
+        </p>
+      </div>
+      <div className="stats-group">
+        <h3>{t.achievements}</h3>
+        <ul className="achievement-list">
+          {summary.achievements.map((achievement) => (
+            <li key={achievement.id}>
+              <strong>{t[achievement.id]}</strong>
+              <span>
+                {achievement.earned ? t.achievementEarned : t.achievementLocked} ·{" "}
+                <bdi>
+                  {achievement.current}/{achievement.target}
+                </bdi>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

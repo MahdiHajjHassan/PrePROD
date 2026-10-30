@@ -242,4 +242,8 @@ export const ar: Dictionary = {
   historyDescription: "نتائجك المحفوظة وتقدمك ومبارياتك المكتملة.",
   leaderboardDescription: "ترتيب المباريات البشرية المكتملة في هذه النسخة.",
   yourTournaments: "بطولاتك",
+  avatarInvalidFormat: "اختر صورة PNG أو JPEG أو WebP. صور SVG والصور المتحركة غير مدعومة.",
+  avatarTooLarge: "اختر صورة لا يتجاوز حجمها 2 ميبيبايت.",
+  avatarInvalidImage: "اختر صورة صالحة غير متحركة لا تتجاوز أبعادها 4096 × 4096 بكسل.",
+  avatarUnchanged: "لم تتغير صورتك الشخصية. اختر صورة أخرى وأعد رفعها.",
 };

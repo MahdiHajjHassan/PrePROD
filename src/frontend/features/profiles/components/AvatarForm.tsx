@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import type { PublicProfile } from "@/shared/profiles";
 import type { Locale } from "@/shared/i18n/config";
 import { dictionaries } from "@/shared/i18n/dictionaries";
-import { Button, TextField } from "@/frontend/components/ui";
+import { Alert, Button, TextField } from "@/frontend/components/ui";
 import { Feedback } from "@/frontend/components/Feedback";
 import { useMutation, request, decodeResponse, RequestError } from "@/frontend/lib/api";
 
@@ -13,6 +13,15 @@ export function AvatarForm({ profile, locale }: { profile: PublicProfile; locale
   const t = dictionaries[locale],
     mutation = useMutation(),
     router = useRouter();
+  const avatarIssue = mutation.error?.fields?.avatar?.[0],
+    avatarMessage =
+      avatarIssue === "unsupported_format"
+        ? t.avatarInvalidFormat
+        : avatarIssue === "image_too_large"
+          ? t.avatarTooLarge
+          : avatarIssue
+            ? t.avatarInvalidImage
+            : undefined;
   return (
     <section className="section avatar-editor">
       <div>
@@ -34,13 +43,12 @@ export function AvatarForm({ profile, locale }: { profile: PublicProfile; locale
           const form = event.currentTarget;
           void mutation.run(async () => {
             const file = new FormData(form).get("avatar");
-            if (
-              !(file instanceof File) ||
-              !file.size ||
-              file.size > 2097152 ||
-              !["image/png", "image/jpeg", "image/webp"].includes(file.type)
-            )
+            if (!(file instanceof File) || !file.size)
               throw new RequestError("VALIDATION", { avatar: ["invalid_image"] });
+            if (!["image/png", "image/jpeg", "image/webp"].includes(file.type))
+              throw new RequestError("VALIDATION", { avatar: ["unsupported_format"] });
+            if (file.size > 2097152)
+              throw new RequestError("VALIDATION", { avatar: ["image_too_large"] });
             const response = await fetch("/api/account/avatar", {
               method: "PUT",
               credentials: "same-origin",
@@ -58,15 +66,21 @@ export function AvatarForm({ profile, locale }: { profile: PublicProfile; locale
           type="file"
           accept="image/png,image/jpeg,image/webp"
           label={t.avatarImage}
-          error={mutation.error?.fields?.avatar ? t.invalidField : undefined}
+          error={avatarMessage}
           hint={t.avatarHelp}
         />
-        <Feedback
-          error={mutation.error}
-          success={mutation.success && t.saved}
-          t={t}
-          locale={locale}
-        />
+        {avatarMessage ? (
+          <Alert tone="error">
+            <p>{t.avatarUnchanged}</p>
+          </Alert>
+        ) : (
+          <Feedback
+            error={mutation.error}
+            success={mutation.success && t.saved}
+            t={t}
+            locale={locale}
+          />
+        )}
         <div className="actions">
           <Button disabled={mutation.pending}>{t.uploadAvatar}</Button>
           <Button

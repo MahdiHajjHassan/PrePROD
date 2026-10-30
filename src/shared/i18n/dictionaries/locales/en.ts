@@ -242,4 +242,9 @@ export const en = {
   historyDescription: "Your saved results, progress and completed matches.",
   leaderboardDescription: "Standings from completed human games in this instance.",
   yourTournaments: "Your tournaments",
+  avatarInvalidFormat:
+    "Choose a PNG, JPEG or WebP image. SVG and animated images are not supported.",
+  avatarTooLarge: "Choose an image no larger than 2 MiB.",
+  avatarInvalidImage: "Choose a valid single-frame image up to 4096 × 4096 pixels.",
+  avatarUnchanged: "Your avatar was not changed. Choose another image and upload again.",
 };
