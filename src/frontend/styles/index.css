@@ -743,9 +743,9 @@ tbody tr:hover th {
   padding-inline: 0;
 }
 .join-form {
-  display: flex;
-  align-items: end;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   gap: 0.75rem;
   border-block-start: 1px solid var(--line);
   padding-block-start: 1.5rem;
@@ -753,8 +753,11 @@ tbody tr:hover th {
   inline-size: 100%;
 }
 .join-form .field {
-  flex: 1;
-  min-inline-size: 10rem;
+  min-inline-size: 0;
+}
+.join-form .button {
+  /* Match the field label's line height and gap, leaving its hint below the input. */
+  margin-block-start: calc(0.8125rem * 1.7 + 0.45rem);
 }
 .join-form input {
   text-transform: uppercase;
@@ -1268,6 +1271,13 @@ tbody tr:hover th {
   }
   .play-option h2 {
     font-size: 1.75rem;
+  }
+  .join-form {
+    grid-template-columns: 1fr;
+  }
+  .join-form .button {
+    margin-block-start: 0;
+    justify-self: start;
   }
   .game-list li {
     gap: 0.75rem;

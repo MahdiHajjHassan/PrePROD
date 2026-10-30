@@ -14,6 +14,23 @@ test("French administrator navigation reflows at 320px without page scrolling", 
   await expect(page.locator('.main-nav [aria-current="page"]')).toHaveCount(1);
 });
 
+test("room-code entry groups its action with the input on desktop and below the field on phones", async ({
+  page,
+}) => {
+  await loginApi(page.request);
+  await page.goto("/en/play");
+  await page.evaluate(() => document.fonts.ready);
+  const input = page.getByLabel(t.roomCode, { exact: true });
+  const action = page.getByRole("button", { name: t.joinGame, exact: true });
+  const desktopInput = await input.boundingBox();
+  const desktopAction = await action.boundingBox();
+  expect.soft(Math.abs(desktopInput!.y - desktopAction!.y)).toBeLessThanOrEqual(2);
+  await page.setViewportSize({ width: 360, height: 900 });
+  const hint = await page.getByText(t.joinHint, { exact: true }).boundingBox();
+  const mobileAction = await action.boundingBox();
+  expect(mobileAction!.y).toBeGreaterThanOrEqual(hint!.y + hint!.height);
+});
+
 /** Prepare a real two-player match without repeating the already-covered lobby journey. */
 async function openFriendMatch(page: Page, browser: Browser) {
   const headers = { Origin: testSettings().values.APP_ORIGIN };

@@ -225,6 +225,10 @@ Status badges use Soft Green Surface, compact padding and the badge radius. The 
 
 The computer-play panel is an enclosed Club Forest block with light copy; friend play uses an open section with a strong top border. Authentication repeats the forest enclosure as a supporting aside. These are specific compositions, not a general-purpose card grid. Shared alerts, fields, tables and dialogs retain their own semantic structure.
 
+The room-code form aligns its submit action with the input on desktop, leaving
+the hint beneath the input. At compact widths (520px and below), the complete
+label/input/hint field precedes the action in one column.
+
 ### Inputs / Fields
 
 Fields use Surface, a thin Control Edge border (1px), the control radius and a minimum block size (48px). Hover strengthens the border with Accent. The read-only state uses Soft Green Surface. Invalid text fields use an Error Red border and linked field feedback. Labels, hints and errors remain connected through stable IDs; native select, checkbox and password behavior are preserved.

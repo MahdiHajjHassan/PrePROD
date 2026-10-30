@@ -31,10 +31,10 @@
 
 **Interfaces:** Reuse existing translation keys and primitives. Shared CSS classes preserve the feature components' contracts.
 
-- [ ] Establish isolated branch/dependencies and run baseline tests.
-- [ ] Inspect incumbent rendered desktop/mobile before editing.
-- [ ] Implement paper/forest/lime tokens, locally hosted type, responsive shell, active navigation, lobby composition, auth framing, and consistent supporting surfaces.
-- [ ] Inspect desktop/mobile/RTL and both themes; exercise public/account/admin forms with existing browser journeys.
+- [x] Establish isolated branch/dependencies and run baseline tests.
+- [x] Inspect incumbent rendered desktop/mobile before editing.
+- [x] Implement paper/forest/lime tokens, locally hosted type, responsive shell, active navigation, lobby composition, auth framing, and consistent supporting surfaces.
+- [x] Inspect desktop/mobile/RTL and both themes; exercise public/account/admin forms with existing browser journeys.
 
 ### Task 2: Board and result motion
 
@@ -42,10 +42,10 @@
 
 **Interfaces:** Preserve GameBoard props and LiveGame request/recovery behavior. Expose presentation classes for drawn marks, active player, finished match, and winning line. Geometry uses board thirds and no layout-dependent measurements.
 
-- [ ] Write and run failing geometry tests for horizontal/vertical/both diagonal winning lines and absent/invalid lines.
-- [ ] Implement geometry helper, SVG stroke markup, winning overlay, and player state attributes.
-- [ ] Run focused tests, whole server suite, and typecheck.
-- [ ] Verify keyboard focus, replay behavior, reduced motion, and draw/win/waiting states in browser.
+- [x] Write and run failing geometry tests for horizontal/vertical/both diagonal winning lines and absent/invalid lines.
+- [x] Implement geometry helper, SVG stroke markup, winning overlay, and player state attributes.
+- [x] Run focused tests, whole server suite, and typecheck.
+- [x] Verify keyboard focus, replay behavior, reduced motion, and draw/win/waiting states in browser.
 
 ### Task 3: Final verification, review, and handoff
 
@@ -53,7 +53,7 @@
 
 **Interfaces:** Document only the shipped system and the branch's actual test evidence.
 
-- [ ] Run typecheck, lint, server suite, production build, isolated real-browser coverage.
-- [ ] Capture and open the required desktop/mobile/theme/RTL evidence; run Impeccable detector once on changed UI.
-- [ ] Obtain fresh code and visual review, fix material findings, and verify affected checks.
-- [ ] Update durable design documentation, commit only this branch, and report its name, commits, verification and any limitations.
+- [x] Run typecheck, lint, server suite, production build, isolated real-browser coverage.
+- [x] Capture and open the required desktop/mobile/theme/RTL evidence; run Impeccable detector once on changed UI.
+- [x] Obtain fresh code and visual review, fix material findings, and verify affected checks.
+- [x] Update durable design documentation, commit only this branch, and report its name, commits, verification and any limitations.
