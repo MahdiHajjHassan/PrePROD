@@ -3,8 +3,31 @@ import { DomainError } from "../../common/errors";
 
 export const maxAvatarBytes = 2097152;
 
+// libvips exposes APNG as a static PNG; inspect bounded chunk boundaries as well.
+function assertStaticPng(bytes: Buffer) {
+  if (!bytes.subarray(0, 8).equals(Buffer.from("89504e470d0a1a0a", "hex")))
+    throw new Error("invalid PNG");
+  for (let offset = 8; offset < bytes.length;) {
+    if (bytes.length - offset < 12) throw new Error("truncated PNG");
+    const length = bytes.readUInt32BE(offset),
+      end = offset + 12 + length,
+      type = bytes.toString("ascii", offset + 4, offset + 8);
+    if (end > bytes.length) throw new Error("truncated PNG");
+    if (["acTL", "fcTL", "fdAT"].includes(type)) throw new Error("animated PNG");
+    if (type === "IEND") {
+      if (length !== 0 || end !== bytes.length) throw new Error("invalid PNG end");
+      return;
+    }
+    offset = end;
+  }
+  throw new Error("missing PNG end");
+}
+
 // Decode a bounded single-frame image and keep only canonical, metadata-free pixels.
-export async function normalizeAvatar(bytes: Uint8Array, contentType: string): Promise<Uint8Array<ArrayBuffer>> {
+export async function normalizeAvatar(
+  bytes: Uint8Array,
+  contentType: string,
+): Promise<Uint8Array<ArrayBuffer>> {
   try {
     const formats: Record<string, string> = {
       "image/png": "png",
@@ -13,7 +36,9 @@ export async function normalizeAvatar(bytes: Uint8Array, contentType: string): P
     };
     if (!formats[contentType] || !bytes.length || bytes.length > maxAvatarBytes)
       throw new Error("invalid image");
-    const image = sharp(Buffer.from(bytes), { limitInputPixels: 16777216, failOn: "warning" });
+    const input = Buffer.from(bytes);
+    if (contentType === "image/png") assertStaticPng(input);
+    const image = sharp(input, { limitInputPixels: 16777216, failOn: "warning" });
     const meta = await image.metadata();
     if (
       meta.format !== formats[contentType] ||

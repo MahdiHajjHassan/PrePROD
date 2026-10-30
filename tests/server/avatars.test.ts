@@ -75,3 +75,30 @@ test("animated WebP is rejected rather than silently accepting its first frame",
   expect((await sharp(webp).metadata()).pages).toBe(2);
   await expect(normalizeAvatar(webp, "image/webp")).rejects.toMatchObject({ code: "VALIDATION" });
 });
+
+test("a two-frame APNG cannot replace an existing avatar even when Sharp omits its frame count", async () => {
+  // Valid 1x1 RGBA APNG: acTL, two fcTL chunks, IDAT and fdAT with real CRCs.
+  const apng = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAAACAAAAAPONk3AAAAAaZmNUTAAAAAAAAAABAAAAAQAAAAAAAAAAAAEACgAAWn8w0AAAAA1JREFUeJxj+M/A8B8ABQAB/4mZPR0AAAAaZmNUTAAAAAEAAAABAAAAAQAAAAAAAAAAAAEACgAAwQzaBAAAABFmZEFUAAAAAnicY2D4z/AfAAQBAf9i5+mcAAAAAElFTkSuQmCC",
+    "base64",
+  );
+  expect((await sharp(apng).metadata()).pages).toBeUndefined();
+  const f = await createTestDb();
+  try {
+    const member = await seedUser(f.db),
+      avatars = createAvatarService(f.db);
+    const png = await sharp({ create: { width: 10, height: 10, channels: 3, background: "blue" } })
+      .png()
+      .toBuffer();
+    await avatars.put(member.actor, png, "image/png");
+    const before = await f.db.userAvatar.findUniqueOrThrow({ where: { userId: member.actor.id } });
+    await expect(avatars.put(member.actor, apng, "image/png")).rejects.toMatchObject({
+      code: "VALIDATION",
+    });
+    const after = await f.db.userAvatar.findUniqueOrThrow({ where: { userId: member.actor.id } });
+    expect(after.data).toEqual(before.data);
+    expect(after.revision).toBe(before.revision);
+  } finally {
+    await f.close();
+  }
+});

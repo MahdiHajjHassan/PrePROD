@@ -82,3 +82,38 @@ test("new member screens fit Arabic mobile and preserve keyboard navigation", as
     await page.keyboard.press("Tab");
   }
 });
+
+test("profile join dates hydrate consistently outside the server time zone", async ({
+  page,
+  browser,
+}) => {
+  await loginUi(page);
+  const me = (await (await page.request.get("/api/account")).json()).data;
+  const profile = (await (await page.request.get(`/api/profiles/${me.id}`)).json()).data;
+  const joined = new Date(profile.joinedAt);
+  // Either zone deliberately crosses the UTC calendar-day boundary for this real fixture.
+  const timezoneId = joined.getUTCHours() < 12 ? "Etc/GMT+12" : "Pacific/Kiritimati";
+  const other = await browser.newContext({
+    baseURL: testSettings().values.APP_ORIGIN,
+    ignoreHTTPSErrors: false,
+    timezoneId,
+    storageState: await page.context().storageState(),
+  });
+  try {
+    const second = await other.newPage();
+    const errors: string[] = [];
+    second.on("pageerror", (error) => errors.push(error.message));
+    second.on("console", (message) => {
+      if (["error", "warning"].includes(message.type())) errors.push(message.text());
+    });
+    await second.goto(`/en/profiles/${me.id}`);
+    const expected = new Intl.DateTimeFormat("en", { dateStyle: "medium", timeZone: "UTC" }).format(
+      joined,
+    );
+    await expect(second.locator(".member-heading")).toContainText(expected);
+    await second.getByRole("button", { name: dictionaries.en.dark, exact: true }).click();
+    expect(errors).toEqual([]);
+  } finally {
+    await other.close();
+  }
+});

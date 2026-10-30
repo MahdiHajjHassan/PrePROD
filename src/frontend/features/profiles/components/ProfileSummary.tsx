@@ -31,7 +31,7 @@ export function ProfileSummary({ profile, locale }: { profile: ProfilePage; loca
           <p>{t.profileDescription}</p>
           <p>
             {t.joinedAt}:{" "}
-            {new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
+            {new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone: "UTC" }).format(
               new Date(profile.joinedAt),
             )}
           </p>

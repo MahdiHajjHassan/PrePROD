@@ -40,6 +40,8 @@ test("four profiles complete semifinals, draw replay and final", async ({ page, 
       await expect(peer).toHaveURL(new RegExp(`/en/tournaments/${eventId}$`));
     }
     await expect(page.getByRole("button", { name: "Start tournament", exact: true })).toBeEnabled();
+    await expect(page.locator('[data-slot="SF1"]')).toContainText("Member A / Member B");
+    await expect(page.locator('[data-slot="SF2"]')).toContainText("Member C / Member D");
     await page.getByRole("button", { name: "Start tournament", exact: true }).click();
     const all = [page, ...peers];
     for (const participant of all) {

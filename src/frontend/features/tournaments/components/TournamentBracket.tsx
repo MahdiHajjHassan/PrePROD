@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/shared/i18n/config";
-import type { TournamentDTO } from "@/shared/tournaments";
+import type { TournamentDTO, TournamentMatchDTO } from "@/shared/tournaments";
 import { dictionaries } from "@/shared/i18n/dictionaries";
 import { Button, TextField, Badge } from "@/frontend/components/ui";
 import { Feedback } from "@/frontend/components/Feedback";
@@ -26,10 +26,25 @@ export function TournamentBracket({
     router = useRouter();
   const host = row.hostId === actorId,
     me = row.entries.find((e) => e.profile?.id === actorId);
-  const name = (id: string | null) => {
+  const name = (id: string | null, empty = t.awaitingWinner) => {
     const entry = row.entries.find((e) => e.id === id);
-    return entry ? (entry.profile?.displayName ?? t.deletedPlayer) : t.awaitingWinner;
+    return entry ? (entry.profile?.displayName ?? t.deletedPlayer) : empty;
   };
+  // Show the same fixed slot pairings before start without creating any games.
+  const matches: TournamentMatchDTO[] =
+    row.status === "LOBBY"
+      ? (["SF1", "SF2", "FINAL"] as const).map((slot, index) => ({
+          id: slot,
+          slot,
+          status: "PENDING",
+          version: 0,
+          entryAId: row.entries.find((e) => e.slot === index * 2 + 1)?.id ?? null,
+          entryBId: row.entries.find((e) => e.slot === index * 2 + 2)?.id ?? null,
+          winnerEntryId: null,
+          attempt: 0,
+          currentGameId: null,
+        }))
+      : row.matches;
   const status = {
     LOBBY: t.tournamentLobby,
     RUNNING: t.tournamentRunning,
@@ -142,9 +157,9 @@ export function TournamentBracket({
           ))}
         </ol>
       </section>
-      {row.matches.length > 0 && (
+      {matches.length > 0 && (
         <ol className="tournament-bracket">
-          {row.matches.map((match) => (
+          {matches.map((match) => (
             <li key={match.id} className="match-node" data-slot={match.slot}>
               <h2>
                 {match.slot === "SF1"
@@ -154,16 +169,30 @@ export function TournamentBracket({
                     : t.finalMatch}
               </h2>
               <p>
-                <bdi>{name(match.entryAId)}</bdi> / <bdi>{name(match.entryBId)}</bdi>
+                <bdi>
+                  {name(
+                    match.entryAId,
+                    row.status === "LOBBY" && match.slot !== "FINAL" ? t.WAITING : t.awaitingWinner,
+                  )}
+                </bdi>{" "}
+                /{" "}
+                <bdi>
+                  {name(
+                    match.entryBId,
+                    row.status === "LOBBY" && match.slot !== "FINAL" ? t.WAITING : t.awaitingWinner,
+                  )}
+                </bdi>
               </p>
               <Badge>
-                {match.status === "ACTIVE"
-                  ? t.ACTIVE
-                  : match.status === "FINISHED"
-                    ? t.FINISHED
-                    : match.status === "CANCELLED"
-                      ? t.CANCELLED
-                      : t.awaitingWinner}
+                {row.status === "LOBBY"
+                  ? t.tournamentLobby
+                  : match.status === "ACTIVE"
+                    ? t.ACTIVE
+                    : match.status === "FINISHED"
+                      ? t.FINISHED
+                      : match.status === "CANCELLED"
+                        ? t.CANCELLED
+                        : t.awaitingWinner}
               </Badge>
               {match.attempt > 1 && (
                 <p>

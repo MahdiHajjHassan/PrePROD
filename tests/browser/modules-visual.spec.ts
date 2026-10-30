@@ -135,13 +135,11 @@ for (const view of views)
       await page.locator(`.main-nav a[href="/${locale}/account"]`).click();
       await expect(page.getByRole("heading", { level: 1, name: t.account })).toBeVisible();
       await capture("account");
-      await page
-        .getByLabel(t.avatarImage)
-        .setInputFiles({
-          name: "invalid.svg",
-          mimeType: "image/svg+xml",
-          buffer: Buffer.from("<svg/>"),
-        });
+      await page.getByLabel(t.avatarImage).setInputFiles({
+        name: "invalid.svg",
+        mimeType: "image/svg+xml",
+        buffer: Buffer.from("<svg/>"),
+      });
       await page.getByRole("button", { name: t.uploadAvatar, exact: true }).click();
       await expect(page.getByLabel(t.avatarImage)).toHaveAttribute("aria-invalid", "true");
       await capture("avatar-error");
