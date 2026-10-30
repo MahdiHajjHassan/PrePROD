@@ -1,14 +1,17 @@
-*This project has been created as part of the 42 curriculum by mahajj-h, jboustan.*
+*This project has been created as part of the 42 curriculum by mahajj-h, jboustan, ksayour.*
 
 # Tic Tac Toe
 
 A complete web game for two signed-in friends using separate browser sessions on
 one computer, or one player against the computer. X starts; three in a line wins.
 Accounts and committed matches survive restarts. The server owns every move.
+Members can edit profiles and avatars, accept friends, see friend presence,
+register for a fixed four-player tournament, and inspect saved history,
+achievements, progression and competitive standings.
 
 This is **MahdiHajjHassan/Transcendence2 (ppd)**. Production source is maintained in
 [MahdiHajjHassan/Final-Trans-Repo](https://github.com/MahdiHajjHassan/Final-Trans-Repo).
-The owner explicitly accepted two members, Mahdi and Joseph, on 2026-10-27.
+The team is Mahdi (`mahajj-h`), Joseph (`jboustan`) and Khalid (`ksayour`, 42 campus login). Khalid’s GitHub username is verified separately during his delivery.
 
 ## Instructions
 
@@ -83,6 +86,17 @@ That CA is a build secret, never an application credential.
    including the typed password, in the original tab. Passwords are not saved
    to browser storage.
 
+7. Open **Friends** to find players and send/accept requests. Presence is visible
+   only for accepted friends. Upload a PNG/JPEG/WebP avatar under **Account**.
+8. For a tournament, use **four independent browser profiles/contexts**, each
+   signed into a different account. Ordinary tabs share cookies. The host creates
+   a tournament and shares its code; three players join. Confirm the displayed
+   semifinals, start, finish both rounds and the final. Draws replay with seats
+   swapped. No LAN or separate PCs are needed.
+9. **History** shows your own results and progression; **Leaderboard** ranks
+   completed human games. AI, cancellation and account-deletion forfeits do not
+   earn competitive points. See the [demo manual](docs/team/khalid-module-manual.md).
+
 ## Architecture and technical choices
 
 Next.js App Router provides frontend React/TypeScript and backend route handlers;
@@ -115,9 +129,9 @@ move and computer reply commit in one transaction, with no external AI service.
 | --- | --- |
 | `src/app` | URL routes, server-rendered pages, and API entry points. |
 | `src/frontend/components/ui` | Shared controls, one component per file. |
-| `src/frontend/features` | Account, auth, games and user-management components. |
+| `src/frontend/features` | Accounts, profiles, friends, tournaments, statistics, auth and game components. |
 | `src/frontend/layout`, `lib`, `styles` | Preferences, browser requests/form validation and shared styles. |
-| `src/backend/modules` | Auth, games, users and realtime modules. |
+| `src/backend/modules` | Auth, games, users, profiles, friends, presence, tournaments, statistics and realtime. |
 | `src/backend/common` | HTTP responses, errors, validation and request security. |
 | `src/backend/config`, `database` | Environment validation, database connections, write retries and seeding. |
 | `src/shared` | Data contracts and small helpers shared across application layers. |
@@ -141,10 +155,15 @@ to connected players.
 | Model | Purpose and relationships |
 | --- | --- |
 | User | Unique email, public name, password hash, MEMBER/ADMIN role; sessions and X/O game seats |
-| Session | Hash-only token, expiry, User foreign key; revoked on password change/deletion |
+| Session | Hash-only token, expiry, nullable lastSeenAt, User foreign key; revoked on password change/deletion |
 | RateLimitBucket | Persistent per-action quotas and reset times |
 | Game | Mode, nine-cell board, seats, turn, status/result, unique invitation, version/times |
 | GameMove | Game foreign key, mark/cell/ply; unique game+cell and game+ply |
+| UserAvatar | User primary/foreign key, canonical 256px WebP bytes, revision; cascades on deletion |
+| Friendship | Canonical user pair, requester, pending/accepted state; unique pair and cascading user references |
+| Tournament | Host, code, state/version, champion slot and timestamps |
+| TournamentEntry | Tournament and nullable user, unique numbered seat; historical seats survive deletion |
+| TournamentMatch | SF1/SF2/final, entry/winner references, current game/attempt/version; Game links uniquely to match+attempt |
 
 Game seats become null when an account is deleted, after the game is safely
 resolved. Moves/results remain. Transactions and version predicates ensure two
@@ -165,15 +184,19 @@ responsive access, legal pages and one-command container startup apply separatel
 | G06 | Shared design system | 1 |
 | G07 | English, French, Arabic | 1 |
 | G08 | RTL support | 1 |
-| G09 | Additional browsers (unclaimed: Firefox runner blocked) | 0 |
+| G09 | Additional browsers: Chrome, Firefox and Edge | 1 |
 | G10 | Meaningful server rendering | 1 |
-| | Core currently demonstrated target | **13** |
+| | Core candidate target | **14** |
 | G11 | Advanced permissions | 2 |
-| | Current target with permissions buffer | **15** |
+| | Verified baseline with permissions | **16** |
+| G12 | Full profiles, avatars, friends and online status | 2 |
+| G13 | Fixed four-player tournament | 1 |
+| G14 | Statistics, history, achievements/progression and leaderboard | 1 |
+| | Complete candidate target after the recorded verification | **20** |
 
 These are candidate mappings, not official awarded points. Theme switching and
-basic authentication do not add points. No remote-player, public API, tournament,
-statistics or notification module is claimed. See
+basic authentication do not add points. No remote-player, public API, 2FA or notification module is claimed.
+Email ownership verification is separate work and earns no point here. See
 [traceability](docs/requirements/module-matrix.md) and
 [current evidence](docs/evaluation/tic-tac-toe-evidence.md).
 
@@ -198,9 +221,10 @@ npm run rehearse
 
 Smoke checks use validated local HTTPS, temporary demonstration accounts and
 normal game actions; game records remain on the administrator account.
-`verify` runs sequential checks including Chrome and Edge. Firefox remains an
-explicit optional project (`npx playwright test --project=firefox`); the recorded Windows
-verification could not start its SxS loader. G09 is unclaimed. Install
+`verify` runs sequential checks including actual Chrome, Firefox and Edge.
+The earlier Windows Firefox startup failure is historical; the Linux matrix
+restored the browser point. Current module results and exact limits are in
+[the dated delivery evidence](docs/evaluation/2026-10-30-khalid-modules.md). Install
 actual Chrome, Firefox and Edge; `npx playwright install chrome firefox` installs
 the managed versions where available. Edge uses the installed Microsoft product.
 Browser tests use project `tictactoe-e2e-mahdi`, port 8443 and own ignored
@@ -219,7 +243,7 @@ may contain private test inputs and must never be shared unredacted.
 
 ## Team, project management and AI use
 
-Mahdi (`mahajj-h`) and Joseph (`jboustan`) are the accepted two-member roster.
+Mahdi (`mahajj-h`), Joseph (`jboustan`) and Khalid (`ksayour`) are the owner-confirmed roster.
 The owner authorized Mahdi/Codex to complete staging implementation. Current game work is a Mahdi/Codex-assisted implementation authorized for
 staging delivery; it must not be relabeled as Joseph's original implementation. Record Joseph's actual review, adaptation and
 explanation only after they occur. No human understanding is inferred from tests.
@@ -227,13 +251,15 @@ explanation only after they occur. No human understanding is inferred from tests
 The design/spec and ordered implementation plan are in `docs/superpowers/`.
 Superpowers supplied the planning/TDD/debugging/review workflow; the vendored
 Impeccable 4.7.1 guided the UI. Codex assisted architecture, implementation, tests
-and documentation. Both students must understand the code and honestly explain
+and documentation. All three students must understand the code and honestly explain
 AI assistance during evaluation. See [contributions](docs/team/contributions/mahdi.md)
-and [delivery map](docs/delivery/PUSH-MAP.md). After local verification, the owner
-authorized committing and pushing this replacement to Transcendence2 staging.
+and [delivery map](docs/delivery/PUSH-MAP.md). The new modules retain their actual
+Mahdi/Codex implementation authorship. Khalid’s [production manual](docs/delivery/KHALID-PRODUCTION.md)
+explains his own verification/integration/push using the prepared prod-compatible
+branch; his future actions are not claimed as completed contributions.
 
 ## Resources
 
 - [Original subject](docs/reference/en.subject.pdf) and [evaluation sheet](docs/reference/EVALUATION-SHEET.pdf), unchanged.
 - [Next.js documentation](https://nextjs.org/docs), [Prisma documentation](https://www.prisma.io/docs), [Caddy documentation](https://caddyserver.com/docs/).
-- [Game API](docs/api/games.md), [auth contract](docs/api/auth.md), [design system](DESIGN.md).
+- [Game API](docs/api/games.md), [auth contract](docs/api/auth.md), [profiles/friends/presence](docs/api/profiles.md), [tournaments](docs/api/tournaments.md), [statistics](docs/api/statistics.md), [design system](DESIGN.md).

@@ -47,3 +47,19 @@ containers were stopped with all volumes retained. Ready commits and the heavy
 window were handed to the integration chat for independent preprod/prod review
 and fresh-clone verification. This audit performed no push, main merge or direct
 prod edit.
+
+## New module package — 2026-10-30
+
+The owner authorized Mahdi/Codex to implement profiles/avatars/friends/presence,
+a fixed four-player tournament, and canonical statistics/history/progression/
+leaderboard, using latest ppd UI 13c79e6 as the base. The implementation and its
+regressions retain Mahdi's normal author identity. Khalid's campus login is ksayour;
+no GitHub identity or completed review/integration is inferred for him.
+
+The work includes additive migrations, preserved-data verification, private API
+projections, transactional tournament progression/deletion, three-language/two-theme
+UI, actual-browser tests, API/demo documents and a separate prod-compatible port
+for Khalid's later verification and promotion. This session pushes only to ppd.
+See [the dated evidence](../../evaluation/2026-10-30-khalid-modules.md) and
+[production handoff](../../delivery/KHALID-PRODUCTION.md) for exact results,
+provenance and remaining human actions. Email remains separate.

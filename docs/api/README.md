@@ -1,6 +1,8 @@
-# Game and account HTTP contracts
+# Application HTTP contracts
 
-Use games.md and auth.md for the current same-origin HTTPS session-cookie API.
+Use [games](games.md), [auth](auth.md), [profiles/friends/presence](profiles.md),
+[tournaments](tournaments.md) and [statistics/history](statistics.md) for the
+current same-origin HTTPS session-cookie API.
 Private responses are no-store; mutations enforce Origin.
 Administrator POST /api/admin/users creates a validated account (email,
 displayName, password and MEMBER/ADMIN role), hashes its password and returns a

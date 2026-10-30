@@ -21,7 +21,9 @@ export function testSettings() {
     (existsSync(envFile) && !lstatSync(envFile).isFile())
   )
     throw new Error("Test credentials must use a separate ignored .env.* file");
-  const logDir = resolve(".superpowers/sdd/2026-10-27-tic-tac-toe");
+  const logDir = resolve(
+    process.env.TICTACTOE_E2E_LOG_DIR ?? ".superpowers/sdd/2026-10-27-tic-tac-toe",
+  );
   mkdirSync(logDir, { recursive: true });
   const values = existsSync(envFile) ? parse(readFileSync(envFile)) : {};
   const files = [
