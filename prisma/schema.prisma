@@ -23,6 +23,16 @@ model User {
   sessions     Session[]
   gamesAsX     Game[]    @relation("GameX")
   gamesAsO     Game[]    @relation("GameO")
+  avatar       UserAvatar?
+}
+
+// Canonical avatar pixels share the account's persistent database and cascade on deletion.
+model UserAvatar {
+  userId String @id
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  data Bytes
+  revision Int @default(1)
+  updatedAt DateTime @updatedAt
 }
 
 // One login per browser session. Its ID is the token hash, never the raw cookie token.
