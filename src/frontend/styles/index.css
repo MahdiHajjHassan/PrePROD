@@ -1435,3 +1435,51 @@ tbody tr:hover th {
     width: 100%;
   }
 }
+
+/* Fixed bracket: the two semifinals lead into one final, then stack in reading order. */
+.tournament-bracket {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 3rem;
+  margin-block: 2rem;
+}
+.match-node {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.match-node[data-slot="SF1"] {
+  grid-column: 1;
+  grid-row: 1;
+}
+.match-node[data-slot="SF2"] {
+  grid-column: 1;
+  grid-row: 2;
+}
+.match-node[data-slot="FINAL"] {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+.match-node h2 {
+  font-size: 1.4rem;
+}
+.tournament-champion strong {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  overflow-wrap: anywhere;
+}
+.tournament-roster > li {
+  justify-content: space-between;
+}
+@media (max-width: 760px) {
+  .tournament-bracket {
+    display: block;
+  }
+  .match-node {
+    margin-block: 1rem;
+  }
+}

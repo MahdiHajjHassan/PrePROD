@@ -1,3 +1,4 @@
+import sharp from "sharp";
 import { test, expect, loginUi, loginApi } from "./fixtures";
 import { dictionaries } from "../../src/shared/i18n/dictionaries";
 import { testSettings } from "../helpers/e2e-environment";
@@ -30,16 +31,30 @@ test("profiles avatars and accepted friends work across two browser sessions", a
     await page.getByRole("button", { name: "Remove friend", exact: true }).click();
     await expect(page.getByRole("link", { name: "Member B", exact: true })).toHaveCount(0);
     await page.goto("/en/account");
+    await page.getByLabel("Avatar image").setInputFiles({
+      name: "portrait.svg",
+      mimeType: "image/svg+xml",
+      buffer: Buffer.from("<svg/>"),
+    });
+    await page.getByRole("button", { name: "Upload avatar", exact: true }).click();
+    await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
+    await expect(page.getByRole("img", { name: "Your avatar", exact: true })).toBeVisible();
+    const png = await sharp({ create: { width: 20, height: 20, channels: 3, background: "red" } })
+      .png()
+      .toBuffer();
     await page
       .getByLabel("Avatar image")
-      .setInputFiles({
-        name: "portrait.svg",
-        mimeType: "image/svg+xml",
-        buffer: Buffer.from("<svg/>"),
-      });
+      .setInputFiles({ name: "portrait.png", mimeType: "image/png", buffer: png });
     await page.getByRole("button", { name: "Upload avatar", exact: true }).click();
-    await expect(page.getByRole("alert")).toBeVisible();
-    await expect(page.getByRole("img", { name: "Your avatar", exact: true })).toBeVisible();
+    await expect(page.getByRole("img", { name: "Your avatar", exact: true })).toHaveAttribute(
+      "src",
+      /\/api\/profiles\/.*avatar\?v=/,
+    );
+    await page.getByRole("button", { name: "Use default avatar", exact: true }).click();
+    await expect(page.getByRole("img", { name: "Your avatar", exact: true })).toHaveAttribute(
+      "src",
+      "/default-avatar.svg",
+    );
   } finally {
     await other.close();
   }

@@ -15,6 +15,7 @@ export function Navigation({ locale, role }: { locale: Locale; role?: "ADMIN" | 
         { route: "play", label: t.board },
         { route: "account", label: t.account },
         { route: "friends", label: t.friends },
+        { route: "tournaments", label: t.tournaments },
         ...(role === "ADMIN" ? [{ route: "admin/users", label: t.users }] : []),
       ]
     : [
