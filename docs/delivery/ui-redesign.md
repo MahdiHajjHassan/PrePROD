@@ -9,13 +9,14 @@ feature work. Nothing was pushed or merged into main.
 
 ## Changes
 
-The current visual revision uses burgundy/rose accents, ivory light surfaces
-and wine-dark surfaces, with local OFL Instrument Serif for Latin display and
-Readex Pro for body text and Arabic fallback. Upright monochrome board artwork,
-fine butt-cap X/O marks, compact controls, underlined navigation and restrained
-panels replace the earlier visual direction. Responsive lobby/authentication
-compositions and shared forms, tables, legal pages and browser icons remain.
-React/Next.js/TypeScript/Tailwind and package dependencies are unchanged.
+The current revision restores the rounded Readex Pro appearance: large geometric
+type, a tilted finished-board illustration, bold round-ended marks, rounded
+controls and filled navigation states. Burgundy/rose accents, ivory light
+surfaces and wine-dark surfaces remain; green and orange are excluded. The
+serif/fine-line revision is superseded, and Readex Pro is the only local font.
+Responsive lobby/authentication compositions, shared forms, tables, legal pages
+and browser icons remain. React/Next.js/TypeScript/Tailwind and package
+dependencies are unchanged.
 
 Confirmed X/O marks draw in SVG, player emphasis follows the saved turn, and a
 line draws through a winning trio. The result and dialogs have bounded motion.
@@ -23,7 +24,25 @@ Reduced motion renders finished strokes immediately; old boards do not replay
 their initial marks. Cell buttons and focus remain stable. Rematch navigation is
 immediate rather than waiting for a clearing sequence.
 
-## Burgundy revision verification — 2026-10-30
+## Restored rounded revision verification — 2026-10-30
+
+The owner rejected the serif/classy revision and requested the earlier look
+without green or orange. The rounded appearance was restored from `66497af`,
+retaining the burgundy palette. Instrument Serif and its unused asset were
+removed; Readex Pro is the sole self-hosted font again.
+
+- A fresh production image build and all 29 Chromium browser tests passed,
+  including both-theme contrast, RTL, focus, motion and reduced motion.
+- ESLint, source audit and diff integrity checks passed.
+- Ten valid lobby/game captures cover light/dark desktop and phone layouts.
+- An independent Impeccable visual review returned `ship`, with no material
+  fixes. The detector reported 41 advisory entries and no non-advisory findings.
+
+Current previews are `.impeccable/review/rounded-burgundy-comparison.png` and
+`rounded-burgundy-game-comparison.png`, with individual desktop and mobile
+captures under the same prefix. The verification sections below are historical.
+
+## Superseded serif revision verification — 2026-10-30
 
 The owner requested burgundy and a classy, elegant game, rejecting green,
 orange and the classroom paper/pen impression. The revision changes the visual
@@ -42,7 +61,7 @@ The revision's detector run returned 38 advisory entries and one overused-font
 warning for Instrument Serif. The font was retained for the requested slim,
 high-contrast display voice; the visual reviewer found no visible fit problem.
 
-Current previews are in `.impeccable/review/burgundy-comparison.png` and
+That revision's historical previews are in `.impeccable/review/burgundy-comparison.png` and
 `burgundy-game-comparison.png`, with full-size individual `burgundy-light.png`,
 `burgundy-dark.png` and `burgundy-game-*` captures beside them.
 
@@ -100,4 +119,4 @@ no backend service, API route, database schema or game rule.
 
 `DESIGN.md`, `PRODUCT.md`'s Interface section, the tic-tac-toe surface brief and
 `.impeccable/design.json` describe the finished visual system for future screens.
-The local fonts are licensed static assets, not additional runtime technologies.
+The local font is a licensed static asset, not an additional runtime technology.

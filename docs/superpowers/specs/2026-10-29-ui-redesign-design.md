@@ -1,11 +1,11 @@
 # Whole application redesign
 
-Revision, 2026-10-30: the owner rejected green/orange and the classroom paper/pen
-impression, requesting an elegant, classy burgundy game. The original direction
-below records the first implementation; the current visual authority is
-DESIGN.md's burgundy/ivory and near-black wine system, serif display typography,
-upright fine-line board, and quieter motion. Existing product and stack
-constraints below still apply.
+Latest revision, 2026-10-30: the owner rejected the classy/serif revision and
+requested the earlier rounded look with no green or orange. Restore the original
+Readex typography, rounded controls and bold board geometry while retaining the
+burgundy/rose palette. The original direction below records the first
+implementation; DESIGN.md is the current visual authority. Existing product and
+stack constraints below still apply.
 
 The owner authorized autonomous implementation on a separate branch while another session develops features. Keep this work in `codex/ui-redesign`, based on `c3ff68d`; do not merge or push to main. Deliver a committed branch for later synchronization.
 

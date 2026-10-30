@@ -13,13 +13,13 @@ separate signed-in browser sessions on one computer.
 ## Implemented expression
 
 The shared world is recorded in DESIGN.md: burgundy/rose accents, ivory and
-wine-dark surfaces, local Instrument Serif for Latin display and Readex Pro for
-body text and Arabic fallback. The guest introduction pairs account actions with
-upright monochrome board artwork. Member entry compacts that artwork, places
-computer play in a deep-wine panel and keeps friend creation/joining in an open
-bordered section; rules and recent games follow. The artwork hides on compact
-member layouts. Fine butt-cap X/O strokes and compact corners keep the board
-precise; the decorative board has no highlighted tile or winning slash.
+wine-dark surfaces, local Readex Pro for Latin and Arabic, rounded controls and
+bold round-ended marks. The serif/fine-line revision is superseded. The guest
+introduction pairs account actions with a tilted finished-board illustration;
+its center tile uses Muted Rose Surface and its diagonal line follows the win.
+Member entry compacts that artwork, places computer play in a deep-wine panel
+and keeps friend creation/joining in an open bordered section; rules and recent
+games follow. The artwork hides on compact member layouts.
 
 Live matches center a stage (42rem maximum) with connection status, two player
 identities, a stable turn/result heading, a square zero-gap board (30rem maximum)

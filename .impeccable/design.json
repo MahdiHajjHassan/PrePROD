@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-30T00:33:58.236293Z",
+  "generatedAt": "2026-10-30T00:41:32.229080Z",
   "title": "Design System: Tic Tac Toe",
   "extensions": {
     "colorMeta": {
@@ -116,20 +116,6 @@
           "oklch(95% 0.0225 5.2)"
         ]
       },
-      "on-accent": {
-        "role": "primary",
-        "displayName": "Accent Foreground",
-        "tonalRamp": [
-          "oklch(15% 0.0084 349.2)",
-          "oklch(27% 0.0084 349.2)",
-          "oklch(39% 0.0084 349.2)",
-          "oklch(51% 0.0084 349.2)",
-          "oklch(63% 0.0084 349.2)",
-          "oklch(75% 0.0084 349.2)",
-          "oklch(87% 0.0084 349.2)",
-          "oklch(95% 0.0084 349.2)"
-        ]
-      },
       "action": {
         "role": "primary",
         "displayName": "Burgundy Action",
@@ -212,20 +198,6 @@
           "oklch(75% 0.0412 352.3)",
           "oklch(87% 0.0412 352.3)",
           "oklch(95% 0.0225 352.3)"
-        ]
-      },
-      "club-edge": {
-        "role": "primary",
-        "displayName": "Wine Grid Edge",
-        "tonalRamp": [
-          "oklch(15% 0.0583 353.0)",
-          "oklch(27% 0.0583 353.0)",
-          "oklch(39% 0.0583 353.0)",
-          "oklch(51% 0.0583 353.0)",
-          "oklch(63% 0.0583 353.0)",
-          "oklch(75% 0.0583 353.0)",
-          "oklch(87% 0.0583 353.0)",
-          "oklch(95% 0.0225 353.0)"
         ]
       },
       "x": {
@@ -410,20 +382,6 @@
           "oklch(95% 0.0225 354.4)"
         ]
       },
-      "dark-on-accent": {
-        "role": "primary",
-        "displayName": "Dark Accent Foreground",
-        "tonalRamp": [
-          "oklch(15% 0.0540 355.9)",
-          "oklch(27% 0.0540 355.9)",
-          "oklch(39% 0.0540 355.9)",
-          "oklch(51% 0.0540 355.9)",
-          "oklch(63% 0.0540 355.9)",
-          "oklch(75% 0.0540 355.9)",
-          "oklch(87% 0.0540 355.9)",
-          "oklch(95% 0.0225 355.9)"
-        ]
-      },
       "dark-action": {
         "role": "primary",
         "displayName": "Dark Burgundy Action",
@@ -554,15 +512,15 @@
     "typographyMeta": {
       "display": {
         "displayName": "Lobby Display",
-        "purpose": "Latin lobby display with local Readex Pro fallback for Arabic."
+        "purpose": "Guest introduction; responsive overrides keep it usable on small screens."
       },
       "headline": {
         "displayName": "Page Headline",
-        "purpose": "Regular serif page headings with local Arabic fallback."
+        "purpose": "Page headings with quieter authentication and live-status variants."
       },
       "title": {
         "displayName": "Section Title",
-        "purpose": "Sans-serif section headings; play choices use the display font."
+        "purpose": "Group related tasks and content."
       },
       "body": {
         "displayName": "Body",
@@ -576,8 +534,8 @@
     "shadows": [
       {
         "name": "active-player",
-        "value": "inset 0 -1px 0 var(--accent)",
-        "purpose": "Emphasize the active player alongside its accent border."
+        "value": "inset 0 -3px 0 var(--accent)",
+        "purpose": "Underline the active player."
       },
       {
         "name": "playable-cell-hover",
@@ -659,7 +617,7 @@
       "refersTo": "button-primary",
       "description": "Burgundy action in light mode and rose action in dark mode.",
       "html": "<button class=\"ds-button ds-button-primary\" type=\"button\">Play computer</button>",
-      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.375rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:400;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-1px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.99)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-primary{background:var(--action,#74293f);color:var(--on-action,#fff8fb);border-color:var(--on-action,#fff8fb)}.ds-button-primary:hover:not(:disabled){background:var(--action-hover,#5f2035)}"
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.75rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:500;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-2px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.98)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-primary{background:var(--action,#74293f);color:var(--on-action,#fff8fb);border-color:var(--on-action,#fff8fb)}.ds-button-primary:hover:not(:disabled){background:var(--action-hover,#5f2035)}"
     },
     {
       "name": "Secondary Button",
@@ -667,7 +625,7 @@
       "refersTo": "button-secondary",
       "description": "Bordered action for supporting choices.",
       "html": "<button class=\"ds-button ds-button-secondary\" type=\"button\">Create friend game</button>",
-      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.375rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:400;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-1px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.99)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-secondary{background:var(--surface,#fffafb);color:var(--text,#35242d);border-color:var(--control-border,#957483)}.ds-button-secondary:hover:not(:disabled){background:var(--muted-surface,#efe4e8)}"
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.75rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:500;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-2px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.98)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-secondary{background:var(--surface,#fffafb);color:var(--text,#35242d);border-color:var(--control-border,#957483)}.ds-button-secondary:hover:not(:disabled){background:var(--muted-surface,#efe4e8)}"
     },
     {
       "name": "Danger Button",
@@ -675,7 +633,7 @@
       "refersTo": "button-danger",
       "description": "Destructive action shown inside confirmation.",
       "html": "<button class=\"ds-button ds-button-danger\" type=\"button\">Resign</button>",
-      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.375rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:400;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-1px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.99)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-danger{background:var(--error,#ae263f);color:var(--on-error,#fff);border-color:transparent}"
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;min-height:48px;padding:.7rem 1.25rem;border:1px solid transparent;border-radius:var(--radius,.75rem);font-family:\"Readex Pro\",system-ui,sans-serif;font-weight:500;font-size:.875rem;line-height:1.5;text-align:center;cursor:pointer;transition:transform 180ms var(--ease,cubic-bezier(.16,1,.3,1)),background-color 180ms,border-color 180ms}.ds-button:hover:not(:disabled){transform:translateY(-2px)}.ds-button:active:not(:disabled){transform:translateY(0) scale(.98)}.ds-button:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-button:disabled{cursor:wait;opacity:.6}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-button-danger{background:var(--error,#ae263f);color:var(--on-error,#fff);border-color:transparent}"
     },
     {
       "name": "Text Field",
@@ -683,7 +641,7 @@
       "refersTo": "text-field",
       "description": "A labelled native input with linked hint text.",
       "html": "<div class=\"ds-field\"><label for=\"ds-room-code\">Room code</label><input id=\"ds-room-code\" type=\"text\" dir=\"ltr\" placeholder=\"Enter room code\" aria-describedby=\"ds-room-hint\"><small id=\"ds-room-hint\">Ask your friend for the room code.</small></div>",
-      "css": ".ds-field{display:flex;flex-direction:column;gap:.45rem;font-family:\"Readex Pro\",system-ui,sans-serif;color:var(--text,#35242d)}.ds-field label{font-size:.8125rem;font-weight:500}.ds-field input{background:var(--surface,#fffafb);border:1px solid var(--control-border,#957483);border-radius:var(--radius,.375rem);color:var(--text,#35242d);min-height:48px;padding:.75rem .875rem;font:inherit;transition:border-color 150ms,background-color 150ms}.ds-field input:hover{border-color:var(--accent,#74293f)}.ds-field input:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-field input[aria-invalid=\"true\"]{border-color:var(--error,#ae263f)}.ds-field input:read-only{background:var(--muted-surface,#efe4e8)}.ds-field input::placeholder,.ds-field small{color:var(--muted,#705963)}.ds-field small{font-size:.8125rem}@media(prefers-reduced-motion:reduce){.ds-field input{transition:none}}"
+      "css": ".ds-field{display:flex;flex-direction:column;gap:.45rem;font-family:\"Readex Pro\",system-ui,sans-serif;color:var(--text,#35242d)}.ds-field label{font-size:.8125rem;font-weight:500}.ds-field input{background:var(--surface,#fffafb);border:1px solid var(--control-border,#957483);border-radius:var(--radius,.75rem);color:var(--text,#35242d);min-height:48px;padding:.75rem .875rem;font:inherit;transition:border-color 150ms,background-color 150ms}.ds-field input:hover{border-color:var(--accent,#74293f)}.ds-field input:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}.ds-field input[aria-invalid=\"true\"]{border-color:var(--error,#ae263f)}.ds-field input:read-only{background:var(--muted-surface,#efe4e8)}.ds-field input::placeholder,.ds-field small{color:var(--muted,#705963)}.ds-field small{font-size:.8125rem}@media(prefers-reduced-motion:reduce){.ds-field input{transition:none}}"
     },
     {
       "name": "Main Navigation",
@@ -691,7 +649,7 @@
       "refersTo": "navigation",
       "description": "Compact page links with explicit current-page state.",
       "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"#play\" aria-current=\"page\">Play</a><a href=\"#account\">Account</a></nav>",
-      "css": ".ds-nav{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem;font-family:\"Readex Pro\",system-ui,sans-serif}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted,#705963);text-decoration:none;padding:.65rem .9rem;border-radius:0;border-bottom:1px solid transparent;font-size:.8125rem;transition:color 150ms,background-color 150ms}.ds-nav a:hover,.ds-nav a[aria-current=\"page\"]{background:transparent;color:var(--accent,#74293f)}.ds-nav a[aria-current=\"page\"]{font-weight:500;border-bottom-color:var(--accent,#74293f)}.ds-nav a:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-nav a{transition:none}}"
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem;font-family:\"Readex Pro\",system-ui,sans-serif}.ds-nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted,#705963);text-decoration:none;padding:.65rem .9rem;border-radius:.6rem;font-size:.8125rem;transition:color 150ms,background-color 150ms}.ds-nav a:hover,.ds-nav a[aria-current=\"page\"]{background:var(--muted-surface,#efe4e8);color:var(--text,#35242d)}.ds-nav a[aria-current=\"page\"]{font-weight:600}.ds-nav a:focus-visible{outline:3px solid var(--accent,#74293f);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-nav a{display:inline-flex;align-items:center;min-height:44px;transition:none}}"
     },
     {
       "name": "Status Badge",
@@ -707,15 +665,15 @@
       "refersTo": "club-panel",
       "description": "The deep-wine enclosure used for the computer play choice.",
       "html": "<section class=\"ds-club-panel\"><h2>Computer</h2><p>Play a game against the computer.</p></section>",
-      "css": ".ds-club-panel{display:flex;flex-direction:column;align-items:start;gap:1rem;min-width:0;padding:2rem;background:var(--club,#3e1c2b);color:var(--on-club,#fff4f8);border-radius:.5rem;font-family:\"Readex Pro\",system-ui,sans-serif}.ds-club-panel h2{margin:0;font-family:var(--display-font,\"Instrument Serif\",\"Readex Pro\",serif);font-size:2.5rem;line-height:1.35;font-weight:400;letter-spacing:-.025em}.ds-club-panel p{margin:0;color:var(--club-muted,#dfbecb);max-width:40ch;font-size:.875rem;line-height:1.7}@media(max-width:760px){.ds-club-panel{padding:1.75rem}}@media(max-width:520px){.ds-club-panel{padding:1.5rem}.ds-club-panel h2{font-size:1.75rem}}"
+      "css": ".ds-club-panel{display:flex;flex-direction:column;align-items:start;gap:1rem;min-width:0;padding:2rem;background:var(--club,#3e1c2b);color:var(--on-club,#fff4f8);border-radius:1rem;font-family:\"Readex Pro\",system-ui,sans-serif}.ds-club-panel h2{margin:0;font-size:2rem;line-height:1.35;font-weight:600;letter-spacing:-.025em}.ds-club-panel p{margin:0;color:var(--club-muted,#dfbecb);max-width:40ch;font-size:.875rem;line-height:1.7}@media(max-width:760px){.ds-club-panel{padding:1.75rem}}@media(max-width:520px){.ds-club-panel{padding:1.5rem}.ds-club-panel h2{font-size:1.75rem}}"
     },
     {
       "name": "Game Cell",
       "kind": "custom",
       "refersTo": "game-cell",
       "description": "A stable native cell button with an authored SVG X mark.",
-      "html": "<button class=\"ds-game-cell\" type=\"button\" aria-disabled=\"true\" aria-label=\"Row 1, column 1: X\"><svg class=\"ds-mark\" viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\" aria-hidden=\"true\"><path d=\"M24 24 76 76\"/><path d=\"M76 24 24 76\"/></svg></button>",
-      "css": ".ds-game-cell{aspect-ratio:1;width:140px;min-height:60px;border:1px solid var(--control-border,#957483);border-radius:0;background:var(--surface,#fffafb);display:grid;place-items:center;padding:0;transition:background-color 180ms,box-shadow 180ms}.ds-game-cell[aria-disabled=\"true\"]{opacity:1;cursor:default}.ds-game-cell[aria-disabled=\"false\"]:hover{background:var(--muted-surface,#efe4e8);box-shadow:inset 0 0 0 2px var(--accent,#74293f)}.ds-game-cell[aria-disabled=\"false\"]:active{background:var(--muted-surface,#efe4e8)}.ds-game-cell:focus-visible{position:relative;outline:3px solid var(--accent,#74293f);outline-offset:-5px}.ds-mark{width:58%;height:58%;max-height:110px;color:var(--x,#842b4a)}@media(prefers-reduced-motion:reduce){.ds-game-cell{transition:none}}"
+      "html": "<button class=\"ds-game-cell\" type=\"button\" aria-disabled=\"true\" aria-label=\"Row 1, column 1: X\"><svg class=\"ds-mark\" viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"9\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M24 24 76 76\"/><path d=\"M76 24 24 76\"/></svg></button>",
+      "css": ".ds-game-cell{aspect-ratio:1;width:140px;min-height:60px;border:1px solid var(--control-border,#957483);border-radius:0;background:var(--surface,#fffafb);display:grid;place-items:center;padding:0;transition:background-color 180ms,box-shadow 180ms}.ds-game-cell[aria-disabled=\"true\"]{opacity:1;cursor:default}.ds-game-cell[aria-disabled=\"false\"]:hover{background:var(--muted-surface,#efe4e8);box-shadow:inset 0 0 0 2px var(--accent,#74293f)}.ds-game-cell[aria-disabled=\"false\"]:active{background:var(--muted-surface,#efe4e8)}.ds-game-cell:focus-visible{position:relative;outline:3px solid var(--accent,#74293f);outline-offset:-5px}.ds-mark{width:65%;height:65%;max-height:110px;color:var(--x,#842b4a)}@media(prefers-reduced-motion:reduce){.ds-game-cell{transition:none}}"
     },
     {
       "name": "Error Alert",
@@ -723,26 +681,26 @@
       "refersTo": "alert",
       "description": "Explicit recovery feedback with an alert role.",
       "html": "<div class=\"ds-alert\" role=\"alert\">Connection lost. Refresh to read the saved game.</div>",
-      "css": ".ds-alert{border:1px solid var(--error,#ae263f);border-radius:var(--radius,.375rem);background:var(--muted-surface,#efe4e8);color:var(--error,#ae263f);padding:1rem 1.125rem;font-family:\"Readex Pro\",system-ui,sans-serif;font-size:.875rem;line-height:1.7}"
+      "css": ".ds-alert{border:1px solid var(--error,#ae263f);border-radius:var(--radius,.75rem);background:var(--muted-surface,#efe4e8);color:var(--error,#ae263f);padding:1rem 1.125rem;font-family:\"Readex Pro\",system-ui,sans-serif;font-size:.875rem;line-height:1.7}"
     },
     {
       "name": "Decorative Board",
       "kind": "custom",
-      "description": "Upright in-progress monochrome board artwork with fine internal grid lines.",
-      "html": "<div class=\"ds-artwork\" aria-hidden=\"true\"><div class=\"ds-artwork-board\" dir=\"ltr\"><span class=\"ds-artwork-cell ds-artwork-x\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\"><path d=\"m28 28 44 44m0-44L28 72\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell ds-artwork-x\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\"><path d=\"m28 28 44 44m0-44L28 72\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"butt\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell\"></span></div></div>",
-      "css": ".ds-artwork{box-sizing:border-box;background:var(--club,#3e1c2b);border-radius:.5rem;padding:3.5rem;width:100%;max-width:29rem;aspect-ratio:1;display:grid;place-items:center}.ds-artwork-board{display:grid;grid-template-columns:repeat(3,1fr);width:100%;aspect-ratio:1;gap:0}.ds-artwork-cell{display:grid;place-items:center;background:transparent;border-radius:0;border-inline-end:1px solid var(--club-edge,#956b7c);border-block-end:1px solid var(--club-edge,#956b7c)}.ds-artwork-cell:nth-child(3n){border-inline-end:0}.ds-artwork-cell:nth-child(n+7){border-block-end:0}.ds-artwork-cell svg{width:82%;height:82%}.ds-artwork-x{color:var(--on-club,#fff4f8)}.ds-artwork-o{color:var(--club-muted,#dfbecb)}@media(max-width:760px){.ds-artwork{padding:1.25rem}}@media(max-width:520px){.ds-artwork{padding:2rem}}",
-      "refersTo": "decorative-board"
+      "refersTo": "decorative-board",
+      "description": "A tilted finished-board illustration with bold round marks and a muted center tile.",
+      "html": "<div class=\"ds-artwork\" aria-hidden=\"true\"><div class=\"ds-artwork-board\" dir=\"ltr\"><span class=\"ds-artwork-cell ds-artwork-x\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><path d=\"m28 28 44 44m0-44L28 72\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell ds-artwork-x\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><path d=\"m28 28 44 44m0-44L28 72\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell ds-artwork-o\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><circle cx=\"50\" cy=\"50\" r=\"28\"/></svg></span><span class=\"ds-artwork-cell\"></span><span class=\"ds-artwork-cell ds-artwork-x\"><svg viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"10\" stroke-linecap=\"round\"><path d=\"m28 28 44 44m0-44L28 72\"/></svg></span><svg class=\"ds-artwork-line\" viewBox=\"0 0 300 300\" fill=\"none\"><path d=\"M44 44 256 256\" stroke=\"currentColor\" stroke-width=\"7\" stroke-linecap=\"round\"/></svg></div></div>",
+      "css": ".ds-artwork{box-sizing:border-box;background:var(--club,#3e1c2b);border-radius:1.5rem;padding:2.5rem;width:100%;max-width:29rem;aspect-ratio:1;display:grid;place-items:center}.ds-artwork-board{display:grid;grid-template-columns:repeat(3,1fr);position:relative;width:100%;aspect-ratio:1;transform:rotate(-7deg);gap:4px}.ds-artwork-cell{display:grid;place-items:center;background:var(--surface,#fffafb);border-radius:8px}.ds-artwork-cell svg{width:100%;height:100%}.ds-artwork-x{color:var(--x,#842b4a)}.ds-artwork-o{color:var(--o,#605d74)}.ds-artwork-cell:nth-child(5){background:var(--muted-surface,#efe4e8)}.ds-artwork-line{position:absolute;inset:0;width:100%;height:100%;color:var(--text,#35242d);pointer-events:none}@media(max-width:760px){.ds-artwork{padding:1.25rem;border-radius:1rem}}@media(max-width:520px){.ds-artwork{padding:2rem}}"
     }
   ],
   "narrative": {
-    "northStar": "Burgundy Elegance",
-    "overview": "Deep burgundy, rose ivory and near-black wine give the interface a composed, elegant character. Instrument Serif adds contrast to Latin display headings; Readex Pro keeps controls, body text and Arabic clear. Fine grid lines, upright geometry and restrained corners carry the identity through the lobby, live game, account forms, administration and legal pages.\n\nThe board remains the focal interaction. Supporting screens use quieter type and shared controls; decoration is limited to an authored monochrome game board and small SVG icons. Motion follows confirmed state changes, finishes promptly and respects reduced motion.",
+    "northStar": "The Modern Game Club",
+    "overview": "Ivory surfaces and deep wine framing make the game welcoming; burgundy actions and rose accents define both themes. Burgundy X and slate-violet O give the board its own visual language. Flat color, geometric marks and a locally hosted typeface carry the identity across the lobby, live game, forms, tables and legal pages.\n\nExpressive scale belongs to the introduction and the board. Supporting screens use the same controls with quieter type and clear reading order. Authored SVG supplies the game artwork and icons; motion describes confirmed state changes, then stops. The system uses no gradients, remote fonts or decorative loops.",
     "keyCharacteristics": [
-      "Burgundy actions and accents with ivory light surfaces and wine-dark surfaces.",
-      "Local serif display type with a clear sans-serif body and Arabic fallback.",
-      "Upright game geometry, fine strokes and restrained corners.",
-      "Flat everyday surfaces with deliberate modal depth.",
-      "Stable controls, explicit feedback and bounded state motion."
+      "Ivory surfaces with wine framing and burgundy/rose actions.",
+      "One local type family for Latin and Arabic.",
+      "Geometric X/O marks with distinct shape and color.",
+      "Flat everyday surfaces and deliberate modal depth.",
+      "Bounded motion, stable controls and explicit state feedback."
     ],
     "rules": [
       {
@@ -751,13 +709,13 @@
         "section": "colors"
       },
       {
-        "name": "The Script Fallback Rule",
-        "body": "Preserve the local Arabic fallback, translated labels and natural wrapping wherever Latin display type is used.",
+        "name": "The Shared Script Rule",
+        "body": "Use the same local family for English, French and Arabic; preserve translated labels and natural wrapping rather than forcing uppercase interface copy.",
         "section": "typography"
       },
       {
         "name": "The Logical Flow Rule",
-        "body": "Use logical spacing and isolated player names for RTL; keep the physical board and invitation codes LTR so positions remain consistent across languages.",
+        "body": "Use logical spacing and isolated player names for RTL; keep the physical game board and invitation codes LTR so positions remain consistent across languages.",
         "section": "layout"
       },
       {
@@ -772,18 +730,19 @@
       }
     ],
     "dos": [
-      "**Do** reuse the burgundy/rose semantic colors in both themes and preserve body-text contrast (4.5:1).",
-      "**Do** use local Instrument Serif for Latin display roles and retain Readex Pro for body text and Arabic fallback.",
-      "**Do** preserve translated labels, logical layout, LTR board positions, isolated names and visible stable focus.",
-      "**Do** keep state motion brief, finished and compatible with reduced motion and server authority.",
-      "**Do** verify desktop, 360px and narrow 320px reflow, both themes, French and Arabic RTL after interface changes."
+      "**Do** reuse burgundy/rose semantic colors in both themes and preserve the body-text contrast requirement (4.5:1).",
+      "**Do** preserve translated labels, logical layout, LTR board positions and isolated player names.",
+      "**Do** retain native controls, visible focus, stable board buttons and explicit connection recovery.",
+      "**Do** use short SVG/CSS state motion that finishes and respects reduced motion.",
+      "**Do** verify rendered desktop, 360px and narrow 320px reflow, both themes, French and Arabic RTL when changing the interface."
     ],
     "donts": [
-      "**Don't** introduce green or orange accents or classroom stationery motifs.",
+      "**Don't** introduce green or orange accents or restore the superseded serif/fine-line styling.",
       "**Don't** add gradients, remote font requests or decorative animation loops.",
       "**Don't** replace game labels or shape cues with color alone.",
-      "**Don't** add floating shadows to ordinary content or optimistic board state for animation.",
-      "**Don't** delay rematch navigation or infer completed visual verification from this source record."
+      "**Don't** place ordinary content on floating shadows or turn every section into an enclosed card.",
+      "**Don't** delay rematch navigation or invent optimistic board state for an animation.",
+      "**Don't** infer completed visual or accessibility verification from this source-based design record."
     ]
   }
 }

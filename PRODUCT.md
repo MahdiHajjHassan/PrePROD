@@ -36,11 +36,11 @@ never triggers an automatic move retry. Single application process is the target
 
 ## Interface
 
-An elegant burgundy interface with ivory light surfaces, wine-dark surfaces and
-rose accents. Latin display headings use local Instrument Serif; local Readex
-Pro supplies body text and Arabic fallback. Both fonts are OFL licensed, and all
-runtime font requests are local. Upright monochrome artwork, fine X/O strokes,
-compact corners and restrained navigation carry the shared identity.
+The rounded modern game-club appearance uses burgundy/rose accents, ivory light
+surfaces and wine-dark surfaces. Local OFL Readex Pro supplies display headings,
+body text and Arabic. The tilted decorative board, bold round-ended X/O marks,
+rounded controls and filled navigation states carry the identity. The serif and
+fine-line revision is superseded. Runtime font requests remain local.
 
 Guest entry introduces the game and account actions; signed-in play prioritizes
 computer/friend choices. Live matches center the square board, player identities,
