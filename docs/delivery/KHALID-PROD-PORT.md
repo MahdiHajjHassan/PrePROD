@@ -5,6 +5,9 @@ This is the production-compatible version of the module package, hosted at
 The destination is `MahdiHajjHassan/Final-Trans-Repo`; this implementation session
 has not pushed there. Khalid's campus login is ksayour, not a verified GitHub login.
 
+Published prepared commit: **`ac97d8673176d77a0d98c8d334865212d6f47fb2`**.
+The ppd feature delivery is [PR #4](https://github.com/MahdiHajjHassan/Transcendence2/pull/4).
+
 ## Source ancestry and authorship
 
 - Production parent: `e9fa33fe9c69cf9d220c8273d2f635d781347b05`.

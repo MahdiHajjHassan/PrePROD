@@ -127,7 +127,9 @@ the already clean canonical dependency image. The only lockfile difference is
 six optional WASI-target entries absent on this Linux platform; applicable
 package versions remain identical. The final prod image is `9b5264fc99364df8b813c8dffe0e79aae63a00113aab6f68f94820400a839066`; **198/198** runtime source/config/asset hashes match. The active Caddyfile matches by SHA-256. Fresh isolated prod setup/startup and all 117 browser cases completed in 4.2 minutes; final types/lint/format also pass after the runner configuration correction. All 65 approved vendored skill blobs match their ppd originals; upstream whitespace is preserved.
 
-The prepared `codex/khalid-prod-ready` branch is published **in ppd only**. It
+The prepared `codex/khalid-prod-ready` branch is published **in ppd only**,
+at `ac97d8673176d77a0d98c8d334865212d6f47fb2`. Ppd feature delivery is
+[PR #4](https://github.com/MahdiHajjHassan/Transcendence2/pull/4). It
 descends from prod `e9fa33f`, applying the module delta without merging ppd history.
 It keeps prod's `__Host-taskboard_*` cookies, `X-Taskboard-Client-IP`,
 `x-taskboard-locale`, `taskboardDb`, existing Tabs/CSS, .logs default and runtime
