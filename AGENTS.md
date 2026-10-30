@@ -13,13 +13,20 @@ a local computer opponent, secure accounts, administrator CRUD, scoped SSE,
 SSR, English/French/Arabic/RTL and both themes. The implementation is complete
 in staging. Use README.md, docs/requirements/module-matrix.md and
  docs/evaluation/tic-tac-toe-evidence.md for actual commands and evidence.
-The current demonstrated target is 16 candidate points. G09 was restored after
+The baseline demonstrated target is 16 candidate points. The 2026-10-30 package
+adds full user management (2), fixed four-player tournaments (1) and full
+statistics/history/progression/leaderboard (1), making 20 candidate points after
+the dated verification. See docs/evaluation/2026-10-30-khalid-modules.md and
+docs/delivery/KHALID-PRODUCTION.md for the actual release and promotion commands.
+Khalid's 42 login is ksayour; no GitHub login is inferred from it. G09 was restored after
 the 2026-10-29 Linux Chrome/Firefox/Edge matrix passed all 72 checks. The earlier
 Windows Firefox startup failure remains historical evidence, not a claim that
 the Windows installation was repaired. No official score or human understanding
 is inferred from automation. Reverify all three browsers after new features.
 
 Current design/implementation references:
+- docs/superpowers/specs/2026-10-30-khalid-modules-design.md
+- docs/superpowers/plans/2026-10-30-khalid-modules.md
 - docs/superpowers/specs/2026-10-27-tic-tac-toe-design.md
 - docs/superpowers/plans/2026-10-27-tic-tac-toe.md
 - DESIGN.md and .impeccable/surfaces/tic-tac-toe.md

@@ -1,3 +1,6 @@
+> Current module delivery: [2026-10-30 evidence](2026-10-30-khalid-modules.md).
+> This report preserves its historical commands and results.
+
 # Tic-tac-toe evidence — 2026-10-27
 
 This is the replacement in the managed codex/tic-tac-toe worktree,

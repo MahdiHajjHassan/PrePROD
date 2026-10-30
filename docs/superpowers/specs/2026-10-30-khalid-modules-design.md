@@ -1,10 +1,15 @@
+> Execution update (2026-10-30): the owner subsequently authorized full
+> implementation and ppd delivery, superseding the original planning-only scope.
+> The three modules are implemented; the dated delivery evidence records actual
+> verification, deviations and publication. Original task checklists describe
+> intended coverage and are not evidence that every suggested case was executed.
+> Email remains separate; prod promotion is Khalid's later action.
+
 # Khalid's four-point module package
 
-Status: planning proposal, 2026-10-30. The owner selected standard user
-management, a fixed four-person tournament, and statistics/match history.
-The detailed rules below are recommended implementation defaults, not claims
-that the owner separately specified every rule. No product implementation is
-authorized by the request to write this plan.
+Status: selected design, subsequently implemented under the owner's explicit
+ppd delivery request. The detailed rules are implementation defaults; the dated
+evidence records tests and deviations without claiming every suggestion ran.
 
 ## Intent, sources and boundaries
 
@@ -258,8 +263,8 @@ Views: own summary/achievements with history; shared signed-in leaderboard.
 Three linked plans under `docs/superpowers/plans/2026-10-30-khalid-*` break this
 into independently reviewable deliveries. Each records exact files, interfaces,
 RED/GREEN tests, commands and review checkpoints. Native implementation remains
-the default recommendation; no feature implementation starts in this plan-only
-request. Review these proposed rules before executing the plans.
+the execution workflow used. The owner subsequently authorized full implementation
+and ppd delivery; the dated evidence records the completed verification.
 
 For each module run real-DB service/HTTP tests and focused browser flows. At the
 combined gate run types/lint/all server tests/build/artifact audit, HTTPS checks
@@ -272,4 +277,5 @@ Maintain current permission/browser/module regressions. Update README, API docs,
 privacy translations, schema documentation and module matrix as functionality
 actually lands. Record only observed evidence, actual Khalid contributions and
 his authenticated commits; determine his real campus/GitHub identity before any
-delivery attributed to him. Prod promotion needs its own later owner request.
+delivery attributed to him. The owner authorized preparing the prod-compatible branch and manual; Khalid
+performs the actual prod integration/push under the stated delivery scope.

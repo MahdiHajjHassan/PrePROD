@@ -1,3 +1,10 @@
+> Execution update (2026-10-30): the owner subsequently authorized full
+> implementation and ppd delivery, superseding the original planning-only scope.
+> The three modules are implemented; the dated delivery evidence records actual
+> verification, deviations and publication. Original task checklists describe
+> intended coverage and are not evidence that every suggested case was executed.
+> Email remains separate; prod promotion is Khalid's later action.
+
 # Standard User Management Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task after review. Steps use checkbox (`- [ ]`) syntax for tracking.

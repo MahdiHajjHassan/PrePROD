@@ -20,8 +20,9 @@ your existing signing configuration; never replace original author identities.
 - Features: full profile/avatar/friends/presence (2 candidate points), fixed
   four-player tournament (1), full statistics/history/progression/leaderboard (1).
 
-Use the prepared prod-ready branch after the delivery receipt records its
-verification. It is based on production history and preserves production's
+See [the dated delivery evidence](../evaluation/2026-10-30-khalid-modules.md)
+for the prepared branch’s exact verification and limits. Use the prepared
+prod-ready branch recorded there. It is based on production history and preserves production's
 existing cookie/header names, data location, runtime conventions and UI.
 **Do not merge the entire ppd history directly into prod or copy a source ZIP
 on top of an existing prod checkout.** No prod push is performed by the
@@ -31,6 +32,9 @@ The separate email-verification session is outside this package. Before final
 production delivery coordinate its completed, tested commit if the owner wants
 it included. Never merge the unfinished cloud email checkpoint or bypass
 verification to run the demonstration.
+
+The [port receipt](KHALID-PROD-PORT.md) records source ancestry, the preserved
+production boundaries and image/source verification.
 
 ## 1. Confirm your identity and repository access
 

@@ -1,3 +1,10 @@
+> Execution update (2026-10-30): the owner subsequently authorized full
+> implementation and ppd delivery, superseding the original planning-only scope.
+> The three modules are implemented; the dated delivery evidence records actual
+> verification, deviations and publication. Original task checklists describe
+> intended coverage and are not evidence that every suggested case was executed.
+> Email remains separate; prod promotion is Khalid's later action.
+
 # Khalid Module Package Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement the linked plans task-by-task after review. Steps use checkbox (`- [ ]`) syntax for tracking.
@@ -12,7 +19,7 @@
 
 ## Global Constraints
 
-- Planning only in this request. No product implementation, main push or prod promotion.
+- Implementation and ppd push are now authorized. Prepare a prod-compatible branch and manual; no prod push by this session.
 - Preprod `MahdiHajjHassan/Transcendence2` is the development repository. Prod is reference only.
 - Freshly fetched ppd baseline for this plan: `13c79e6e54d33666516ad020113c3ba07623c902`; prod reference `e9fa33fe9c69cf9d220c8273d2f635d781347b05`.
 - Preserve the rounded Readex Pro/burgundy redesign, English/French/Arabic/RTL and both themes.
@@ -80,8 +87,9 @@ summary and leaderboard; explain how saved games produce the numbers. Use only
 guarded synthetic fixtures for the ten-game achievement, labelled as test data;
 no score-edit API or normal-database manipulation.
 
-## What is intentionally not done by this document
+## Execution record
 
-No module has been implemented, no new tests have been run for these proposals,
-no points have been added to current evidence, and nothing has been deployed.
-The current request is satisfied by this reviewed, portable plan package.
+The original plan-only status is superseded by the owner's later implementation
+request. See [the dated delivery evidence](../../evaluation/2026-10-30-khalid-modules.md)
+for actual tests, fixes, review, source/image provenance and delivery. This package
+does not complete the separate email work or Khalid's personal prod integration.
