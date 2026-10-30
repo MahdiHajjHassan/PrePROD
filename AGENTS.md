@@ -1,11 +1,11 @@
 # Repository guidance
 
-## Product and current scope — 2026-10-29
+## Product and current scope — 2026-10-30
 
 This is MahdiHajjHassan/Transcendence2, the staging repository for a 42
 ft_transcendence tic-tac-toe application. The owner-confirmed team is Mahdi
 (mahajj-h), Joseph (jboustan), and Khalid, who joined on 2026-10-29. Khalid's
-campus login and GitHub identity have not yet been recorded. Do not reopen
+owner-confirmed 42 campus login is ksayour; his GitHub identity is not yet recorded. Do not reopen
 generic 4–5-person wording in the reference PDFs as an unresolved gate.
 
 The owner approved friend play in separate browser sessions on one computer,
@@ -13,13 +13,20 @@ a local computer opponent, secure accounts, administrator CRUD, scoped SSE,
 SSR, English/French/Arabic/RTL and both themes. The implementation is complete
 in staging. Use README.md, docs/requirements/module-matrix.md and
  docs/evaluation/tic-tac-toe-evidence.md for actual commands and evidence.
-The current demonstrated target is 16 candidate points. G09 was restored after
+The baseline demonstrated target is 16 candidate points. The 2026-10-30 package
+adds full user management (2), fixed four-player tournaments (1) and full
+statistics/history/progression/leaderboard (1), making 20 candidate points after
+the dated verification. See docs/evaluation/2026-10-30-khalid-modules.md and
+docs/delivery/KHALID-PRODUCTION.md for the actual release and promotion commands.
+Khalid's 42 login is ksayour; no GitHub login is inferred from it. G09 was restored after
 the 2026-10-29 Linux Chrome/Firefox/Edge matrix passed all 72 checks. The earlier
 Windows Firefox startup failure remains historical evidence, not a claim that
 the Windows installation was repaired. No official score or human understanding
 is inferred from automation. Reverify all three browsers after new features.
 
 Current design/implementation references:
+- docs/superpowers/specs/2026-10-30-khalid-modules-design.md
+- docs/superpowers/plans/2026-10-30-khalid-modules.md
 - docs/superpowers/specs/2026-10-27-tic-tac-toe-design.md
 - docs/superpowers/plans/2026-10-27-tic-tac-toe.md
 - DESIGN.md and .impeccable/surfaces/tic-tac-toe.md
@@ -29,10 +36,14 @@ superseded product material from the current source tree, including historical
 plans, manifests, contracts and evaluation reports. Original work and authorship
 remain in Git history. No compatibility with a previous product is required.
 
-The 2026-10-29 discussion targets recovering the additional-browser point and
-choosing four new minor-module points for Khalid's prospective work. Module
-selection and design remain under discussion; no new feature implementation or
-contribution is implied. Remote-player support is excluded from this expansion.
+On 2026-10-30 the owner selected Khalid's prospective four-point package:
+standard user management (2), a fixed four-player tournament (1), and statistics
+with match history, achievements/progression and leaderboard (1). The owner now authorizes complete implementation and delivery to ppd, plus a
+manual for Khalid (42 login ksayour) to verify and promote to prod from his own account. This
+session must not push to prod or relabel implementation authorship. No Khalid
+contribution is claimed before his actual integration/review occurs. See docs/superpowers/plans/2026-10-30-khalid-modules.md
+and its linked spec/module plans. Spectators and remote-player work are excluded.
+Email verification is being handled in the owner's separate laptop session.
 
 The owner clarified that email ownership verification is required even without
 module points. This is signup/account verification, not 2FA; do not count it as
@@ -40,12 +51,7 @@ an extra module or add 2FA under this request. The proposed code flow and legacy
 account handling are in docs/superpowers/specs/2026-10-29-email-verification-design.md.
 The design has passed its builder check. On 2026-10-30 the owner confirmed
 implementing signup email verification; do not ask again whether to add it.
-The owner approved the Resend plugin's email-best-practices guidance and selected
-their business Gmail mailbox as sender, replacing the college selection. This selects SMTP delivery,
-not Resend delivery. Keep the actual sender address and credentials in private
-configuration. Sender authentication remains pending. The handoff's backend and
-HTTP verification gates are implemented; finish the pending UI and verification.
-Do not reuse unrelated connected-account domains.
+The owner approved email-best-practices guidance and selected their business Gmail SMTP sender. Email verification is implemented and verified; see docs/delivery/email-verification.md. Keep sender identity and credentials in private configuration. On 2026-10-30 the owner explicitly authorized promoting the completed email feature to both ppd and prod Git repositories. This does not authorize promoting the separate Khalid package to prod or external deployment. Preserve each repository history and runtime conventions.
 
 ## Delivery and authorship
 

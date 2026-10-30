@@ -97,3 +97,27 @@ project sequentially with `--shard=1/3`, `--shard=2/3`, `--shard=3/3`.
 No minor code-review findings were deferred. The live Gmail confirmation limit
 above is separate from verified SMTP acceptance, inbox receipt and isolated
 end-to-end code confirmation.
+
+## Integration for Git promotion — 2026-10-30
+
+The owner subsequently authorized email delivery to both ppd and prod. This
+preprod integration merges the completed feature with main `297abce`, retaining
+the newer profiles, friends/presence, tournament and statistics package. Its
+session token hashing and presence timestamps coexist with ownership gating;
+all five isolated test accounts are explicitly verified.
+
+The merged source passed 202/202 server tests, types, lint and its container
+build. The focused integration suite passed 63/63 journeys: 21 each in Chrome,
+Firefox and Edge, covering email verification, account/game flows, profiles,
+avatars, friends, tournaments and statistics. This is scoped integration
+coverage, separate from the earlier complete 35-case baseline per browser.
+The final image scan checked 977 artifacts without finding private sender or
+credential values. Desktop light and Arabic mobile dark verification captures
+were inspected again after integration and preserve the approved auth surface.
+
+A fresh independent merge/port review found no critical or important defects.
+The prod test-header fidelity issue it identified was corrected and its four
+HTTP tests passed. Production receives only the email feature, retaining its
+existing runtime conventions and feature scope. Private SMTP settings were
+configured in the two existing ignored local delivery environments while
+preserving their original settings; no account/database data was changed.

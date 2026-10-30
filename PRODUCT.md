@@ -9,8 +9,8 @@ web
 ## Audience and goal
 
 A small 42 ft_transcendence game, playable and explainable by the accepted
-**two-person** team: Mahdi (mahajj-h) and Joseph (jboustan). The owner explicitly
-accepted this roster on2026-10-27. The goal is a complete tic-tac-toe application
+**three-person** team: Mahdi (mahajj-h), Joseph (jboustan) and Khalid (ksayour,
+42 campus login). The owner confirmed Khalid joined on 2026-10-29. The goal is a complete tic-tac-toe application
 that satisfies mandatory requirements and at least14 demonstrated module points.
 Official scoring and human explanation are separate from automated tests.
 
@@ -56,22 +56,28 @@ original form without storing its password in browser storage.
 
 ## Modules and verification
 
-Current candidate target:15points, including advanced permissions as buffer.
-G09 is unclaimed because the recorded Windows verification could not launch the
-bundled Firefox runner. Chrome and Edge are verified with certificate validation enabled.
+The previously verified baseline is 16 candidate points. The three added modules
+are full user management (2), four-player tournament (1), and full statistics/
+history (1), for a 20-point candidate target after the current verification.
+Profiles, safe uploaded/default avatars, consent-based friends and session presence
+extend secure accounts. Fixed numbered seats create two semifinals and one final;
+draws replay, deletion cancels unfinished work. History and standings derive from
+saved games, with achievements/progression and explicit competitive exclusions.
+No spectator or remote-player module, chat, OAuth, app 2FA or ELO engine is added.
+Email ownership verification remains the owner's separate laptop work.
 Use README.md, docs/requirements/module-matrix.md and
- docs/evaluation/tic-tac-toe-evidence.md for exact behavior and observed checks.
-Do not count auth/themes, public-API/notifications/statistics,
-tournaments or remote-play as extra modules.
+ docs/evaluation/2026-10-30-khalid-modules.md for executed checks and limits.
 
 ## Delivery constraints and authorship
 
-The owner authorized staging commit/push on2026-10-27. No external deployment,
-final-repository delivery, credential output or data-volume deletion.
-Transcendence2 is staging; never touch or guess a separate final-history remote.
-Preserve the private .env and Caddy volumes; use game-data for persisted matches. Tests reset only guarded isolated test databases.
+The owner authorized implementing and pushing this package to Transcendence2
+pre-prod and preparing a prod-compatible branch plus a manual for Khalid's own
+verification/integration/push. No prod push or external deployment by this session.
+Production is MahdiHajjHassan/Final-Trans-Repo; preserve its history and runtime
+cookie/header conventions in the prepared port. Preserve private environments,
+normal data and certificate volumes. Tests reset only guarded isolated databases.
 
 Superpowers and vendored Impeccable are required; other skills need owner approval.
-Current implementation is Mahdi/Codex-assisted work for staging delivery. Preserve actual
-authorship; Joseph review/adaptation/delivery is recorded only when it happens.
-Earlier implementation history remains available in Git.
+Implementation is Mahdi/Codex-assisted. Record Joseph's and Khalid's actual review,
+adaptation, verification and delivery only after they occur, under their real
+identities. Earlier implementation history remains available in Git.

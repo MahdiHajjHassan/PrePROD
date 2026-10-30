@@ -36,10 +36,10 @@ export default defineConfig({
       use: {
         browserName: "firefox",
         launchOptions: {
-          firefoxUserPrefs: { "security.enterprise_roots.enabled": true },
           ...(process.env.TICTACTOE_FIREFOX_EXECUTABLE
             ? { executablePath: process.env.TICTACTOE_FIREFOX_EXECUTABLE }
             : {}),
+          firefoxUserPrefs: { "security.enterprise_roots.enabled": true },
         },
       },
     },
