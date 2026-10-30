@@ -1,3 +1,4 @@
+import { sessionCookieName } from "@/backend/modules/auth/session.guard";
 import { expect, test } from "vitest";
 import Sqlite from "better-sqlite3";
 import { createTestDb } from "../helpers/db";
@@ -86,7 +87,7 @@ test("concurrent semifinal results create only one final and unseated members ca
     await expect(
       createGameStream(
         new Request("https://localhost/events", {
-          headers: { cookie: `__Host-tictactoe_session=${token.token}` },
+          headers: { cookie: `${sessionCookieName}=${token.token}` },
         }),
         e.matches[0].currentGameId!,
         { auth: createAuthService(f.db), games: one },

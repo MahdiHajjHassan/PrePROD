@@ -1,3 +1,4 @@
+import { sessionCookieName } from "@/backend/modules/auth/session.guard";
 import { expect, test } from "vitest";
 import { createTestDb } from "../helpers/db";
 import { seedUser } from "../helpers/fixtures";
@@ -15,7 +16,7 @@ test("avatar HTTP requires current auth/origin and sends only safe image headers
     const handlers = createAvatarHandlers(createAvatarService(f.db), createAuthService(f.db), {
       appOrigin: "https://localhost",
     });
-    const headers = { cookie: `__Host-tictactoe_session=${session.token}` };
+    const headers = { cookie: `${sessionCookieName}=${session.token}` };
     expect(
       (await handlers.read(new Request("https://localhost/api/profiles/x/avatar"), a.actor.id))
         .status,

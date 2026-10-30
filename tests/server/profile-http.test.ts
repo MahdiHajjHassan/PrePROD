@@ -1,3 +1,4 @@
+import { sessionCookieName } from "@/backend/modules/auth/session.guard";
 import { expect, test } from "vitest";
 import { createTestDb } from "../helpers/db";
 import { seedUser } from "../helpers/fixtures";
@@ -18,7 +19,7 @@ test("profile HTTP composes only public data and rejects ambiguous discovery que
       createFriendService(f.db),
       createAuthService(f.db),
     );
-    const headers = { cookie: `__Host-tictactoe_session=${s.token}` };
+    const headers = { cookie: `${sessionCookieName}=${s.token}` };
     const response = await h.read(new Request("https://localhost/", { headers }), b.actor.id);
     const data = (await response.json()).data;
     expect(data).toMatchObject({ id: b.actor.id, relationship: "NONE", online: null });

@@ -152,7 +152,7 @@ change/deletion stop that session's eligibility immediately; other valid
 sessions remain independent. Poll friends every 15 seconds while visible and
 abort timers/requests on hide/unmount. Show only online/offline to friends, no
 last-seen timestamp. Reuse HTTPS requests, not another SSE/WebSocket service.
-Limit heartbeat to six/minute/session, without forcing logouts on 429.
+Limit heartbeat to 30/minute/session, without forcing logouts on 429.
 
 ## Four-player tournament — 1 candidate point
 

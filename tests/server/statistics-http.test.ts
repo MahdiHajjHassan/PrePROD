@@ -1,3 +1,4 @@
+import { sessionCookieName } from "@/backend/modules/auth/session.guard";
 import { expect, test } from "vitest";
 import { createTestDb } from "../helpers/db";
 import { seedUser } from "../helpers/fixtures";
@@ -12,7 +13,7 @@ test("statistics HTTP allows own history only, validates filters and emits priva
     const a = await seedUser(f.db),
       s = await createSessionToken(f.db, a.actor.id, new Date()),
       h = createStatisticsHandlers(createStatisticsService(f.db), createAuthService(f.db));
-    const headers = { cookie: `__Host-tictactoe_session=${s.token}` };
+    const headers = { cookie: `${sessionCookieName}=${s.token}` };
     expect((await h.summary(new Request("https://localhost/"))).status).toBe(401);
     expect(
       (await h.history(new Request("https://localhost/?userId=other", { headers }))).status,

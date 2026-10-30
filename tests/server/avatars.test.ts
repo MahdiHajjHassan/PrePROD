@@ -64,3 +64,14 @@ test("replacement is atomic, revision advances, reset/deletion restores defaults
     await f.close();
   }
 });
+
+test("animated WebP is rejected rather than silently accepting its first frame", async () => {
+  const header = "47494638396101000100800000000000ffffff";
+  const frame = (pixel: string) => "21f90400010000002c0000000001000100000202" + pixel + "0100";
+  const gif = Buffer.from(header + frame("44") + frame("4c") + "3b", "hex");
+  const webp = await sharp(gif, { animated: true })
+    .webp({ loop: 0, delay: [100, 100] })
+    .toBuffer();
+  expect((await sharp(webp).metadata()).pages).toBe(2);
+  await expect(normalizeAvatar(webp, "image/webp")).rejects.toMatchObject({ code: "VALIDATION" });
+});

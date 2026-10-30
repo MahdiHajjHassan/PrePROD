@@ -1,3 +1,4 @@
+import { sessionCookieName } from "@/backend/modules/auth/session.guard";
 import { expect, test } from "vitest";
 import { createTestDb } from "../helpers/db";
 import { seedUser } from "../helpers/fixtures";
@@ -15,7 +16,7 @@ test("friend HTTP rejects missing auth foreign origin extra fields and duplicate
       appOrigin: "https://localhost",
     });
     const headers = {
-      cookie: `__Host-tictactoe_session=${s.token}`,
+      cookie: `${sessionCookieName}=${s.token}`,
       origin: "https://localhost",
       "content-type": "application/json",
     };

@@ -39,7 +39,7 @@ export function createPresenceService(db: PrismaClient, options: { now?: () => D
       const session = await db.session.findUnique({ where: { id } });
       if (!session || session.expiresAt <= time) throw new DomainError("UNAUTHENTICATED");
       await currentActor(db, { id: session.userId, role: "MEMBER" });
-      const q = await consume("presence", id, 6, 60);
+      const q = await consume("presence", id, 30, 60);
       if (!q.allowed) throw new DomainError("RATE_LIMITED", undefined, q.retryAfterSeconds);
       await withWriteRetry(() =>
         db.$transaction(async (tx) => {

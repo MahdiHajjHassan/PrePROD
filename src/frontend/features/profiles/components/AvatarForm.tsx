@@ -58,6 +58,7 @@ export function AvatarForm({ profile, locale }: { profile: PublicProfile; locale
           type="file"
           accept="image/png,image/jpeg,image/webp"
           label={t.avatarImage}
+          error={mutation.error?.fields?.avatar ? t.invalidField : undefined}
           hint={t.avatarHelp}
         />
         <Feedback

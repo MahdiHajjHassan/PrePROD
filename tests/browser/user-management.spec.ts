@@ -38,6 +38,7 @@ test("profiles avatars and accepted friends work across two browser sessions", a
     });
     await page.getByRole("button", { name: "Upload avatar", exact: true }).click();
     await expect(page.getByRole("main").getByRole("alert")).toBeVisible();
+    await expect(page.getByLabel("Avatar image")).toHaveAttribute("aria-invalid", "true");
     await expect(page.getByRole("img", { name: "Your avatar", exact: true })).toBeVisible();
     const png = await sharp({ create: { width: 20, height: 20, channels: 3, background: "red" } })
       .png()

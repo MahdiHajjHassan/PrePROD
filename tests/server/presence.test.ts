@@ -42,7 +42,7 @@ test("presence follows current sessions and the exact cutoff without leaking to 
     const live = await createSessionToken(f.db, b.actor.id, time);
     await f.db.session.updateMany({ where: { userId: b.actor.id }, data: { lastSeenAt: null } });
     expect((await friends.relationship(a.actor, b.actor.id)).online).toBe(false);
-    for (let i = 0; i < 6; i++) await presence.heartbeat(live.token);
+    for (let i = 0; i < 30; i++) await presence.heartbeat(live.token);
     await expect(presence.heartbeat(live.token)).rejects.toMatchObject({ code: "RATE_LIMITED" });
     await f.db.user.delete({ where: { id: b.actor.id } });
     await expect(presence.heartbeat(live.token)).rejects.toMatchObject({ code: "UNAUTHENTICATED" });
