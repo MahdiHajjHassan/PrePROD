@@ -15,12 +15,12 @@ const copy = {
   en: {
     subject: "Verify your email for Tic Tac Toe",
     text: (code: string) =>
-      `Your Tic Tac Toe verification code is:\n\n${code}\n\nIt expires in 10 minutes and works once. Enter it in the browser where you requested it. If you did not request this code, ignore this email.`,
+      `Your Tic Tac Toe verification code is:\n\n${code}\n\nIt expires within 10 minutes and works once. Enter it in the browser where you requested it. If you did not request this code, ignore this email.`,
   },
   fr: {
     subject: "Vérifiez votre adresse pour Tic Tac Toe",
     text: (code: string) =>
-      `Votre code de vérification Tic Tac Toe est :\n\n${code}\n\nIl expire dans 10 minutes et ne fonctionne qu'une fois. Saisissez-le dans le navigateur utilisé pour la demande. Si vous n'avez pas demandé ce code, ignorez cet e-mail.`,
+      `Votre code de vérification Tic Tac Toe est :\n\n${code}\n\nIl expire au plus tard dans 10 minutes et ne fonctionne qu'une fois. Saisissez-le dans le navigateur utilisé pour la demande. Si vous n'avez pas demandé ce code, ignorez cet e-mail.`,
   },
   ar: {
     subject: "تأكيد بريدك الإلكتروني في Tic Tac Toe",

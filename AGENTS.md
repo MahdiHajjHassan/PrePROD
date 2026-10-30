@@ -41,10 +41,11 @@ account handling are in docs/superpowers/specs/2026-10-29-email-verification-des
 The design has passed its builder check. On 2026-10-30 the owner confirmed
 implementing signup email verification; do not ask again whether to add it.
 The owner approved the Resend plugin's email-best-practices guidance and selected
-their college Google Workspace mailbox as sender. This selects SMTP delivery,
+their business Gmail mailbox as sender, replacing the college selection. This selects SMTP delivery,
 not Resend delivery. Keep the actual sender address and credentials in private
-configuration. Sender authentication remains pending. No email verification
-code has been implemented yet; do not reuse unrelated connected-account domains.
+configuration. Sender authentication remains pending. The handoff's backend and
+HTTP verification gates are implemented; finish the pending UI and verification.
+Do not reuse unrelated connected-account domains.
 
 ## Delivery and authorship
 

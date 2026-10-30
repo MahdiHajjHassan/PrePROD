@@ -1,5 +1,6 @@
 import { pageLocale } from "@/shared/i18n/server";
 import { AuthForm } from "@/frontend/features/auth";
+import { AuthLayout } from "@/frontend/layout/AuthLayout";
 export const metadata = { robots: { index: false, follow: false } };
 
 /** /:locale/login: show the shared form and any allowed registration/password-change notice. */
@@ -13,7 +14,7 @@ export default async function Login({
   const { locale, t } = await pageLocale(params);
   const { notice } = await searchParams;
   return (
-    <>
+    <AuthLayout t={t}>
       <div className="page-heading">
         <div>
           <h1>{t.login}</h1>
@@ -23,8 +24,12 @@ export default async function Login({
       <AuthForm
         locale={locale}
         mode="login"
-        notice={notice === "registered" || notice === "passwordChanged" ? notice : undefined}
+        notice={
+          notice === "registered" || notice === "verified" || notice === "passwordChanged"
+            ? notice
+            : undefined
+        }
       />
-    </>
+    </AuthLayout>
   );
 }

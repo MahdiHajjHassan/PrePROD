@@ -1,6 +1,7 @@
 import type { Locator, Page } from "@playwright/test";
 import { test, expect, t, loginUi, loginApi, credentials } from "./fixtures";
 import { testSettings } from "../helpers/e2e-environment";
+import { verifyEmailApi, verifyEmailUi } from "../helpers/mailbox";
 
 async function contrast(locator: Locator) {
   return locator.evaluate((element) => {
@@ -115,7 +116,8 @@ test("sign-in rejects a malformed password before serialization can authenticate
     headers: { Origin: testSettings().values.APP_ORIGIN },
     data: { email, displayName: "Unicode password example", password: "correct-password-\ufffd" },
   });
-  expect(created.status()).toBe(201);
+  expect(created.status()).toBe(202);
+  await verifyEmailApi(page.request, email);
   await page.goto("/en/login");
   await page.getByLabel(t.email, { exact: true }).fill(email);
   const password = page.getByLabel(t.password, { exact: true });
@@ -179,7 +181,7 @@ test("registration and profile editing preserve valid accented, Arabic and emoji
   await page.getByLabel(t.password, { exact: true }).fill(credentials().password);
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: t.register, exact: true }).click();
-  await expect(page).toHaveURL(/\/en\/login\?notice=registered$/);
+  await verifyEmailUi(page, "valid-unicode@example.test");
   await page.getByLabel(t.email, { exact: true }).fill("valid-unicode@example.test");
   await page.getByLabel(t.password, { exact: true }).fill(credentials().password);
   await page.getByRole("button", { name: t.login, exact: true }).click();

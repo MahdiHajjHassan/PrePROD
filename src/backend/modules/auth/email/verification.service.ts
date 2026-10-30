@@ -7,7 +7,7 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 import { z } from "zod";
-import type { EmailChallenge, PrismaClient } from "@/generated/prisma/client";
+import { Prisma, type EmailChallenge, type PrismaClient } from "@/generated/prisma/client";
 import type { Locale } from "@/shared/i18n/config";
 import { DomainError } from "../../../common/errors";
 import { parseInput } from "../../../common/validation";
@@ -36,10 +36,30 @@ export function createVerificationService(
     const result = await quota(scope, key, count, seconds);
     if (!result.allowed) throw new DomainError("RATE_LIMITED", undefined, result.retryAfterSeconds);
   }
-  async function sendLimits(email: string, client: string) {
+  async function sendLimits(client: string) {
     await limit("verification-send-client", client, 10, 900);
-    await limit("verification-send-minute", email, 1, 60);
-    await limit("verification-send-hour", email, 5, 3600);
+  }
+  // Reserve a full minute atomically, including new attempts from another browser/process.
+  async function reserveSend(tx: Prisma.TransactionClient, email: string) {
+    const time = now().getTime();
+    const key = digest(`verification-send-cooldown\0${email}`);
+    const accepted = await tx.$queryRaw<Array<{ count: bigint }>>(Prisma.sql`
+      INSERT INTO "RateLimitBucket" ("key", "windowStart", "count")
+      VALUES (${key}, ${new Date(time).toISOString()}, 1)
+      ON CONFLICT("key") DO UPDATE SET "windowStart" = excluded."windowStart", "count" = 1
+      WHERE "RateLimitBucket"."windowStart" <= ${new Date(time - 60000).toISOString()}
+      RETURNING "count"
+    `);
+    if (accepted.length === 0) {
+      const previous = await tx.rateLimitBucket.findUniqueOrThrow({ where: { key } });
+      throw new DomainError(
+        "RATE_LIMITED",
+        undefined,
+        Math.max(1, Math.ceil((previous.windowStart.getTime() + 60000 - time) / 1000)),
+      );
+    }
+    const hourly = await createRateLimiter(tx, now)("verification-send-hour", email, 5, 3600);
+    if (!hourly.allowed) throw new DomainError("RATE_LIMITED", undefined, hourly.retryAfterSeconds);
   }
   async function pending(raw: string | null) {
     if (!validToken(raw)) throw new DomainError("INVALID_CODE");
@@ -97,12 +117,13 @@ export function createVerificationService(
     },
     client: string,
   ) {
-    await sendLimits(input.email, client);
+    await sendLimits(client);
     const raw = randomBytes(32).toString("hex");
     const pendingUntil = new Date(now().getTime() + 3600000);
     const next = generation(raw, pendingUntil);
     const record = await withWriteRetry(() =>
       db.$transaction(async (tx) => {
+        await reserveSend(tx, input.email);
         await tx.emailChallenge.deleteMany({ where: { pendingUntil: { lte: now() } } });
         return tx.emailChallenge.create({
           data: { ...input, ...next.data, id: digest(raw), pendingUntil },
@@ -150,6 +171,7 @@ export function createVerificationService(
       const record = await pending(raw);
       return {
         email: record.email,
+        serverNow: now().toISOString(),
         expiresAt: record.expiresAt.toISOString(),
         resendAt: record.resendAt.toISOString(),
         status: record.status as "PENDING" | "SENT" | "FAILED",
@@ -157,12 +179,17 @@ export function createVerificationService(
     },
     async resend(raw: string | null, client: string) {
       const record = await pending(raw);
-      await sendLimits(record.email, client);
+      await sendLimits(client);
       const next = generation(raw!, record.pendingUntil, record);
       const changed = await withWriteRetry(() =>
-        db.emailChallenge.updateMany({
-          where: { id: record.id, generation: record.generation },
-          data: next.data,
+        db.$transaction(async (tx) => {
+          await reserveSend(tx, record.email);
+          const updated = await tx.emailChallenge.updateMany({
+            where: { id: record.id, generation: record.generation, pendingUntil: { gt: now() } },
+            data: next.data,
+          });
+          if (updated.count !== 1) throw new DomainError("INVALID_CODE");
+          return updated;
         }),
       );
       if (changed.count !== 1) throw new DomainError("INVALID_CODE");

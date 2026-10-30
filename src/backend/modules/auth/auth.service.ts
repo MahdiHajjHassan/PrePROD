@@ -127,6 +127,7 @@ export function createAuthService(
       const passwordHash = await hashPassword(data.newPassword);
       await withWriteRetry(() =>
         db.$transaction(async (tx) => {
+          await currentActor(tx, actor);
           const result = await tx.user.updateMany({
             where: { id: actor.id, passwordHash: user.passwordHash },
             data: { passwordHash },

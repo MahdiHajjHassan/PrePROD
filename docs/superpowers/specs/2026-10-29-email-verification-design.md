@@ -1,9 +1,10 @@
 # Email ownership verification
 
 Status: the owner confirmed implementing signup email verification on 2026-10-30.
-The owner approved the email-best-practices guidance and selected their college
-Google Workspace mailbox as sender. SMTP authentication remains pending.
-Application changes have not started.
+The owner approved the email-best-practices guidance and selected their business
+Gmail mailbox, replacing the earlier college selection. SMTP authentication remains
+pending. The backend and HTTP gates are restored from checkpoint 60899d1; UI,
+integration verification and live sending remain in progress on the laptop.
 
 ## Intent and confirmed scope
 
@@ -111,7 +112,7 @@ password access to someone else's historical account or matches.
 
 ## Delivery and configuration
 
-The owner selected their college Google Workspace mailbox as sender. Its address
+The owner selected their business Gmail mailbox as sender. Its address
 belongs in private configuration, not this document. An unrelated domain found
 in a connected account must not be reused. No runtime SMTP credentials are yet
 configured. Use a project-approved
@@ -172,7 +173,7 @@ passwords or codes in browser storage. Support 360px and desktop in both themes.
 
 ## Remaining setup decisions
 
-- Authenticate the selected Google Workspace sender using an App Password if
-  college policy permits it; otherwise choose a supported authenticated sender.
+- Authenticate the selected Gmail sender using an App Password if the account
+  permits it; otherwise choose a supported authenticated sender.
 - Supply/select a real administrator email privately when configuring the
   runtime. Never ask for passwords or API keys to be pasted into chat.

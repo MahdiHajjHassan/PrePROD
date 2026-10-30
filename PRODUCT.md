@@ -36,12 +36,23 @@ never triggers an automatic move retry. Single application process is the target
 
 ## Interface
 
-Operate mode: clear play choices, a large square board, named X/O shapes, turn/
-result feedback and explicit recovery. Reuse restrained light/dark tokens and
-shared accessible controls. English/French/Arabic, logical RTL layout, LTR room
-codes, 360px and desktop widths, stable keyboard focus and legal form preservation
-are required. Legal links open separately, preserving the original form without
-storing its password in browser storage. No additional design assets or fonts.
+The rounded modern game-club appearance uses burgundy/rose accents, ivory light
+surfaces and wine-dark surfaces. Local OFL Readex Pro supplies display headings,
+body text and Arabic. The tilted decorative board, bold round-ended X/O marks,
+rounded controls and filled navigation states carry the identity. The serif and
+fine-line revision is superseded. Runtime font requests remain local.
+
+Guest entry introduces the game and account actions; signed-in play prioritizes
+computer/friend choices. Live matches center the square board, player identities,
+turn/result feedback and explicit recovery. Forms, tables and legal pages reuse
+the shared controls. See DESIGN.md for extracted visual tokens.
+
+English/French/Arabic, logical RTL layout, LTR room codes and board positions,
+360px and desktop widths, both themes, stable keyboard focus and legal form
+preservation remain required. SVG/CSS motion describes confirmed marks and
+results, finishes promptly and respects reduced-motion preferences. Server state
+continues to own moves and results. Legal links open separately, preserving the
+original form without storing its password in browser storage.
 
 ## Modules and verification
 

@@ -1,6 +1,7 @@
 .git
 .worktrees
 .superpowers
+.impeccable/review
 .agents
 node_modules
 .next

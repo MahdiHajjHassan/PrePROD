@@ -1,5 +1,8 @@
 # Laptop handoff — email verification — 2026-10-30
 
+Historical cloud checkpoint. The laptop continuation and its current evidence
+are recorded in [the delivery note](../delivery/email-verification.md).
+
 ## Read this first
 
 This is an **unfinished preprod feature checkpoint**, not a deployable completed

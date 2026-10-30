@@ -140,7 +140,8 @@ to connected players.
 
 | Model | Purpose and relationships |
 | --- | --- |
-| User | Unique email, public name, password hash, MEMBER/ADMIN role; sessions and X/O game seats |
+| User | Unique email, ownership-verification time, public name, password hash, MEMBER/ADMIN role; sessions and X/O game seats |
+| EmailChallenge | Pending signup or existing-account proof, browser-token hash, code HMAC, bounded expiry, attempts and send generation; pending signup creates no active User |
 | Session | Hash-only token, expiry, User foreign key; revoked on password change/deletion |
 | RateLimitBucket | Persistent per-action quotas and reset times |
 | Game | Mode, nine-cell board, seats, turn, status/result, unique invitation, version/times |
@@ -156,9 +157,9 @@ Signup requires an emailed code before an account can be used. Existing accounts
 must verify too; their saved data is preserved. Future logins use the password
 normally. This feature adds no module points.
 
-The owner selected a Google Workspace mailbox. Configure the following values
-only in the private `.env`, using the mailbox's App Password when institutional
-policy allows it. Do not put a normal Google password, App Password, or real
+The owner selected a business Gmail mailbox. Configure the following values
+only in the private `.env`, using the mailbox's App Password when account
+settings allow it. Do not put a normal Google password, App Password, or real
 sender address in repository files or chat:
 
 ```dotenv
@@ -193,6 +194,12 @@ and a five-per-hour address limit. Invalid or undelivered codes never grant
 account access. Test verification uses only the guarded, isolated Mailpit SMTP
 sidecar; its inbox UI/API binds to localhost, with separate test data. It does
 not send real messages. Real sender credentials are not needed for that suite.
+
+Run `smoke:auth` after verifying the administrator address in the browser.
+`smoke:games` also needs a separate verified account: put `SMOKE_MEMBER_EMAIL`
+and `SMOKE_MEMBER_PASSWORD` in the private environment. It signs in to those
+two accounts and preserves them; it no longer creates an instantly playable
+unverified test address or deletes an existing account afterward.
 
 ## Features and candidate modules
 

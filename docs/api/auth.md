@@ -8,7 +8,7 @@ credentials. Browser JavaScript never reads or stores the session token.
 | --- | --- | --- |
 | POST /api/auth/register | email, displayName, password, optional locale | 202 verificationRequired plus pending cookie; no user/session yet |
 | POST /api/auth/login | email, password, optional locale | Verified: 200 AccountDTO/session cookie; unverified correct password: 202 verificationRequired/pending cookie |
-| GET /api/auth/verification | pending cookie | 200 email, expiresAt, resendAt, status; no code/token |
+| GET /api/auth/verification | pending cookie | 200 email, serverNow, expiresAt, resendAt, status; no code/token |
 | POST /api/auth/verification/confirm | code and pending cookie | 200 verified; pending cookie cleared; password login still required |
 | POST /api/auth/verification/resend | empty object and pending cookie | 200 safe metadata for the new generation |
 | POST /api/auth/logout | empty object | 204, cookie cleared and this session revoked |
