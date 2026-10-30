@@ -58,7 +58,12 @@ export function ProfileSummary({ profile, locale }: { profile: ProfilePage; loca
       {profile.relationship === "FRIEND" && (
         <Link href={`/${locale}/friends`}>{t.acceptedFriends}</Link>
       )}
-      {profile.relationship === "SELF" && <Link href={`/${locale}/account`}>{t.edit}</Link>}
+      {profile.relationship === "SELF" && (
+        <div className="actions">
+          <Link href={`/${locale}/account`}>{t.edit}</Link>
+          <Link href={`/${locale}/history`}>{t.history}</Link>
+        </div>
+      )}
       <Feedback error={mutation.error} t={t} locale={locale} />
     </section>
   );

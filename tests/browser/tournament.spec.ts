@@ -15,7 +15,9 @@ test("four profiles complete semifinals, draw replay and final", async ({ page, 
   test.setTimeout(90000);
   await loginUi(page);
   await page.goto("/en/tournaments");
-  await expect(page.getByRole("heading", { name: "Tournaments", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Tournaments", exact: true, level: 1 }),
+  ).toBeVisible();
   const settings = testSettings(),
     contexts = await Promise.all(
       Array.from({ length: 3 }, () =>
@@ -28,12 +30,14 @@ test("four profiles complete semifinals, draw replay and final", async ({ page, 
       await loginApi(contexts[i].request, who);
     }
     await page.getByRole("button", { name: "Create tournament", exact: true }).click();
+    await expect(page).toHaveURL(/\/en\/tournaments\/[0-9a-f-]{36}$/);
     const eventId = page.url().split("/").at(-1)!,
       code = await page.getByLabel("Tournament code").inputValue();
     for (const peer of peers) {
       await peer.goto("/en/tournaments");
       await peer.getByLabel("Tournament code").fill(code);
       await peer.getByRole("button", { name: "Join tournament", exact: true }).click();
+      await expect(peer).toHaveURL(new RegExp(`/en/tournaments/${eventId}$`));
     }
     await expect(page.getByRole("button", { name: "Start tournament", exact: true })).toBeEnabled();
     await page.getByRole("button", { name: "Start tournament", exact: true }).click();

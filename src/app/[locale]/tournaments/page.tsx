@@ -30,7 +30,7 @@ export default async function Tournaments({
       </div>
       <TournamentLobby locale={locale} />
       <section className="section">
-        <h2>{t.tournaments}</h2>
+        <h2>{t.yourTournaments}</h2>
         {!list.items.length ? (
           <p>{t.noTournaments}</p>
         ) : (
